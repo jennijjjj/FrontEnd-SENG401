@@ -1,17 +1,19 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import logo from './logo.svg';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import RoutingPage from './RoutingPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<RoutingPage page="Home"/>}/>
+        {//<Route path="/page-variable" exact={true} element={<RoutingPage page={"page-variable"}/>}/>
+        }
+      </Routes>
+    </Router>
+  )
 }
 
 export default App;

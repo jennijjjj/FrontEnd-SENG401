@@ -36,3 +36,123 @@
     transform: rotate(360deg);
   }
 }
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 64px;
+  font-weight: bolder;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.horizontal-slider {
+  width: 100%;
+  max-width: 500px;
+  height: 75px;
+  margin: auto;
+}
+.example-thumb {
+  cursor: pointer;
+  position: absolute;
+  z-index: 100;
+  background: #ffffff;
+  border: 5px solid #3774ff;
+  border-radius: 100%;
+  display: block;
+  box-shadow: 0 0 2px 0 rgb(0 0 0 / 44%);
+}
+.example-thumb.active {
+  background-color: grey;
+}
+.example-track {
+  position: relative;
+  background: #ddd;
+}
+.example-track.example-track-0 {
+  background: #83a9ff;
+}
+.horizontal-slider .example-track {
+  top: 20px;
+  height: 4px;
+}
+.horizontal-slider .example-thumb {
+  top: 17px;
+  width: 10px;
+  outline: none;
+  height: 10px;
+  line-height: 38px;
+}
+
+.horizontal-slider .example-thumb:hover::after {
+  content: attr(data-info);
+  position: absolute;
+  top: 10px; 
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  padding: 5px;
+  border: 1px solid #3774ff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.horizontal-slider .example-thumb:hover::after,
+.horizontal-slider .example-thumb:active::after {
+  content: attr(data-info);
+  position: absolute;
+  top: 10px; 
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  padding: 5px;
+  border: 1px solid #3774ff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.horizontal-slider .example-thumb:hover::after {
+  opacity: 1;
+}
+
+.value-display {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slider-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #3774ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+}
+
+.submit-button:hover {
+  background-color: #2752cc;
+}
+
+.slider-form {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 100px;
+}
