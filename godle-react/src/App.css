@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -13,8 +14,60 @@
   }
 }
 
+body {
+  color: white; /* Set the default text color for the entire page */
+  font-family: 'Gowun Batang', serif;
+  background: linear-gradient(55deg, #2c015d 0%, #110222 51%, #032027 85%);
+}
+
+.gradient-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Set height to auto */
+  background: linear-gradient(55deg, #2c015d 0%, #05303b 51%, #2c015d 85%);
+  background-size: 200% 100%;
+  animation: gradientScroll 5s linear infinite;
+  overflow: hidden; /* Hide overflow to prevent scrollbars on this container */
+  z-index: -1;
+}
+
+@keyframes gradientScroll {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+
+
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('cosmic-background-stars-galaxies-dark-infinite-universe-with-shining-stars-constellations-stellar-space-stardust-nebulae-3d-render_91497-8921.avif') repeat;
+  background-size: cover;  
+  background-attachment: fixed;
+  animation: scrollStars 100s linear infinite;
+  z-index: -1;
+}
+@keyframes scrollStars {
+  from {
+    background-position: 0 0; 
+  }
+  to {
+    background-position: 0 100vh; 
+  }
+}
+
+
 .App-header {
-  background-color: #282c34;
+  background-color: black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -37,14 +90,18 @@
   }
 }
 
+
 .titleContainer {
   display: flex;
   flex-direction: column;
-  font-size: 64px;
+  font-size: 80px;
   font-weight: bolder;
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  font-family: 'UnifrakturMaguntia', cursive;
+  /* color: rgb(0, 124, 191); */
+  text-shadow: 0 0 10px rgb(49, 4, 88), 0 0 20px goldenrod, 0 0 30px rgb(136, 0, 255);
 }
 
 .horizontal-slider {
@@ -58,7 +115,7 @@
   position: absolute;
   z-index: 100;
   background: #ffffff;
-  border: 5px solid #3774ff;
+  border: 5px solid #883cfbcd;
   border-radius: 100%;
   display: block;
   box-shadow: 0 0 2px 0 rgb(0 0 0 / 44%);
@@ -71,7 +128,7 @@
   background: #ddd;
 }
 .example-track.example-track-0 {
-  background: #83a9ff;
+  background: #c197ffcd;
 }
 .horizontal-slider .example-track {
   top: 20px;
@@ -87,6 +144,7 @@
 
 .horizontal-slider .example-thumb:hover::after {
   content: attr(data-info);
+  color:#282c34;
   position: absolute;
   top: 10px; 
   left: 50%;
@@ -138,7 +196,7 @@
 
 .submit-button {
   padding: 10px 20px;
-  background-color: #3774ff;
+  background-color: #5500e7;
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -148,7 +206,7 @@
 }
 
 .submit-button:hover {
-  background-color: #2752cc;
+  background-color:#057e93;
 }
 
 .slider-form {
