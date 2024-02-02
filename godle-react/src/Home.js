@@ -10,6 +10,16 @@ const Home = (props) => {
         setTermsChecked(!termsChecked);
     };
 
+    const handleTermsClick = () => {
+        // Open the Google Docs link in a popup window
+        window.open(
+            "https://docs.google.com/document/d/1qPbP5rT9Azi8CMUa8ZeLvxgr_Nw907LhM239D2zolsE/edit?usp=sharing",
+            "_blank",
+            "width=600,height=600"
+        );
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (termsChecked) {
@@ -45,13 +55,12 @@ const Home = (props) => {
                     onChange={handleTermsChange}
                 />
                 I accept the{" "}
-                <a
-                    href="https://docs.google.com/document/d/1qPbP5rT9Azi8CMUa8ZeLvxgr_Nw907LhM239D2zolsE/edit?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <span
+                    onClick={handleTermsClick}
+                    style={{ cursor: "pointer", textDecoration: "underline" }}
                 >
                     Terms and Services
-                </a>
+                </span>
             </label>
         </div>
         <button type="submit" className="submit-button">Submit</button>
