@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import Slider from './Slider';
 
 
 const Home = (props) => {
-    const handleSubmit = () => {
-        console.log("Form submitted!");
+    const [termsChecked, setTermsChecked] = useState(false);
+
+    const handleTermsChange = () => {
+        setTermsChecked(!termsChecked);
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (termsChecked) {
+            console.log("Form submitted!");
+            // Add your form submission logic here
+        } else {
+            alert("Please accept the terms and services before submitting.");
+        }
+    };
     return (<>
         <div className={"titleContainer"}>
             <div>Godle</div>
@@ -25,6 +36,23 @@ const Home = (props) => {
             <Slider title="Aggression"/>
             <Slider title="Grandeur"/>
             <Slider title="Temperament"/>
+        </div>
+        <div className="terms-container">
+            <label>
+                <input
+                    type="checkbox"
+                    checked={termsChecked}
+                    onChange={handleTermsChange}
+                />
+                I accept the{" "}
+                <a
+                    href="https://docs.google.com/document/d/1qPbP5rT9Azi8CMUa8ZeLvxgr_Nw907LhM239D2zolsE/edit?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Terms and Services
+                </a>
+            </label>
         </div>
         <button type="submit" className="submit-button">Submit</button>
         </form>
