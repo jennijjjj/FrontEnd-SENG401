@@ -35,7 +35,7 @@ const Slider = ({ title }) => {
             className="example-thumb"
             data-info={infoText}
           >
-            <div className="value-display">{state.valueNow}</div>
+            {/* <div className="value-display">{state.valueNow}</div> */}
           </div>
         )}
         min={-4}
