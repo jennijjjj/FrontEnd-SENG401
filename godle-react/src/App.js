@@ -1,25 +1,19 @@
-import logo from './logo.svg';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import RoutingPage from './RoutingPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<RoutingPage page="Home"/>}/>
+        {//<Route path="/page-variable" exact={true} element={<RoutingPage page={"page-variable"}/>}/>
+        }
+      </Routes>
+    </Router>
+  )
 }
 
 export default App;
