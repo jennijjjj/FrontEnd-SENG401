@@ -55,9 +55,9 @@ class SparklingCursor extends React.Component {
       "mousemove",
       ({ clientX, clientY }) => {
         // Randomly distribute smaller stars around the cursor with increased offsets
-        for (let i = 0; i < 5; i++) {
-          const offsetX = Math.random() * 20 - 10; // Increased offset
-          const offsetY = Math.random() * 20 - 10; // Increased offset
+        for (let i = 0; i < 3; i++) {
+          const offsetX = Math.random() *10 - 5; // Increased offset
+          const offsetY = Math.random() * 10 - 5; // Increased offset
           addPoint(clientX - canvas.offsetLeft + offsetX, clientY - canvas.offsetTop + offsetY);
         }
       },
