@@ -192,5 +192,15 @@ body {
 }
 
 .terms-container{
+  position: fixed;
+  top: 10%;
+  left: 25%;
+  color: #032027;
   margin-bottom: 20px;
+  width: 50%;
+  height: 75%;
+  padding: 50px;
+  background-color: white;
+  z-index: 2000;
+  overflow-y: scroll;
 }
