@@ -28,20 +28,19 @@ body {
   height: 100%; /* Set height to auto */
   background: linear-gradient(55deg, #2c015d 0%, #05303b 51%, #2c015d 85%);
   background-size: 200% 100%;
-  animation: gradientScroll 10s linear infinite;
-  overflow: hidden; /* Hide overflow to prevent scrollbars on this container */
+  animation: gradientScroll 20s cubic-bezier(0.3, 0.3, 0.3, 0.3) infinite;
+  overflow: hidden;
   z-index: -1;
 }
 
 @keyframes gradientScroll {
-  0% {
+  0%, 100% {
     background-position: 100% 0;
   }
-  100% {
+  50% {
     background-position: 0 0;
   }
 }
-
 .App-header {
   background-color: black;
   min-height: 100vh;
