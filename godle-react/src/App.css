@@ -79,6 +79,38 @@ body {
   text-shadow: 0 0 10px rgb(49, 4, 88), 0 0 20px goldenrod, 0 0 30px rgb(136, 0, 255);
 }
 
+@keyframes flicker {
+  0%, 100% {
+      text-shadow:
+          0 0 10px rgb(136, 0, 255), /* Brighter and larger */
+          0 0 20px rgb(94, 2, 171), /* Brighter and larger */
+          0 0 30px rgb(49, 4, 88), /* Brighter and larger */
+          0 0 40px rgb(26, 20, 64), /* Brighter and larger */
+          0 0 50px #05303b, /* Brighter and larger */
+          0 0 60px rgb(34, 48, 77), /* Brighter and larger */
+          0 0 70px rgb(136, 0, 255); /* Brighter and larger */
+  }
+  50% {
+      text-shadow:
+          0 0 20px rgb(136, 0, 255), /* Brighter and larger */
+          0 0 30px rgb(49, 4, 88), /* Brighter and larger */
+          0 0 40px #05303b; /* Brighter and larger */
+  }
+}
+
+.titleText {
+  color: rgb(236, 215, 255);
+  text-shadow: 
+      0 0 10px rgb(136, 0, 255),
+      0 0 20px rgb(94, 2, 171),
+      0 0 30px rgb(49, 4, 88),
+      0 0 40px rgb(26, 20, 64),
+      0 0 50px #05303b,
+      0 0 60px rgb(34, 48, 77),
+      0 0 70px rgb(136, 0, 255);
+  animation: flicker 1.5s infinite alternate;
+}
+
 .horizontal-slider {
   width: 100%;
   max-width: 500px;
