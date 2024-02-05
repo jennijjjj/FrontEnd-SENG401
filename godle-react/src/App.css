@@ -277,3 +277,26 @@ body {
 .tos-button-container {
   margin-top: 5px;
 }
+
+.register-form {
+  height: 100vh;
+  width: 100%;
+  margin-left: 40%;
+}
+
+.register-input {
+  padding: 25px;
+}
+
+.register-button {
+  margin-top: 10%;
+  padding: 10px 20px;
+  background-color: #7b1296;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  margin-left: 10%;
+}
