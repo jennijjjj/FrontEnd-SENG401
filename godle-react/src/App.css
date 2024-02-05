@@ -181,6 +181,18 @@ body {
   text-align: center;
 }
 
+.tos-button {
+  padding: 10px 20px;
+  background-color: #5500e7;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  margin-left: calc(50% - 20px);
+}
+
 .submit-button:hover {
   background-color:#057e93;
 }
@@ -191,7 +203,7 @@ body {
   margin-bottom: 100px;
 }
 
-.terms-container{
+.terms-container {
   position: fixed;
   top: 10%;
   left: 25%;
@@ -203,4 +215,12 @@ body {
   background-color: white;
   z-index: 2000;
   overflow-y: scroll;
+}
+
+.terms-of-service {
+  color: #032027;
+}
+
+.tos-button-container {
+  margin-top: 5px;
 }
