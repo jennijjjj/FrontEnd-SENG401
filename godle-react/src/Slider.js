@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import ReactSlider from 'react-slider';
 
 const Slider = ({ title }) => {
-  const [infoText, setInfoText] = useState("default");
+  const [discription, setDescription] = useState("Description");
+  const [infoText, setInfoText] = useState("Your information text for position 0");
 
   const getInfoText = (value) => {
     const contentMapping = {
@@ -18,7 +19,7 @@ const Slider = ({ title }) => {
       Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
     ));
 
-    return contentMapping[closestValue] || "Your default information text";
+    return contentMapping[closestValue] || "Your information text for position 0";
   };
 
   const handleValueChange = (value) => {
@@ -27,7 +28,7 @@ const Slider = ({ title }) => {
 
   return (
     <div>
-      <h3 className="slider-title">{title}</h3>
+      <h3 className="slider-title" data-info={discription}>{title}</h3>
       <ReactSlider
         className="horizontal-slider"
         thumbClassName="example-thumb"
@@ -38,9 +39,10 @@ const Slider = ({ title }) => {
             className="example-thumb"
             data-info={infoText}
           >
-            {/* <div className="value-display">{state.valueNow}</div> */}
           </div>
+          
         )}
+        
         min={-4}
         max={4}
         step={0.1}
