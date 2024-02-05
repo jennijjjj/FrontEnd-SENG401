@@ -59,8 +59,8 @@ const AppNavbar = ({ user, setUser }) => {
                 )}
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px' }}>
-                <DropdownItem tag={Link} to={"/MyFlights"}>
-                  My Flights
+                <DropdownItem tag={Link} to={"/Home"}>
+                  Home
                 </DropdownItem>
                 <DropdownItem onClick={() => {setUser(undefined); navigate('/');}}>
                   Logout
