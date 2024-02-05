@@ -31,7 +31,7 @@ const Home = (props) => {
     };
     return (<>
         <div className={"titleContainer"}>
-            <div>Godle</div>
+            <div className="titleText">Godle</div>
         </div>
         <form onSubmit={handleSubmit} className="slider-form">
         <div>
