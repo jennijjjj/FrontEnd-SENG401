@@ -5,6 +5,7 @@ import Slider from './Slider';
 
 const Home = (props) => {
     const [termsChecked, setTermsChecked] = useState(false);
+    const [tosButtonClicked, settosButtonClicked] = useState(false);
 
     const handleTermsChange = () => {
         setTermsChecked(!termsChecked);
@@ -23,17 +24,6 @@ const Home = (props) => {
             alert("Please accept the terms and services before submitting.");
         }
 
-    };
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (termsChecked) {
-            console.log("Form submitted!");
-            // Add your form submission logic here
-        } else {
-            alert("Please accept the terms and services before submitting.");
-        }
     };
     return (<>
         {tosButtonClicked ? (null) : (
