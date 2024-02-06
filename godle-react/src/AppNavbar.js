@@ -40,7 +40,7 @@ const AppNavbar = ({ user, setUser }) => {
     <p></p>
 
   return (
-    <Navbar color="dark" dark expand="md">
+    <Navbar  dark expand="md">
       <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
       <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
       <Collapse isOpen={isOpen} navbar>
