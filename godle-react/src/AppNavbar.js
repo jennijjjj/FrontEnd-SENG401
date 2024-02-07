@@ -59,8 +59,8 @@ const AppNavbar = ({ user, setUser }) => {
                 )}
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px' }}>
-                <DropdownItem tag={Link} to={"/MyFlights"}>
-                  My Flights
+                <DropdownItem tag={Link} to={"/Home"}>
+                  Home
                 </DropdownItem>
                 <DropdownItem onClick={() => {setUser(undefined); navigate('/');}}>
                   Logout
@@ -72,7 +72,7 @@ const AppNavbar = ({ user, setUser }) => {
               <DropdownToggle nav caret>
                 Guest
               </DropdownToggle>
-              <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px' }}>
+              <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
                 <form onSubmit={handleLogin}>
                   {/* Username Field */}
                   <div className="form-group">
@@ -84,6 +84,7 @@ const AppNavbar = ({ user, setUser }) => {
                       required
                       value={username}
                       onChange={handleUsernameChange}
+                      style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}
                     />
                   </div>
 
@@ -98,6 +99,7 @@ const AppNavbar = ({ user, setUser }) => {
                       required
                       value={password}
                       onChange={handlePasswordChange}
+                      style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}
                     />
                   </div>
 
