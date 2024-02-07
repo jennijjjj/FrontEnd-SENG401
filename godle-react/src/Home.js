@@ -25,7 +25,7 @@ const Home = (props) => {
         }
 
     };
-
+  
     return (<>
         {tosButtonClicked ? (null) : (
             <div className="terms-container">
