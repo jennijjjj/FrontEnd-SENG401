@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import Slider from './Slider';
+import { useNavigate } from "react-router-dom";
 
 
-const Home = (props) => {
+const Home = ({tosButtonClicked, settosButtonClicked}) => {
     const [termsChecked, setTermsChecked] = useState(false);
-    const [tosButtonClicked, settosButtonClicked] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const navigate = useNavigate();
 
     const handleTermsChange = () => {
         setTermsChecked(!termsChecked);
@@ -19,13 +20,20 @@ const Home = (props) => {
         e.preventDefault();
         if (termsChecked && tosButtonClicked) {
             console.log("Form submitted!");
+            // API call hardcoded return
+            const MatchedDeities = {
+                matched: ["firstgod", "secondgod", "thirdgod"],
+                description: ["Is a god", "Is a god", "Is a god"],
+                imageIDs: [0, 1, 2]
+            }
             // Add your form submission logic here
+            setSubmitted(true);
+            navigate("/Matches")
         } else {
             alert("Please accept the terms and services before submitting.");
         }
-
     };
-  
+
     return (<>
         {tosButtonClicked ? (null) : (
             <div className="terms-container">
@@ -178,6 +186,9 @@ const Home = (props) => {
                 )}
             </div>
         )}
+        <button onClick={() => settosButtonClicked(false)} style={{ backgroundColor: "rgba(255, 255, 255, 0.10)" }}>
+            devbuttonresetTOS
+        </button>
         <div className={"titleContainer"}>
             <div className="titleText">Godle</div>
         </div>
@@ -188,7 +199,7 @@ const Home = (props) => {
                 <Slider title="Squeamishness" />
                 <Slider title="Technology" />
                 <Slider title="Erudition" />
-                <Slider title="Organization " />
+                <Slider title="Organization" />
                 <Slider title="Morality" />
                 <Slider title="Zen" />
                 <Slider title="Aggression" />
@@ -196,7 +207,6 @@ const Home = (props) => {
                 <Slider title="Temperament" />
             </div>
             <button type="submit" className="submit-button">Submit</button>
-
         </form>
     </>
     )

@@ -309,3 +309,26 @@ body {
   background-color: rgba(255, 255, 255, 0.05);
   color: white;
 }
+
+/* Customizing the scrollbar track (background) */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.10); /* Main color for the track */
+}
+
+/* Customizing the scrollbar handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.50); /* Slightly more visible color for the thumb */
+  border-radius: 10px; /* Optional: adds rounded corners to the scrollbar thumb */
+}
+
+/* Customizing the scrollbar width */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height of the scrollbar for horizontal scrolling */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin; /* Can be "auto", "thin", or "none" */
+  scrollbar-color: rgba(255, 255, 255, 0.50) rgba(255, 255, 255, 0.10); /* thumb and track color */
+}

@@ -9,19 +9,20 @@ const App = () => {
   return (
     <div>
       <div className="gradient-container"></div>
-        <div className="cursorCanvas">   
-          <Router>
-            <Routes>
-              <Route exact path="/" element={<RoutingPage page="Home"/>}/>
-              <Route exact={true} path='/Register' element={<RoutingPage page="Register"/>}/>
-              {//<Route path="/page-variable" exact={true} element={<RoutingPage page={"page-variable"}/>}/>
-              }
-            </Routes>
-          </Router>
-          <SparklingCursor />
-        </div>
+      <div className="cursorCanvas">
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<RoutingPage page="Home" />} />
+            <Route exact={true} path='/Register' element={<RoutingPage page="Register" />} />
+            <Route exact={true} path='/Matches' element={<RoutingPage page="Matches" />} />
+            {//<Route path="/page-variable" exact={true} element={<RoutingPage page={"page-variable"}/>}/>
+            }
+          </Routes>
+        </Router>
+        <SparklingCursor />
+      </div>
     </div>
-    
+
   )
 }
 
