@@ -84,7 +84,7 @@ const AppNavbar = ({ user, setUser }) => {
                   alert("wtf")
                 )}
               </DropdownToggle>
-              <DropdownMenu right style={{ padding: '20px', minWidth: '250px' }}>
+              <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
                 <DropdownItem tag={Link} to={"/"}>
                   Home
                 </DropdownItem>
