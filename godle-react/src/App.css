@@ -300,3 +300,12 @@ body {
   font-size: 16px;
   text-align: center;
 }
+
+.dropdown-item-hover {
+  color: white;
+}
+
+.dropdown-item-hover:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
