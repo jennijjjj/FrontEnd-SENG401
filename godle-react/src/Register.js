@@ -17,28 +17,64 @@ const Register = () => {
         setPassword(event.target.value);
     }
 
-    const handleRegister = () => {
-        alert("example register");
-        // after
-        setUsername("");
-        setEmail("");
-        setPassword("");
+const handleRegister = (e) => {
+    e.preventdefault();
+
+    try {
+        // Prepare data to send in the request body
+        const userData = {
+            username: username,
+            email: email,
+            password: password
+        };
+
+        // Send HTTP POST request to register the user
+        fetch('http://localhost:8000', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(response => {
+                if (response) {
+                    // If successful, display success message
+                    console.log(response);
+                    alert("User registered successfully!");
+                } else {
+                    // If there's an error, display error message
+                    alert("Error registering user. Please try again.");
+                    // Log the error
+                    console.error('Registration failed:', response.statusText);
+                }
+            })
+
+    } catch (error) {
+        // If there's an error, display error message
+        alert("Error registering user. Please try again.");
+        // Log the error
+        console.error('Registration failed:', error);
     }
+
+    setUsername("");
+    setEmail("");
+    setPassword("");
+}
 
     return (
         <div className="register-form">
             <form onSubmit={handleRegister} method="post">
                 <div className="register-input">
                     <label htmlFor="username">Username: &nbsp;</label>
-                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="text" id="username" name="username" required onChange={handleUsernameChange} value={username} />
+                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="text" id="usernameregister" name="username" required onChange={handleUsernameChange} value={username} />
                 </div>
                 <div className="register-input">
                     <label htmlFor="email">Email: &nbsp;</label>
-                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="email" id="email" name="email" required onChange={handleEmailChange} value={email} />
+                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="email" id="emailregister" name="email" required onChange={handleEmailChange} value={email} />
                 </div>
                 <div className="register-input">
                     <label htmlFor="password">Password: &nbsp;</label>
-                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="password" id="password" name="password" required onChange={handlePasswordChange} value={password} />
+                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="password" id="passwordregister" name="password" required onChange={handlePasswordChange} value={password} />
                 </div>
                 <button className="register-button" type="submit">Register</button>
             </form>
