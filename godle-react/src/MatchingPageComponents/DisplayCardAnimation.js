@@ -43,7 +43,6 @@ const cardBackStyles = {
   backfaceVisibility: "hidden",
   transform: "rotateY(180deg)",
 };
-
 const imageStyles = {
   maxWidth: "238px",
   height: "400px",
@@ -75,8 +74,6 @@ const DisplayCardAnimation = ({ zIndex = 0, name, image }) => {
         </div>
         <div style={{ ...cardBackStyles, ...leftColumnStyles }}>
           <h2>back of card</h2>
-          {/* Add content for the back of the card if needed */}
-          {/* Example: <h3>Additional Information</h3> */}
         </div>
       </div>
     </div>
