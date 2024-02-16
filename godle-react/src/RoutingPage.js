@@ -3,7 +3,7 @@ import './App.css';
 import Home from './Home';
 import AppNavbar from './AppNavbar';
 import Register from './Register';
-import Matches from './Matches';
+import Matches from './MatchingPageComponents/Matches';
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
 
