@@ -310,6 +310,8 @@ body {
   color: white;
 }
 
+
+
 /* Customizing the scrollbar track (background) */
 ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.10); /* Main color for the track */

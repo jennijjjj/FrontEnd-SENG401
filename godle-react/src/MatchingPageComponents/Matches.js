@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Swipeable from "react-swipy";
 import Swiper from "./Swiper";
 import SwipeableCards from "./SwipeableCard";
-
+import Button from "./Button";
 
 const Matches = () => {
   const [cards, setCards] = useState([
-    { name: "Zeus", aboutMe: "God of Thunder", image: "/images/cardBack.jpg" },
+    { name: "Zeus", aboutMe: "God of Thunder", image: "/images/zeus.jpg" },
     { name: "ID0", aboutMe: "Description 0", image: "/images/ID0.jpg" },
     { name: "ID1", aboutMe: "Description 1", image: "/images/ID1.jpg" },
     { name: "ID2", aboutMe: "Description 2", image: "/images/ID2.jpg" }
@@ -23,6 +23,20 @@ const Matches = () => {
       flexDirection: "column", 
     };
 
+    const actionsStyles = {
+      display: "flex",
+      justifyContent: "space-between",
+      marginTop: 0
+    };
+    
+    const leftButtonStyles = {
+      marginLeft: "10px",
+    };
+    
+    const rightButtonStyles = {
+      marginRight: "10px",
+    };
+    
   return (
     <div>
       <div style={containerStyle}>
@@ -34,6 +48,16 @@ const Matches = () => {
               buttons={({ right, left }) => {
                 const swipeFunction = { right, left };
                 Swiper.initializeSwiper(swipeFunction);
+                return (
+                  <div style={actionsStyles}>
+                    <Button id="SWIPELEFT" onClick={Swiper.swipeLeft} style={leftButtonStyles}>
+                    Reject
+                  </Button>
+                  <Button onClick={Swiper.swipeRight} style={rightButtonStyles}>
+                    Accept
+                  </Button>
+                  </div>
+                );
               }}
               onAfterSwipe={() => remove(0)}
             >
