@@ -33,6 +33,7 @@ const imageStyles = {
   maxWidth: "238px",
   height: "400px",
   objectFit: "cover",
+  border: "2px solid black"
 };
 
 const rightColumnStyles = {
