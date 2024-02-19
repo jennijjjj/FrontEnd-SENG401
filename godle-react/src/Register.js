@@ -69,15 +69,15 @@ const Register = () => {
             <form onSubmit={handleRegister} method="post">
                 <div className="register-input">
                     <label htmlFor="username">Username: &nbsp;</label>
-                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="text" id="usernameregister" name="username" required onChange={handleUsernameChange} value={username} />
+                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" , color: "white" }} type="text" id="usernameregister" name="username" required onChange={handleUsernameChange} value={username} />
                 </div>
                 <div className="register-input">
                     <label htmlFor="email">Email: &nbsp;</label>
-                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="email" id="emailregister" name="email" required onChange={handleEmailChange} value={email} />
+                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835", color: "white" }} type="email" id="emailregister" name="email" required onChange={handleEmailChange} value={email} />
                 </div>
                 <div className="register-input">
                     <label htmlFor="password">Password: &nbsp;</label>
-                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" }} type="password" id="passwordregister" name="password" required onChange={handlePasswordChange} value={password} />
+                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" , color: "white" }} type="password" id="passwordregister" name="password" required onChange={handlePasswordChange} value={password} />
                 </div>
                 <button className="register-button" type="submit">Register</button>
             </form>
