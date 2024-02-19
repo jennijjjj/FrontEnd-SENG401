@@ -17,49 +17,49 @@ const Register = () => {
         setPassword(event.target.value);
     }
 
-const handleRegister = (e) => {
-    e.preventdefault();
+    const handleRegister = (e) => {
+        e.preventdefault();
 
-    try {
-        // Prepare data to send in the request body
-        const userData = {
-            username: username,
-            email: email,
-            password: password
-        };
+        try {
+            // Prepare data to send in the request body
+            const userData = {
+                username: username,
+                email: email,
+                password: password
+            };
 
-        // Send HTTP POST request to register the user
-        fetch('http://localhost:8000', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        })
-            .then(response => {
-                if (response) {
-                    // If successful, display success message
-                    console.log(response);
-                    alert("User registered successfully!");
-                } else {
-                    // If there's an error, display error message
-                    alert("Error registering user. Please try again.");
-                    // Log the error
-                    console.error('Registration failed:', response.statusText);
-                }
+            // Send HTTP POST request to register the user
+            fetch('http://localhost:8000', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
             })
+                .then(response => {
+                    if (response) {
+                        // If successful, display success message
+                        console.log(response);
+                        alert("User registered successfully!");
+                    } else {
+                        // If there's an error, display error message
+                        alert("Error registering user. Please try again.");
+                        // Log the error
+                        console.error('Registration failed:', response.statusText);
+                    }
+                })
 
-    } catch (error) {
-        // If there's an error, display error message
-        alert("Error registering user. Please try again.");
-        // Log the error
-        console.error('Registration failed:', error);
+        } catch (error) {
+            // If there's an error, display error message
+            alert("Error registering user. Please try again.");
+            // Log the error
+            console.error('Registration failed:', error);
+        }
+
+        setUsername("");
+        setEmail("");
+        setPassword("");
     }
-
-    setUsername("");
-    setEmail("");
-    setPassword("");
-}
 
     return (
         <div className="register-form">

@@ -3,7 +3,7 @@ import Slider from './Slider';
 import { useNavigate } from "react-router-dom";
 
 
-const Home = ({tosButtonClicked, settosButtonClicked}) => {
+const Home = ({ tosButtonClicked, settosButtonClicked }) => {
     const [sliderValues, setSliderValues] = useState({
         zealousness: 0,
         mysticism: 0,
@@ -16,7 +16,7 @@ const Home = ({tosButtonClicked, settosButtonClicked}) => {
         aggression: 0,
         grandeur: 0,
         temperament: 0,
-      });
+    });
 
     const [termsChecked, setTermsChecked] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -32,10 +32,10 @@ const Home = ({tosButtonClicked, settosButtonClicked}) => {
 
     const handleSliderChange = (title, value) => {
         setSliderValues((prevValues) => ({
-          ...prevValues,
-          [title.toLowerCase()]: value,
+            ...prevValues,
+            [title.toLowerCase()]: value,
         }));
-      };
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -216,17 +216,17 @@ const Home = ({tosButtonClicked, settosButtonClicked}) => {
         </div>
         <form onSubmit={handleSubmit} className="slider-form">
             <div>
-                <Slider title="Zealousness" />
-                <Slider title="Mysticism" />
-                <Slider title="Squeamishness" />
-                <Slider title="Technology" />
-                <Slider title="Erudition" />
-                <Slider title="Organization" />
-                <Slider title="Morality" />
-                <Slider title="Zen" />
-                <Slider title="Aggression" />
-                <Slider title="Grandeur" />
-                <Slider title="Temperament" />
+                <Slider title="Zealousness" onChange={(value) => handleSliderChange("Zealousness", value)} />
+                <Slider title="Mysticism" onChange={(value) => handleSliderChange("Mysticism", value)} />
+                <Slider title="Squeamishness" onChange={(value) => handleSliderChange("Squeamishness", value)} />
+                <Slider title="Technology" onChange={(value) => handleSliderChange("Technology", value)} />
+                <Slider title="Erudition" onChange={(value) => handleSliderChange("Erudition", value)} />
+                <Slider title="Organization" onChange={(value) => handleSliderChange("Organization", value)} />
+                <Slider title="Morality" onChange={(value) => handleSliderChange("Morality", value)} />
+                <Slider title="Zen" onChange={(value) => handleSliderChange("Zen", value)} />
+                <Slider title="Aggression" onChange={(value) => handleSliderChange("Aggression", value)} />
+                <Slider title="Grandeur" onChange={(value) => handleSliderChange("Grandeur", value)} />
+                <Slider title="Temperament" onChange={(value) => handleSliderChange("Temperament", value)} />
             </div>
             <button type="submit" className="submit-button">Submit</button>
         </form>
