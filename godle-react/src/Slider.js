@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ReactSlider from 'react-slider';
 
-const Slider = ({ title }) => {
+const Slider = ({ title, onChange }) => {
+
   const [discription, setDescription] = useState("Description");
   const [infoText, setInfoText] = useState("Your information text for position 0");
 
@@ -24,6 +25,20 @@ const Slider = ({ title }) => {
 
   const handleValueChange = (value) => {
     setInfoText(getInfoText(value));
+    
+    const contentMapping = {
+      '-4': -4,
+      '-2': -2,
+      '0': 0,
+      '2': 2,
+      '4': 4
+    };
+
+    const closestValue = Object.keys(contentMapping).reduce((prev, curr) => (
+      Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+    ));
+
+      onChange(closestValue);
   };
 
   return (

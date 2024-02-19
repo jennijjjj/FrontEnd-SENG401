@@ -4,6 +4,20 @@ import { useNavigate } from "react-router-dom";
 
 
 const Home = ({tosButtonClicked, settosButtonClicked}) => {
+    const [sliderValues, setSliderValues] = useState({
+        zealousness: 0,
+        mysticism: 0,
+        squeamishness: 0,
+        technology: 0,
+        erudition: 0,
+        organization: 0,
+        morality: 0,
+        zen: 0,
+        aggression: 0,
+        grandeur: 0,
+        temperament: 0,
+      });
+
     const [termsChecked, setTermsChecked] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
@@ -16,6 +30,13 @@ const Home = ({tosButtonClicked, settosButtonClicked}) => {
         settosButtonClicked(true);
     };
 
+    const handleSliderChange = (title, value) => {
+        setSliderValues((prevValues) => ({
+          ...prevValues,
+          [title.toLowerCase()]: value,
+        }));
+      };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (tosButtonClicked) {
@@ -27,6 +48,7 @@ const Home = ({tosButtonClicked, settosButtonClicked}) => {
                 imageIDs: [0, 1, 2]
             }
             // Add your form submission logic here
+
             setSubmitted(true);
             navigate("/Matches")
         } else {
