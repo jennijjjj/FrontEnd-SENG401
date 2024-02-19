@@ -39,14 +39,14 @@ const Register = () => {
                 body: JSON.stringify(userData)
             })
                 .then(response => {
-                    if (response) {
+                    if (response.ok) {
                         // If successful, display success message
                         console.log(response);
                         alert("User registered successfully!");
                         Navigate('/');
                     } else {
                         // If there's an error, display error message
-                        alert("Error registering user. Please try again.");
+                        alert('Registration failed:', response.statusText);
                         // Log the error
                         console.error('Registration failed:', response.statusText);
                     }
