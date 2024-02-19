@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const Navigate = useNavigate();
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -18,7 +20,7 @@ const Register = () => {
     }
 
     const handleRegister = (e) => {
-        e.preventdefault();
+        e.preventDefault();
 
         try {
             // Prepare data to send in the request body
@@ -29,7 +31,7 @@ const Register = () => {
             };
 
             // Send HTTP POST request to register the user
-            fetch('http://localhost:8000', {
+            fetch('/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,6 +43,7 @@ const Register = () => {
                         // If successful, display success message
                         console.log(response);
                         alert("User registered successfully!");
+                        Navigate('/');
                     } else {
                         // If there's an error, display error message
                         alert("Error registering user. Please try again.");
