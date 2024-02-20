@@ -40,12 +40,19 @@ const Register = () => {
             })
                 .then(response => {
                     if (response.ok) {
-                        console.log("hello")
                         // If successful, display success message
                         console.log(response);
                         alert("User registered successfully!");
                         Navigate('/');
-                    } else {
+                    } 
+                    else if (response.status === 400) {
+                        // If there's an error, display error message
+                        alert('The email provided already exists in the system. Please log in or use a new email to register.', response.statusText);
+                        // Log the error
+                        console.error(response.statusText);
+                    }
+                
+                    else {
                         // If there's an error, display error message
                         alert('Registration failed:', response.statusText);
                         // Log the error
