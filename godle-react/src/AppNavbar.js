@@ -101,7 +101,7 @@ const AppNavbar = ({ user, setUser }) => {
               <DropdownToggle nav caret>
                 Guest
               </DropdownToggle>
-              <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
+              <DropdownMenu end style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
                 <form onSubmit={handleLogin}>
                   {/* Username Field */}
                   <div className="form-group">

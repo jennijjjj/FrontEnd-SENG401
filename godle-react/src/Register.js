@@ -31,7 +31,7 @@ const Register = () => {
             };
 
             // Send HTTP POST request to register the user
-            fetch('/', {
+            fetch('/Register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -40,6 +40,7 @@ const Register = () => {
             })
                 .then(response => {
                     if (response.ok) {
+                        console.log("hello")
                         // If successful, display success message
                         console.log(response);
                         alert("User registered successfully!");
