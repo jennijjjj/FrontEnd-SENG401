@@ -10,7 +10,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked }) => {
         Squeamishness: 0,
         Technology: 0,
         Erudition: 0,
-        Disposition: 0,
+        Organization: 0,
         Morality: 0,
         Zen: 0,
         Aggression: 0,
@@ -240,7 +240,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked }) => {
                 <Slider title="Squeamishness" onChange={(value) => handleSliderChange("Squeamishness", value)} />
                 <Slider title="Technology" onChange={(value) => handleSliderChange("Technology", value)} />
                 <Slider title="Erudition" onChange={(value) => handleSliderChange("Erudition", value)} />
-                <Slider title="Disposition" onChange={(value) => handleSliderChange("Disposition", value)} />
+                <Slider title="Organization" onChange={(value) => handleSliderChange("Organization", value)} />
                 <Slider title="Morality" onChange={(value) => handleSliderChange("Morality", value)} />
                 <Slider title="Zen" onChange={(value) => handleSliderChange("Zen", value)} />
                 <Slider title="Aggression" onChange={(value) => handleSliderChange("Aggression", value)} />

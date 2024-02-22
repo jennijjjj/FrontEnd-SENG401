@@ -4,7 +4,7 @@ import ReactSlider from 'react-slider';
 const Slider = ({ title, onChange }) => {
 
   const [discription, setDescription] = useState("Description");
-  const [infoText, setInfoText] = useState("Your information text for position 0");
+  const [infoText, setInfoText] = useState("Slide for Position");
 
   const getInfoText = (value) => {
     const contentMapping = {
@@ -63,7 +63,7 @@ const Slider = ({ title, onChange }) => {
         '3': "Your information text for position 3",
         '4': "Your information text for position 4"
       },
-      "Disposition": {
+      "Organization": {
         '-4': "Your information text for position -4",
         '-3': "Your information text for position -3",
         '-2': "Your information text for position -2",
