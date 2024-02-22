@@ -49,15 +49,14 @@ const AppNavbar = ({ user, setUser }) => {
       })
         .then(response => {
             if (response.ok) {
-                console.log(response);
-                alert("User is authenticated. User profile is retrieved and can proceed.");
-                navigate('/');
+              alert("User is authenticated. User profile is retrieved and can proceed.");
+              navigate('/');
             } 
             else {
-                // If there's an error, display error message
-                alert('User not authenticated with the provided credentials.');
-                // Log the error
-                console.error(response);
+              // If there's an error, display error message
+              alert('User not authenticated with the provided credentials.');
+              // Log the error
+              console.error(response);
             }
         })
 
@@ -68,22 +67,6 @@ const AppNavbar = ({ user, setUser }) => {
 
     setUsername('');
     setPassword('');
-    // if (username === "USER" && password === "PASSWORD") {
-    //   // Directly declare the user object with JSON-like structure
-    //   const user = {
-    //     type: "Registered User",
-    //     object: {
-    //       username: "USER",
-    //       email: "user@example.com",
-    //     }
-    //   };
-  
-    //   setUser(user); // Assuming setUser is a function to set the user state
-    // } else {
-    //   setIncorrectLogin(true);
-    // }
-  
-    // Clear the form fields after login attempt
   };
   
 
