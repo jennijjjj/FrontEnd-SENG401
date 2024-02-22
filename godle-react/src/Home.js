@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 
 const Home = ({ tosButtonClicked, settosButtonClicked }) => {
     const [sliderValues, setSliderValues] = useState({
-        zealousness: 0,
-        mysticism: 0,
-        squeamishness: 0,
-        technology: 0,
-        erudition: 0,
-        disposition: 0,
-        morality: 0,
-        zen: 0,
-        aggression: 0,
-        grandeur: 0,
-        temperament: 0,
+        Zealousness: 0,
+        Mysticism: 0,
+        Squeamishness: 0,
+        Technology: 0,
+        Erudition: 0,
+        Disposition: 0,
+        Morality: 0,
+        Zen: 0,
+        Aggression: 0,
+        Grandeur: 0,
+        Temperament: 0,
     });
 
     const [termsChecked, setTermsChecked] = useState(false);
@@ -33,7 +33,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked }) => {
     const handleSliderChange = (title, value) => {
         setSliderValues((prevValues) => ({
             ...prevValues,
-            [title.toLowerCase()]: value,
+            [title]: value,
         }));
     };
 
