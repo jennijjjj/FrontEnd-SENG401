@@ -63,7 +63,7 @@ const Slider = ({ title, onChange }) => {
         '3': "Your information text for position 3",
         '4': "Your information text for position 4"
       },
-      "Organization": {
+      "Disposition": {
         '-4': "Your information text for position -4",
         '-3': "Your information text for position -3",
         '-2': "Your information text for position -2",

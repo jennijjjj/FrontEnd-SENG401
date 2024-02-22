@@ -10,7 +10,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked }) => {
         squeamishness: 0,
         technology: 0,
         erudition: 0,
-        organization: 0,
+        disposition: 0,
         morality: 0,
         zen: 0,
         aggression: 0,
@@ -41,15 +41,34 @@ const Home = ({ tosButtonClicked, settosButtonClicked }) => {
         e.preventDefault();
         if (tosButtonClicked) {
             console.log("Form submitted!");
-            // API call hardcoded return
-            const MatchedDeities = {
-                matched: ["firstgod", "secondgod", "thirdgod"],
-                description: ["Is a god", "Is a god", "Is a god"],
-                imageIDs: [0, 1, 2]
-            }
-            // Add your form submission logic here
+            console.log("Attribute List:", sliderValues);
 
-            setSubmitted(true);
+            try {
+                fetch('/SubmitAttributes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(sliderValues)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log(response);
+                            setSubmitted(true);
+                            // const matchedDeities = response.json();
+                        } else if (response.status === 400) {
+                            alert('Error', response.statusText);
+                            console.error(response.statusText);
+                        } else {
+                            alert('Submission failed:', response.statusText);
+                            console.error('Submission failed:', response.statusText);
+                        }
+                    })
+            } catch (error) {
+                alert("Error with submission. Please try again.");
+                console.error('Submission failed:', error);
+            }
+            // this is here for hardcoded without backend reliability to transition
             navigate("/Matches")
         } else {
             alert("Please accept the terms and services before submitting.");
@@ -221,7 +240,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked }) => {
                 <Slider title="Squeamishness" onChange={(value) => handleSliderChange("Squeamishness", value)} />
                 <Slider title="Technology" onChange={(value) => handleSliderChange("Technology", value)} />
                 <Slider title="Erudition" onChange={(value) => handleSliderChange("Erudition", value)} />
-                <Slider title="Organization" onChange={(value) => handleSliderChange("Organization", value)} />
+                <Slider title="Disposition" onChange={(value) => handleSliderChange("Disposition", value)} />
                 <Slider title="Morality" onChange={(value) => handleSliderChange("Morality", value)} />
                 <Slider title="Zen" onChange={(value) => handleSliderChange("Zen", value)} />
                 <Slider title="Aggression" onChange={(value) => handleSliderChange("Aggression", value)} />
