@@ -3,7 +3,7 @@ import Slider from './Slider';
 import { useNavigate } from "react-router-dom";
 
 
-const Home = ({ tosButtonClicked, settosButtonClicked }) => {
+const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities }) => {
     const [sliderValues, setSliderValues] = useState({
         Zealousness: 0,
         Mysticism: 0,
@@ -53,9 +53,11 @@ const Home = ({ tosButtonClicked, settosButtonClicked }) => {
                 })
                     .then(response => {
                         if (response.ok) {
-                            console.log(response);
-                            setSubmitted(true);
-                            // const matchedDeities = response.json();
+                            response.json()
+                                .then(data => {
+                                    setSubmitted(true)
+                                    setMatchedDeities(data);
+                                }) 
                         } else if (response.status === 400) {
                             alert('Error', response.statusText);
                             console.error(response.statusText);

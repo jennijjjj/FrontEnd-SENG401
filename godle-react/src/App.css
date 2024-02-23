@@ -201,28 +201,6 @@ body {
   margin-bottom: 10px;
 }
 
-.slider-title:hover::after,
-.slider-title:active::after {
-  content: attr(data-info);
-  position: absolute;
-  color:#282c34;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  padding: 5px;
-  border: 1px solid #3774ff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1000;
-}
-
-.slider-title:hover::after {
-  opacity: 1;
-}
-
 .submit-button {
   padding: 10px 20px;
   background-color: #5500e7;

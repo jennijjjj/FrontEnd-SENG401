@@ -5,26 +5,26 @@ import SwipeableCards from "./SwipeableCard";
 import DisplayCardAnimation from "./DisplayCardAnimation";
 import Button from "./Button";
 
-const Matches = () => {
-  const [cards, setCards] = useState([
-    { name: "Zeus", aboutMe: "God of Thunder", image: "/images/zeus.jpg" },
-    { name: "ID0", aboutMe: "Description 0", image: "/images/ID0.jpg" },
-    { name: "ID1", aboutMe: "Description 1", image: "/images/ID1.jpg" },
-    { name: "ID2", aboutMe: "Description 2", image: "/images/ID2.jpg" }
-  ]);
-
+const Matches = ({ user, matchedDeities }) => {
+  const [cards, setCards] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
-
+    setCards(matchedDeities);
+    console.log(cards);
     return () => clearTimeout(timer);
-  }, []);
+  }, [matchedDeities, setCards]);
 
   const remove = () =>
     setCards((prevCards) => prevCards.slice(1, prevCards.length));
+
+  const aboutContainer = {
+      overflowY: "auto",
+    };
 
   const containerStyle = {
     display: "flex",
@@ -37,6 +37,8 @@ const Matches = () => {
   const cardsContainerStyle = {
     display: "flex",
     overflowX: "auto",
+    maxWidth: "100vw",
+    padding: "20px",
   };
 
   const cardStyle = {
@@ -62,20 +64,20 @@ const Matches = () => {
       <div style={containerStyle}>
         <h1>Matching Page</h1>
 
-        {loading && cards.length > 0 && (
+        {loading && (cards && cards.length > 0) && (
           <div style={cardsContainerStyle}>
             {cards.map((card, index) => (
               <div key={index} style={cardStyle}>
                 <DisplayCardAnimation
                   name={card.name}
-                  image={card.image}
+                  image={"./images/" + card.imagePath}
                 ></DisplayCardAnimation>
               </div>
             ))}
           </div>
         )}
 
-        {!loading && cards.length > 0 && (
+        {!loading && (cards && cards.length > 0) && (
           <div>
             <Swipeable
               buttons={({ right, left }) => {
@@ -100,8 +102,8 @@ const Matches = () => {
             >
               <SwipeableCards
                 name={cards[0].name}
-                aboutMe={cards[0].aboutMe}
-                image={cards[0].image}
+                aboutMe={cards[0].description}
+                image={"./images/" + cards[0].imagePath}
               ></SwipeableCards>
             </Swipeable>
           </div>
