@@ -3,7 +3,21 @@ import Slider from './Slider';
 import { useNavigate } from "react-router-dom";
 
 
-const Home = ({tosButtonClicked, settosButtonClicked}) => {
+const Home = ({ tosButtonClicked, settosButtonClicked }) => {
+    const [sliderValues, setSliderValues] = useState({
+        Zealousness: 0,
+        Mysticism: 0,
+        Squeamishness: 0,
+        Technology: 0,
+        Erudition: 0,
+        Organization: 0,
+        Morality: 0,
+        Zen: 0,
+        Aggression: 0,
+        Grandeur: 0,
+        Temperament: 0,
+    });
+
     const [termsChecked, setTermsChecked] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
@@ -16,18 +30,45 @@ const Home = ({tosButtonClicked, settosButtonClicked}) => {
         settosButtonClicked(true);
     };
 
+    const handleSliderChange = (title, value) => {
+        setSliderValues((prevValues) => ({
+            ...prevValues,
+            [title]: value,
+        }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (tosButtonClicked) {
             console.log("Form submitted!");
-            // API call hardcoded return
-            const MatchedDeities = {
-                matched: ["firstgod", "secondgod", "thirdgod"],
-                description: ["Is a god", "Is a god", "Is a god"],
-                imageIDs: [0, 1, 2]
+            console.log("Attribute List:", sliderValues);
+
+            try {
+                fetch('/SubmitAttributes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(sliderValues)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log(response);
+                            setSubmitted(true);
+                            // const matchedDeities = response.json();
+                        } else if (response.status === 400) {
+                            alert('Error', response.statusText);
+                            console.error(response.statusText);
+                        } else {
+                            alert('Submission failed:', response.statusText);
+                            console.error('Submission failed:', response.statusText);
+                        }
+                    })
+            } catch (error) {
+                alert("Error with submission. Please try again.");
+                console.error('Submission failed:', error);
             }
-            // Add your form submission logic here
-            setSubmitted(true);
+            // this is here for hardcoded without backend reliability to transition
             navigate("/Matches")
         } else {
             alert("Please accept the terms and services before submitting.");
@@ -194,17 +235,17 @@ const Home = ({tosButtonClicked, settosButtonClicked}) => {
         </div>
         <form onSubmit={handleSubmit} className="slider-form">
             <div>
-                <Slider title="Zealousness" />
-                <Slider title="Mysticism" />
-                <Slider title="Squeamishness" />
-                <Slider title="Technology" />
-                <Slider title="Erudition" />
-                <Slider title="Organization" />
-                <Slider title="Morality" />
-                <Slider title="Zen" />
-                <Slider title="Aggression" />
-                <Slider title="Grandeur" />
-                <Slider title="Temperament" />
+                <Slider title="Zealousness" onChange={(value) => handleSliderChange("Zealousness", value)} />
+                <Slider title="Mysticism" onChange={(value) => handleSliderChange("Mysticism", value)} />
+                <Slider title="Squeamishness" onChange={(value) => handleSliderChange("Squeamishness", value)} />
+                <Slider title="Technology" onChange={(value) => handleSliderChange("Technology", value)} />
+                <Slider title="Erudition" onChange={(value) => handleSliderChange("Erudition", value)} />
+                <Slider title="Organization" onChange={(value) => handleSliderChange("Organization", value)} />
+                <Slider title="Morality" onChange={(value) => handleSliderChange("Morality", value)} />
+                <Slider title="Zen" onChange={(value) => handleSliderChange("Zen", value)} />
+                <Slider title="Aggression" onChange={(value) => handleSliderChange("Aggression", value)} />
+                <Slider title="Grandeur" onChange={(value) => handleSliderChange("Grandeur", value)} />
+                <Slider title="Temperament" onChange={(value) => handleSliderChange("Temperament", value)} />
             </div>
             <button type="submit" className="submit-button">Submit</button>
         </form>
