@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 
 const leftColumnStyles = {
   borderRadius: 15,
-  width: "264px",
+  width: "250px",
   height: "460px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   textAlign: "center",
   paddingBottom: "10px",
-  background: "white",
+  background: "rgba(255, 255, 255, 0.40)",
   color: "black",
 };
 
 const cardStyles = {
   borderRadius: 15,
-  width: "264px",
+  width: "250px",
   height: "460px",
   cursor: "pointer",
   userSelect: "none",
@@ -44,7 +44,7 @@ const cardBackStyles = {
   transform: "rotateY(180deg)",
 };
 const imageStyles = {
-  maxWidth: "238px",
+  maxWidth: "220px",
   height: "400px",
   objectFit: "cover",
   border: "2px solid black",
