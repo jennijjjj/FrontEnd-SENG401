@@ -335,3 +335,10 @@ body {
   scrollbar-color: rgba(255, 255, 255, 0.50) rgba(255, 255, 255, 0.10); /* thumb and track color */
 }
 
+.list-group-item:hover {
+  background-color: #b3b3b3; /* Set the background color on hover */
+}
+.adminUnderlineOption:hover{
+  text-decoration:underline;
+
+}
