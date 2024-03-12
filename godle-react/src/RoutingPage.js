@@ -4,7 +4,7 @@ import Home from './Home';
 import AppNavbar from './AppNavbar';
 import Register from './Register';
 import Matches from './MatchingPageComponents/Matches';
-import Deity from './Deity';
+import Admin from './AdminComponents/AdminHome';
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
 
@@ -62,7 +62,17 @@ const RoutingPage = ({ page }) => {
         </Container>
       </div>
     )
+  }else if (page === "Admin") {
+    return (
+      <div>
+        <AppNavbar user={user} setUser={setUser} />
+        <Container fluid>
+          <Admin />
+        </Container>
+      </div>
+    )
   }
+  
 }
 
 export default RoutingPage
