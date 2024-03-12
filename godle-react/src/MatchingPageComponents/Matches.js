@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Swipeable from "react-swipy";
-import Swiper from "./Swiper";
 import SwipeableCards from "./SwipeableCard";
 import DisplayCardAnimation from "./DisplayCardAnimation";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
-const Matches = ({ user, matchedDeities }) => {
+const Matches = ({ user, matchedDeities, setDeity }) => {
   const [cards, setCards] = useState(undefined);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -15,16 +16,40 @@ const Matches = ({ user, matchedDeities }) => {
       setLoading(false);
     }, 3000);
     setCards(matchedDeities);
-    console.log(cards);
     return () => clearTimeout(timer);
   }, [matchedDeities, setCards]);
 
-  const remove = () =>
-    setCards((prevCards) => prevCards.slice(1, prevCards.length));
+  const remove = () => {
+    setCards((prevCards) => {
+      const newCards = prevCards.slice(1);
+      if (newCards.length === 0) {
+        alert("No more matches - returning to attributes");
+        navigate('/');
+      }
+      return newCards;
+    });
+  }
 
-  const aboutContainer = {
-      overflowY: "auto",
-    };
+  const handleswiperight = (card) => {
+    if (user !== undefined) {
+      fetch('/UserMatched', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user, card })
+      })
+        .then(response => {
+          if (response.ok) {
+            setDeity(card);
+          } else {
+            alert("Error, please try again");
+          }
+        })
+    } else {
+      setDeity(card);
+    }
+  }
 
   const containerStyle = {
     display: "flex",
@@ -80,31 +105,29 @@ const Matches = ({ user, matchedDeities }) => {
         {!loading && (cards && cards.length > 0) && (
           <div>
             <Swipeable
-              buttons={({ right, left }) => {
-                const swipeFunction = { right, left };
-                Swiper.initializeSwiper(swipeFunction);
-                return (
-                  <div style={actionsStyles}>
-                    <Button
-                      id="SWIPELEFT"
-                      onClick={Swiper.swipeLeft}
-                      style={leftButtonStyles}
-                    >
-                      Reject
-                    </Button>
-                    <Button onClick={Swiper.swipeRight} style={rightButtonStyles}>
-                      Accept
-                    </Button>
-                  </div>
-                );
+              onSwipe={(direction) => {
+                if (direction === "right") {
+                  handleswiperight(cards[0]);
+                } else {
+                  remove();
+                }
               }}
-              onAfterSwipe={() => remove(0)}
+              buttons={({ right, left }) => (
+                <div style={actionsStyles}>
+                  <Button onClick={() => left()} style={leftButtonStyles}>
+                    Reject
+                  </Button>
+                  <Button onClick={() => right()} style={rightButtonStyles}>
+                    Accept
+                  </Button>
+                </div>
+              )}
             >
               <SwipeableCards
                 name={cards[0].name}
                 aboutMe={cards[0].description}
                 image={"./images/" + cards[0].imagePath}
-              ></SwipeableCards>
+              />
             </Swipeable>
           </div>
         )}

@@ -29,7 +29,7 @@ const RoutingPage = ({ page }) => {
       <div>
         <AppNavbar user={user} setUser={setUser} />
         <Container fluid>
-          <Deity />
+          <Deity deity={deity} setDeity={setDeity} />
         </Container>
       </div>
     );
@@ -58,7 +58,7 @@ const RoutingPage = ({ page }) => {
       <div>
         <AppNavbar user={user} setUser={setUser} />
         <Container fluid>
-          <Matches user={user} matchedDeities={matchedDeities} />
+          <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} />
         </Container>
       </div>
     )

@@ -41,7 +41,6 @@ const Register = () => {
                 .then(response => {
                     if (response.ok) {
                         // If successful, display success message
-                        console.log(response);
                         alert("User registered successfully!");
                         Navigate('/');
                     } 

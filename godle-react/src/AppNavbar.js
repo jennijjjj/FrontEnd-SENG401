@@ -30,45 +30,45 @@ const AppNavbar = ({ user, setUser }) => {
 
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-  
+
     // Authenticate
     try {
       // Prepare data to send in the request body
       const userData = {
-          username: username,
-          password: password
+        username: username,
+        password: password
       };
 
       // Send HTTP POST request to register the user
       fetch('/Login', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(userData)
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
       })
         .then(response => {
-            if (response.ok) {
-              alert("User is authenticated. User profile is retrieved and can proceed.");
-              navigate('/');
-            } 
-            else {
-              // If there's an error, display error message
-              alert('User not authenticated with the provided credentials.');
-              // Log the error
-              console.error(response);
-            }
+          if (response.ok) {
+            setUser(userData);
+            navigate("/");
+          }
+          else {
+            // If there's an error, display error message
+            alert('User not authenticated with the provided credentials.');
+            // Log the error
+            console.error(response);
+          }
         })
 
     } catch (error) {
-        alert("Exception occured trying to send login information to backend.");
-        console.error('Exception occured trying to send login information to backend.');
+      alert("Exception occured trying to send login information to backend.");
+      console.error('Exception occured trying to send login information to backend.');
     }
 
     setUsername('');
     setPassword('');
   };
-  
+
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -93,13 +93,9 @@ const AppNavbar = ({ user, setUser }) => {
           {user ? (
             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
               <DropdownToggle nav caret>
-                {user.type === "Registered User" ? (
-                  <>
-                    { user.object.username }
-                  </>
-                ) : (
-                  alert("wtf")
-                )}
+                <>
+                  {user.username}
+                </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
                 <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">

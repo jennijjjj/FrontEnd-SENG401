@@ -19,7 +19,6 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities }) => {
     });
 
     const [termsChecked, setTermsChecked] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
     const navigate = useNavigate();
 
     const handleTermsChange = () => {
@@ -55,8 +54,8 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities }) => {
                         if (response.ok) {
                             response.json()
                                 .then(data => {
-                                    setSubmitted(true)
                                     setMatchedDeities(data);
+                                    navigate("/Matches");
                                 }) 
                         } else if (response.status === 400) {
                             alert('Error', response.statusText);
@@ -70,8 +69,6 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities }) => {
                 alert("Error with submission. Please try again.");
                 console.error('Submission failed:', error);
             }
-            // this is here for hardcoded without backend reliability to transition
-            navigate("/Matches")
         } else {
             alert("Please accept the terms and services before submitting.");
         }
