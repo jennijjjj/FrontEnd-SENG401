@@ -4,12 +4,15 @@ import Home from './Home';
 import AppNavbar from './AppNavbar';
 import Register from './Register';
 import Matches from './MatchingPageComponents/Matches';
+import Admin from './AdminComponents/AdminHome';
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
 
 const RoutingPage = ({ page }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(undefined);
+  const [matchedDeities, setMatchedDeities] = useState(undefined);
+  const [deity, setDeity] = useState(undefined);
   const [tosButtonClicked, settosButtonClicked] = useState(false);
 
   useEffect(() => {
@@ -21,12 +24,23 @@ const RoutingPage = ({ page }) => {
     return <p>Loading...</p>;
   }
 
+  if (deity !== undefined) {
+    return (
+      <div>
+        <AppNavbar user={user} setUser={setUser} />
+        <Container fluid>
+          <Deity />
+        </Container>
+      </div>
+    );
+  }
+
   if (page === "Home") {
     return (
       <div>
         <AppNavbar user={user} setUser={setUser} />
         <Container fluid>
-          <Home tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} />
+          <Home tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} />
         </Container>
       </div>
     );
@@ -44,11 +58,21 @@ const RoutingPage = ({ page }) => {
       <div>
         <AppNavbar user={user} setUser={setUser} />
         <Container fluid>
-          <Matches />
+          <Matches user={user} matchedDeities={matchedDeities} />
+        </Container>
+      </div>
+    )
+  }else if (page === "Admin") {
+    return (
+      <div>
+        <AppNavbar user={user} setUser={setUser} />
+        <Container fluid>
+          <Admin />
         </Container>
       </div>
     )
   }
+  
 }
 
 export default RoutingPage

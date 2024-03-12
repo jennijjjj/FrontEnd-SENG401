@@ -61,7 +61,7 @@ const Slider = ({ title, onChange }) => {
         "3": "Mind’s gym: lifting facts and dropping knowledge.",
         "4": "My wisdom makes me ascend"
       },
-      "Disposition": {
+      "Organization": {
         "-4": "The natural state of the world is chaos",
         "-3": "A person’s loyalty is only to themselves",
         "-2": "Laws are just suggestions",

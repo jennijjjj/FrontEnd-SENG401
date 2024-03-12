@@ -38,7 +38,13 @@ const imageStyles = {
 
 const rightColumnStyles = {
   width: "60%",
-  textAlign: "center", // Center text in the right column
+  marginLeft: "25px",
+  paddingRight: "5px",
+  textAlign: "center",
+  height: "425px",
+  overflowY: "auto",
+  scrollbarWidth: "thin",
+  scrollbarColor: "black white",
 };
 
 // ...
