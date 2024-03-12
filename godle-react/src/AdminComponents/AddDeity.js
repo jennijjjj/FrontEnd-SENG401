@@ -80,7 +80,7 @@ const AddDeity = () => {
             <Slider title="Grandeur" onChange={(value) => handleSliderChange("Grandeur", value)} />
             <Slider title="Temperament" onChange={(value) => handleSliderChange("Temperament", value)} />
         </div>
-      <input type="button" value="Delete Deity" />
+      <input type="button" value="Add Deity" />
     </form>
   );
 };

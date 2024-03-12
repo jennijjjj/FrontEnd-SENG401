@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 
-const AdminPanel = ({ onNestedOptionClick }) => {
+const AdminPanel = ({ onOptionClick }) => {
   const [toggle, setToggle] = useState(true);
-  const [toggleDatabaseOptions, setToggleDatabaseOptions] = useState(false); // Initial state for the nested options
-  const [toggleForumOptions, setToggleForumOptions] = useState(true);
-  const [toggleCalendarOptions, setToggleCalendarOptions] = useState(true);
 
   const panelStyle = {
     width: '170px',
@@ -23,44 +20,13 @@ const AdminPanel = ({ onNestedOptionClick }) => {
     marginLeft: '2px',
   };
 
-  const nestedOptionStyle = {
-    transition: 'background 0.3s', // Smooth transition on hover
-    listStyleType: 'none',
- 
-  };
-  const handleManageDatabaseClick = () => {
-    console.log('Manage Database clicked!');
-    setToggleDatabaseOptions(!toggleDatabaseOptions); // Toggle the state for the nested options
-  };
-
-  const handleManageForumClick = () => {
-    console.log('Manage Forum clicked!');
-    setToggleForumOptions(!toggleForumOptions); 
-  };
-
-  const handleManageCalendarClick = () => {
-    console.log('Manage Calendar clicked!');
-    setToggleCalendarOptions(!toggleCalendarOptions); 
-  };
-
-  const handleNestedOptionClick = (option) => {
-    onNestedOptionClick(option);
-    setToggleForumOptions(false); 
-    setToggleCalendarOptions(false); 
-    setToggleDatabaseOptions(false);
-    setToggle(false);
+  const handleOptionClick = (option) => {
+    console.log("panel", option);
+    onOptionClick(option);
   };
   const spanStyle = {
     textDecoration: 'none', // Initially, no underline
     cursor: 'pointer',
-  };
-
-  const handleHover = () => {
-    spanStyle.textDecoration = 'underline';
-  };
-
-  const handleLeave = () => {
-    spanStyle.textDecoration = 'none';
   };
   return (
     <>
@@ -77,62 +43,25 @@ const AdminPanel = ({ onNestedOptionClick }) => {
       {toggle && (
         <div style={panelStyle}>
           <li
+            className="list-group-item"
             style={listItemStyle}
-            onClick={handleManageDatabaseClick}
+            onClick={() => handleOptionClick("Manage Deities")} 
           >
-            <span className='adminUnderlineOption'>{toggleDatabaseOptions ? '⛃  Manage Database ↴' : '⛃  Manage Database →'}</span>
-            {toggleDatabaseOptions && (
-              <ul style={{ paddingLeft: '40px'}}>
-                <li className="list-group-item" style={nestedOptionStyle}
-                onClick={() => handleNestedOptionClick('Add Deity')}>
-                  Add Deity
-                </li>
-                <li className="list-group-item" style={nestedOptionStyle}
-                onClick={() => handleNestedOptionClick('Edit Deity')}>
-                  Edit Deity
-                </li>
-                <li className="list-group-item" style={nestedOptionStyle}
-                onClick={() => handleNestedOptionClick('Delete Deity')}>
-                  Delete Deity
-                </li>
-                
-                {/* Add more nested options as needed */}
-              </ul>
-            )}
+            ⚚  Manage Deities
           </li>
           <li
             style={listItemStyle}
-            onClick={handleManageForumClick}
+            className="list-group-item"
+            onClick={() => handleOptionClick("Manage Forum")}
           >
-            <span className='adminUnderlineOption'>{toggleForumOptions ? '🗪  Manage Forum ↴' : '🗪  Manage Forum →'}</span>
-            {toggleForumOptions && (
-              <ul style={{ paddingLeft: '40px' }}>
-                <li className="list-group-item" style={nestedOptionStyle}>
-                  Nested Option 1
-                </li>
-                <li className="list-group-item" style={nestedOptionStyle}>
-                  Nested Option 2
-                </li>
-                {/* Add more nested options as needed */}
-              </ul>
-            )}
+            🗪  Manage Forum
           </li>
           <li
             style={listItemStyle}
-            onClick={handleManageCalendarClick}
+            className="list-group-item"
+            onClick={() => handleOptionClick("Manage Calendar")} 
           >
-            <span className='adminUnderlineOption'>{toggleCalendarOptions ? '🗒  Manage Calendar ↴' : '🗒  Manage Calendar →'}</span>
-            {toggleCalendarOptions && (
-              <ul style={{ paddingLeft: '40px' }}>
-                <li className="list-group-item" style={nestedOptionStyle}>
-                  Nested Option 1
-                </li>
-                <li className="list-group-item" style={nestedOptionStyle}>
-                  Nested Option 2
-                </li>
-                {/* Add more nested options as needed */}
-              </ul>
-            )}
+            🗒  Manage Calendar
           </li>
         </div>
       )}

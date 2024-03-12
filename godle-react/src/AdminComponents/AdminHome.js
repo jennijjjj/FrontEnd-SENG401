@@ -3,8 +3,10 @@ import AdminPanel from "./AdminPanel";
 import { Collapse } from 'reactstrap';
 import DeleteDeity from "./DeleteDeity";
 import AddDeity from "./AddDeity";
+import BrowseDatabase from "./BrowseDatabase";
 
 const Admin = () => {
+  const [selectedOption, setSelectedOption] = useState("Manage Deities");
   const headingStyle = {
     textAlign: 'center',
   };
@@ -15,34 +17,30 @@ const Admin = () => {
     marginleft: "20px",
   };
 
+  useEffect(() => {
+    console.log("Controller prop in BrowseDatabase:", selectedOption);
+  }, [selectedOption]);
   const formsStyle ={
     marginTop: "100px",
   }
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  
 
-  const handleNestedOptionClick = (option) => {
+  const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
 
-  const clearSelectedOption = () => {
-    setSelectedOption(null);
-  };
   return (
     <div>
       <h1 style={headingStyle}>Admin Controller</h1>
-      <div style={flexRow}>
-        <div className="panel">
-          <AdminPanel onNestedOptionClick={handleNestedOptionClick}></AdminPanel>
-        </div>
-        <div style = {formsStyle} classname ="forms"></div>
-        <Collapse isOpen={selectedOption === "Delete Deity"}>
-          <DeleteDeity></DeleteDeity>
-        </Collapse>
-        <Collapse isOpen={selectedOption === "Add Deity"}>
-          <AddDeity></AddDeity>
-        </Collapse>
-      </div>
+      <div className="panel">
+      <AdminPanel onOptionClick={handleOptionClick}></AdminPanel>
+    </div>
+    <div style={formsStyle} className="forms"></div>
+
+    <div>
+      <BrowseDatabase controller={selectedOption}></BrowseDatabase>
+    </div>
     </div>
   );
 };
