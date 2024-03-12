@@ -5,6 +5,7 @@ import AppNavbar from './AppNavbar';
 import Register from './Register';
 import Matches from './MatchingPageComponents/Matches';
 import Admin from './AdminComponents/AdminHome';
+import Deity from './Deity';
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
 
