@@ -183,9 +183,6 @@ const filteredSearchDeity = deitiesData.deities.filter((deity) => {
             onChange={handleChange}
           />
         </div>
-        
-          
-  
         {searchList()}
       </div>
     </>

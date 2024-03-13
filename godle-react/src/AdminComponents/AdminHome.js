@@ -53,7 +53,10 @@ const Admin = () => {
       <div style={{ width: "100px" }} className="panel">
         <AdminPanel onOptionClick={handleOptionClick}></AdminPanel>
       </div>
-      {modalOpen && <DeityCard setModalOpen={setModalOpen}/>}
+      <div style={{ display: 'flex', justifyContent: 'center'}}>
+        {modalOpen && <DeityCard setModalOpen={setModalOpen}/>}
+      </div>
+      
       <div style={{ display: 'flex', justifyContent: 'center'}}>
         <BrowseDatabase selectedOption={selectedOption} searchVar={ControllerMap[selectedOption][0]} controller={ControllerMap[selectedOption][1]}></BrowseDatabase>
       </div>

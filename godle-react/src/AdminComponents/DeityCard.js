@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function DeityCard({deity, setModalOpen}) {
   const [modifyMode, setModifyMode] = useState(deity ? false : true);
@@ -17,6 +17,23 @@ function DeityCard({deity, setModalOpen}) {
   const [grandeur, setGrandeur] = useState(deity ? deity.Grandeur : null);
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
   const [imageFile, setImageFile] = useState(null);
+
+  useEffect(() => {
+    console.log({modifiedName});
+    const checkImageExists = async () => {
+      try {
+        const response = await fetch(`../images/${modifiedName}`);
+        setImageFile(response.ok);
+      } catch (error) {
+        console.log("image does not exist")
+      }
+    };
+
+    if (modifiedName) {
+      checkImageExists();
+    }
+  }, [modifiedName]);
+
 
   const handleDelete = () => {
     const userResponse = window.confirm(`Are you sure you want to delete ${modifiedName}?`);
@@ -171,7 +188,13 @@ function DeityCard({deity, setModalOpen}) {
                 width: '100%', // Set width to 100%
               }}
             />
-            <input type="file" onChange={handleImageChange} disabled={!modifyMode}/>
+            <img src={"./images/" + deity.imagePath} alt={`${modifiedName}'s Photo`} />
+            <input
+              type="file"
+              defaultValue={imageFile!=null ? modifiedName : ''}
+              onChange={handleImageChange}
+              disabled={!modifyMode}
+            />
             </div>
 
         <div style = {flexRow}>
