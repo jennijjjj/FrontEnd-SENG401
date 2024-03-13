@@ -5,7 +5,11 @@ function BrowseDatabase({selectedOption, searchVar, controller}) {
 //  const {userType, setFlightCode}=props
   const [searchField, setSearchField] = useState("");
   const [searchShow, setSearchShow] = useState(false); 
-  const deitiesData = 
+  const [deitiesData, setDeitiesData] = useState(null);
+  const [forumData, setForumData] = useState(null);
+  const [deitiesData, setDeitiesData] = useState(null);
+
+  const deitiesDataH = 
   {
     "deities": [
       {
@@ -45,7 +49,7 @@ function BrowseDatabase({selectedOption, searchVar, controller}) {
     ]
   }
 
-  const usersData = 
+  const usersDataH = 
   {
     "users": [
       {
@@ -117,8 +121,41 @@ function BrowseDatabase({selectedOption, searchVar, controller}) {
         "Temperament": 4
       }
     ]
-    
   }
+
+  const fetchJson = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    try {
+
+      const retreiveData = {
+        topicData: controller
+      };
+
+      fetch('/Admin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(retreiveData)
+      })
+      .then(response => {
+        if (response.ok) {
+          response.json().then(data => {
+            console.log(data);
+            setDeitiesData(data);
+          });
+        } else {
+          alert('Response NOT ok: trying to retreive json from backend.');
+          console.error(response);
+        }
+      })
+
+    } catch (error) {
+      alert("Exception occured trying to retreive json from backend.");
+      console.error('Exception occured trying to retreive json from backend.');
+    }
+  };
 
 
 
