@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { UploadImage } from './UploadImage';
 function DeityCard({deity, setModalOpen}) {
   const [modifyMode, setModifyMode] = useState(deity ? false : true);
   const [modifiedName, setModifiedName] = useState(deity ? deity.DeityName : null);
@@ -16,23 +16,7 @@ function DeityCard({deity, setModalOpen}) {
   const [aggression, setAggression] = useState(deity ? deity.Aggression : null);
   const [grandeur, setGrandeur] = useState(deity ? deity.Grandeur : null);
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
-  const [imageFile, setImageFile] = useState(null);
-
-  useEffect(() => {
-    console.log({modifiedName});
-    const checkImageExists = async () => {
-      try {
-        const response = await fetch(`../images/${modifiedName}`);
-        setImageFile(response.ok);
-      } catch (error) {
-        console.log("image does not exist")
-      }
-    };
-
-    if (modifiedName) {
-      checkImageExists();
-    }
-  }, [modifiedName]);
+  // const [imageFile, setImageFile] = useState(null);
 
 
   const handleDelete = () => {
@@ -128,10 +112,10 @@ function DeityCard({deity, setModalOpen}) {
     setTemperament(e.target.value);
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setImageFile(file);
-  };
+  // const handleImageChange = (event) => {
+  //   const file = event.target.files[0];
+  //   setImageFile(file);
+  // };
 
   const handleUpload = () => {
     // Send imageFile to the backend
@@ -143,6 +127,8 @@ function DeityCard({deity, setModalOpen}) {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    width:"50%",
+    // paddingRight:"50%",
   }
   const flexRow={
     display: "flex",
@@ -155,7 +141,7 @@ function DeityCard({deity, setModalOpen}) {
   return(
     <div className="cardContainer">
         <div style={flexRow}>
-        <div style={flexColumn}>
+        <div style={{ ...flexColumn, alignItems: "flex-start" }}>
           <textarea
             rows = {1} 
             value={modifiedName}
@@ -188,14 +174,22 @@ function DeityCard({deity, setModalOpen}) {
                 width: '100%', // Set width to 100%
               }}
             />
-            <img src={"./images/" + deity.imagePath} alt={`${modifiedName}'s Photo`} />
+            {/* <img src={"./images/" + deity.imagePath} alt={`${modifiedName}'s Photo`} />
             <input
               type="file"
               defaultValue={imageFile!=null ? modifiedName : ''}
               onChange={handleImageChange}
               disabled={!modifyMode}
-            />
+            /> */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", margin: "8px" }}>
+                  {modifyMode ? (
+                      <UploadImage />
+                  ) : (
+                      <div></div>
+                  )}
+              </div>
             </div>
+            
 
         <div style = {flexRow}>
             {modifyMode ? (
