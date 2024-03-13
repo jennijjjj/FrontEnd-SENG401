@@ -210,6 +210,8 @@ body {
   cursor: pointer;
   font-size: 16px;
   text-align: center;
+  justify-items: center;
+  align-items: center;
 }
 
 .tos-button {
@@ -317,6 +319,16 @@ body {
   background-color: #b3b3b3; /* Set the background color on hover */
 }
 
+.cardContainer {
+  height: auto;
+  border: 1px solid #000; /* Replace with your desired border properties */
+  border-radius: 10px; /* Adjust the radius to make the corners more or less rounded */
+  text-align: center; /* Aligns text content horizontally in the center */
+  padding: 20px; /* Add padding to the container as needed */
+  margin: 20px;
+  color:black;
+  background-color: white;
+}
 
 .searchContainer {
   align-items: center;
@@ -331,23 +343,16 @@ body {
   text-align: justify;
   width:100%;
 }
-.cardContainer {
-  height: auto;
-  width: 100%;
-  border: 1px solid #000; /* Replace with your desired border properties */
-  border-radius: 10px; /* Adjust the radius to make the corners more or less rounded */
-  text-align: center; /* Aligns text content horizontally in the center */
-  padding: 20px; /* Add padding to the container as needed */
-  margin: 20px;
-  color:black;
-  background-color: white;
-}
 .align-center{
+  margin-left:80px;
+  margin-right:80px;
   flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
   justify-items: center;
+  align-content: center;
+  width: 100%;
 }
 
 .deletebutton{
@@ -376,7 +381,7 @@ body {
 
 
 .searchBar {
-  width: 80%;
+  width: 85%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -407,5 +412,45 @@ body {
   cursor: pointer;
   font-weight: bolder;
   color:#9b9bf3;
-  transition: color 0.3s;
+}
+
+.forum-center-container{
+  margin-left:80px;
+  margin-right:80px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  width: 60%;
+}
+
+.threadCardContainer {
+  height: auto;
+  /* border: 1px solid #000; Replace with your desired border properties */
+  border-radius: 10px; /* Adjust the radius to make the corners more or less rounded */
+  text-align: center; /* Aligns text content horizontally in the center */
+  padding: 20px; /* Add padding to the container as needed */
+  margin: 20px;
+  color:black;
+  background-color: white;
+  box-shadow: 0 8px 14px rgb(19, 19, 19);
+}
+
+.threadCardContainer:hover{
+  box-shadow: 0 8px 14px  #8240f5;
+}
+.addThreadContainer {
+  display:flex;
+  direction: row;
+  height: auto;
+  /* border: 1px solid #000; Replace with your desired border properties */
+  border-radius: 10px; /* Adjust the radius to make the corners more or less rounded */
+  text-align: center; /* Aligns text content horizontally in the center */
+  padding: 20px; /* Add padding to the container as needed */
+  margin: 20px;
+  color:black;
+  background-color: white;
+  justify-content: space-between;
 }

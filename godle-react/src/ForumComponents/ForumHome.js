@@ -3,6 +3,7 @@ import ForumList from './ForumList';
 
 const Forum = () => {
     const [searchField, setSearchField] = useState("");
+    const [categoryToggle, setCategoryToggle] = useState(true);
     const [searchShow, setSearchShow] = useState(false); 
     const handleSearch = e => {
         setSearchField(e.target.value);
@@ -12,6 +13,25 @@ const Forum = () => {
         else {
           setSearchShow(true);
         }
+      };
+
+      const clearSearch = e => {
+        setSearchField(e.target.value);
+        if(e.target.value===""){
+          setSearchShow(false);
+        }
+      };
+
+
+      const listItemStyle = {
+        transition: 'background 0.3s', // Smooth transition on hover
+        marginBottom: '10px',
+        marginTop: '10px',
+        display: 'flex', // Added flex display for the new structure
+        flexDirection: 'column', // Display items in a column
+        alignItems: 'flex-start', // Align items to the left
+        marginLeft: '10px',
+        width: '100px',
       };
     
     const jsonForum={
@@ -38,10 +58,18 @@ const Forum = () => {
               "user": "BobJohnson",
               "date": "2024-03-12T13:10:00",
               "subtitle": "Discussion on Current Events",
-              "body": "What are your thoughts on the recent political developments?"
+              "body": "What are your thoughts on the recent political developments?I really like the new feature. Great job to the development team!I really like the new feature. Great job to the development team!"
             }
           ]          
     }
+    const handleCategoryHover = () => {
+        setCategoryToggle(true);
+    };
+
+    const handleCategoryLeave = () => {
+        setCategoryToggle(false);
+    };
+    
     const filteredSearch = jsonForum.forums.filter((thread) => {
         const searchTerm = searchField.toLowerCase().trim();
         if (!searchTerm) {
@@ -56,26 +84,93 @@ const Forum = () => {
       });
     
     return (
-        <div className="align-center">
-            <h1 className="titleText">Forum</h1>
-            <div class="searchBar">
-                <input id="searchQueryInput" 
-                type="text" 
-                name="searchQueryInput" 
-                placeholder="Search for a topic..." 
-                onChange={handleSearch} />
-                <button id="searchQuerySubmit" 
-                type="submit" 
-                name="searchQuerySubmit"
-                onClick={()=>handleSearch}>
-                🔎︎
-                </button>
+        <div>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
+                <div className="forum-center-container">
+                    <h1 style={{fontWeight:"bolder"}}>🗪 Forum🗧</h1>
+                    <div class="searchBar">
+                        <input id="searchQueryInput" 
+                        type="text" 
+                        name="searchQueryInput" 
+                        placeholder="Search for a topic..." 
+                        onChange={clearSearch}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleSearch(e);
+                            }
+                        }}/>
+                        <button id="searchQuerySubmit" 
+                        type="submit" 
+                        name="searchQuerySubmit"
+                        onClick={handleSearch}>
+                        🔎︎
+                        </button>
+                    </div>
+                </div>
+                
+            <div className="addThreadContainer" style ={{width:"57%", marginBottom:"30px"}}>
+                <div>
+                    <h2 style={{fontSize:"bigger", marginLeft:"40px",margin:"-20px"}}>🕬</h2>
+                    <h2 style={{fontSize:"100px", marginLeft:"6px",marginTop:"-40px",margin:"-20px"}}>🗺</h2>
+                </div>
+                <div>
+                    <h2><strong>Join the conversation!</strong></h2>
+                    <p>Share your questions and thoughts to the community.</p>
+
+                </div>
+                
+                <button type="submit" className="submit-button" ><div><p style={{fontWeight:"bolder"}}>Add Thread</p></div></button>
+
             </div>
-            <div>
-                <ForumList filteredSearch={filteredSearch} />
+
             </div>
-            
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    marginLeft: "23%",
+                    width:"fit-content"
+                }}
+                onMouseEnter={handleCategoryHover} 
+                onMouseLeave={handleCategoryLeave}
+            >   
+                <span style={{marginTop:"20px", fontSize:"small", textDecoration:"0.5px underline"}}>{categoryToggle ? 'Filter By 🠹' : 'Filter By 🠻'}</span>
+                {categoryToggle && ( // Conditionally render options when showOptions is true
+                    <div>
+                        {/* Render your options here */}
+                        <li
+                            style={listItemStyle}
+                            className="list-group-item"
+                            // onClick={() => handleOptionClick("Manage Forum")}
+                        >
+                            Post
+                        </li>
+                        <li
+                            style={listItemStyle}
+                            className="list-group-item"
+                            // onClick={() => handleOptionClick("Manage Forum")}
+                        >
+                            User
+                        </li>
+                        <li
+                            style={listItemStyle}
+                            className="list-group-item"
+                            // onClick={() => handleOptionClick("Manage Forum")}
+                        >
+                            All Relevant
+                        </li>
+                    </div>
+                )}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
+                <div style={{width:"60%"}}>
+                    <ForumList filteredSearch={filteredSearch} />
+                </div>
+            </div>
         </div>
+        
     );
 };
 
