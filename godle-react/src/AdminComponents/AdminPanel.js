@@ -36,7 +36,7 @@ const AdminPanel = ({ onOptionClick }) => {
           alignItems: 'center',
         }}
       >
-        <span>{toggle ? '↴' : '→'}</span>
+        <span className="list-group-item">{toggle ? '↴' : '→'}</span>
       </div>
       {toggle && (
         <div style={panelStyle}>
