@@ -319,7 +319,7 @@ body {
 
 .cardContainer {
   height: auto;
-  width: auto;
+  width: 100lv;
   border: 1px solid #000; /* Replace with your desired border properties */
   border-radius: 10px; /* Adjust the radius to make the corners more or less rounded */
   text-align: center; /* Aligns text content horizontally in the center */
@@ -349,28 +349,31 @@ body {
   align-items: center;
   justify-content: center;
   justify-items: center;
+  align-content: center;
+  width: auto;
+  max-width: fit-content;
 }
 
-.deletebutton{
-  background:grey;
+
+.adminbutton{
   color: black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
   cursor: 'pointer';
+  height:40px;
+  margin-right: 8px;
+  width: 100px;
+}
+.deletebutton{
+  color: black;
+  cursor: 'pointer';
+  height:40px;
+  margin-right: 8px;
+  width: 100px;
+}
+.adminbutton:hover{
+  background-color: grey;
+  color:white;
 }
 .deletebutton:hover{
   background-color: red;
-}
-
-.modifybutton{
-  background:grey;
-  color: black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: 'pointer';
-}
-.modifybutton:hover{
-  background-color: purple;
+  color:white;
 }

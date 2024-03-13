@@ -1,30 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SearchList from './SearchList';
 
-function BrowseDatabase({controller}) {
+function BrowseDatabase({selectedOption, controller}) {
 //  const {userType, setFlightCode}=props
   const [searchField, setSearchField] = useState("");
   const [searchShow, setSearchShow] = useState(false); 
-     // CSS style for the button container
-  const buttonContainerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between', // Align items to the start and end of the container
-    alignItems: 'center', // Center vertically
-    marginBottom: '10px', // Adjust as needed
-  };
-
-  // CSS style for the button
-  const buttonStyle = {
-    marginLeft: 'auto', // Push the button to the right
-  };
-
-
-  const ControllerMap = {
-    'Manage Deities': 'deity',
-    'Manage Forum': 'Forum',
-    'Manage Calendar' : 'event',
-  };
-  
   const jsonData = 
   {
     "deities": [
@@ -66,7 +46,7 @@ function BrowseDatabase({controller}) {
   }
 
 
-const filteredSearch = jsonData.deities.filter((deity) => {
+const filteredSearchDeity = jsonData.deities.filter((deity) => {
     const searchTerm = searchField.toLowerCase().trim();
     if (!searchTerm) {
       return true;
@@ -88,9 +68,9 @@ const filteredSearch = jsonData.deities.filter((deity) => {
   };
 
   function searchList() {
-    if (searchShow) {
+    if (searchShow && controller === "Deity") {
       return (
-        <SearchList filteredSearch={filteredSearch}/>
+        <SearchList filteredSearch={filteredSearchDeity}/>
       );
     } 
   }
@@ -101,13 +81,12 @@ const filteredSearch = jsonData.deities.filter((deity) => {
     <>
       <div className={"align-center"}>
         <div className="navy georgia ma0 grow">
-        <button className='modifybutton' style={buttonStyle}>{`add ${ControllerMap[controller]}`} </button>
-          <h2 className="f2">{controller}</h2>
+          <h2 className="f2"><strong>{selectedOption}</strong></h2>
         </div>
         <div className={"inputContainer"}>
           <input 
             type="search" 
-            placeholder={`Search name of ${ControllerMap[controller]}`}
+            placeholder={`Search name of ${controller}`}
             onChange={handleChange}
           />
         </div>
