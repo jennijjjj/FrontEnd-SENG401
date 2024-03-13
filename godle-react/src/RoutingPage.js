@@ -15,6 +15,7 @@ const RoutingPage = ({ page }) => {
   const [matchedDeities, setMatchedDeities] = useState(undefined);
   const [deity, setDeity] = useState(undefined);
   const [tosButtonClicked, settosButtonClicked] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -28,7 +29,7 @@ const RoutingPage = ({ page }) => {
   if (deity !== undefined) {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
         <Container fluid>
           <Deity deity={deity} setDeity={setDeity} />
         </Container>
@@ -36,10 +37,23 @@ const RoutingPage = ({ page }) => {
     );
   }
 
+  if (isAdmin) {
+    return (
+      <div>
+        <AppNavbar user={user} setUser={setUser} 
+        setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
+        <Container fluid>
+          <Admin />
+        </Container>
+      </div>
+    )
+  }
+
   if (page === "Home") {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} 
+        setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
         <Container fluid>
           <Home tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} />
         </Container>
@@ -48,7 +62,8 @@ const RoutingPage = ({ page }) => {
   } else if (page === "Register") {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} 
+        setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
         <Container fluid>
           <Register />
         </Container>
@@ -57,18 +72,10 @@ const RoutingPage = ({ page }) => {
   } else if (page === "Matches") {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} 
+        setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
         <Container fluid>
           <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} />
-        </Container>
-      </div>
-    )
-  }else if (page === "Admin") {
-    return (
-      <div>
-        <AppNavbar user={user} setUser={setUser} />
-        <Container fluid>
-          <Admin />
         </Container>
       </div>
     )

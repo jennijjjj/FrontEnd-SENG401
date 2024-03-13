@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { FastLayer } from 'konva/lib/FastLayer';
 
-const AppNavbar = ({ user, setUser }) => {
+const AppNavbar = ({ user, setUser, setIsAdmin, isAdmin }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,18 +48,26 @@ const AppNavbar = ({ user, setUser }) => {
         },
         body: JSON.stringify(userData)
       })
-        .then(response => {
-          if (response.ok) {
+      .then(response => {
+        if (response.ok) {
+          response.json().then(data => {
+            // Access the data in the response body
+            console.log(data);
             setUser(userData);
-            navigate("/");
-          }
-          else {
-            // If there's an error, display error message
-            alert('User not authenticated with the provided credentials.');
-            // Log the error
-            console.error(response);
-          }
-        })
+            if (data.admin === 1) {
+              navigate("/admin");
+              setIsAdmin(true);
+            } else {
+              navigate("/");
+            }
+          });
+        } else {
+          // If there's an error, display error message
+          alert('User not authenticated with the provided credentials.');
+          // Log the error
+          console.error(response);
+        }
+      })
 
     } catch (error) {
       alert("Exception occured trying to send login information to backend.");
@@ -86,7 +95,9 @@ const AppNavbar = ({ user, setUser }) => {
 
   return (
     <Navbar dark expand="md">
-      <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+      {!isAdmin && (
+        <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+      )}
       <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="justify-content-end" style={{ width: "100%" }} navbar>
@@ -98,13 +109,17 @@ const AppNavbar = ({ user, setUser }) => {
                 </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
-                <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
-                  Home
-                </DropdownItem>
-                <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
-                  Chatrooms
-                </DropdownItem>
-                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); navigate('/'); }}>
+              {!isAdmin && (
+                  <>
+                    <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
+                      Home
+                    </DropdownItem>
+                    <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
+                      Chatrooms
+                    </DropdownItem>
+                  </>
+                )}
+                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); setIsAdmin(false); navigate('/'); }}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>
@@ -162,3 +177,4 @@ const AppNavbar = ({ user, setUser }) => {
 };
 
 export default AppNavbar;
+
