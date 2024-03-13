@@ -6,7 +6,7 @@ function DeityCard({deity, setModalOpen}) {
   const [sourceUniverse, setSourceUniverse] = useState(deity ? deity.SourceUniverse : null);
   const [deityDescription, setDeityDescription] = useState(deity ? deity.DeityDescription : null);
   const [zealousness, setZealousness] = useState(deity ? deity.Zealousness : null);
-  const [mysticism, setMysticism] = useState(deity ? deity.SourceUniverse : null);
+  const [mysticism, setMysticism] = useState(deity ? deity.Mysticism : null);
   const [squeamishness, setSqueamishness] = useState(deity ? deity.Squeamishness : null);
   const [technology, setTechnology] = useState(deity ? deity.Technology : null);
   const [erudition, setErudition] = useState(deity ? deity.Erudition : null);
