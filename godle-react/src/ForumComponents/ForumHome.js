@@ -55,14 +55,6 @@ const Forum = () => {
         }
       });
     
-    function forumList() {
-        if (searchShow) {
-          return (
-            <ForumList filteredSearch={filteredSearch}/>
-          );
-        } 
-      }
-
     return (
         <div className="align-center">
             <h1 className="titleText">Forum</h1>
@@ -80,7 +72,7 @@ const Forum = () => {
                 </button>
             </div>
             <div>
-                {forumList()}
+                <ForumList filteredSearch={filteredSearch} />
             </div>
         </div>
     );

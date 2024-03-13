@@ -7,7 +7,8 @@ function ThreadCard({thread}) {
   const flexColumn={
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
   }
   const flexRow={
     display: "flex",
@@ -17,7 +18,12 @@ function ThreadCard({thread}) {
 
 
   return(
-    <div className="cardContainer">
+    <div className="cardContainer" style={{width:"80%"}}>
+        <div style={flexColumn}>
+        <div style={flexRow}></div>
+            <h1>{thread.subtitle}</h1>
+            <p style={{fontSize:"small"}}>Posted by: {thread.user}, {thread.date}</p>
+        </div>
    
       
     </div>
