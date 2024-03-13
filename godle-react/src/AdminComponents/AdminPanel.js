@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const AdminPanel = ({ onOptionClick }) => {
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
 
   const panelStyle = {
     width: '170px',

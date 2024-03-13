@@ -16,6 +16,7 @@ function DeityCard({deity, setModalOpen}) {
   const [aggression, setAggression] = useState(deity ? deity.Aggression : null);
   const [grandeur, setGrandeur] = useState(deity ? deity.Grandeur : null);
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
+  const [imageFile, setImageFile] = useState(null);
 
   const handleDelete = () => {
     const userResponse = window.confirm(`Are you sure you want to delete ${modifiedName}?`);
@@ -110,6 +111,16 @@ function DeityCard({deity, setModalOpen}) {
     setTemperament(e.target.value);
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setImageFile(file);
+  };
+
+  const handleUpload = () => {
+    // Send imageFile to the backend
+    // You can use Fetch API or Axios to send a POST request to the backend
+    // Include the imageFile in the request body or as form data
+  };
 
   const flexColumn={
     display: "flex",
@@ -149,7 +160,7 @@ function DeityCard({deity, setModalOpen}) {
             }}
             />
             <textarea
-              rows = {4} 
+              rows = {1} 
               cols={50} 
               value={deityDescription}
               disabled={!modifyMode}
@@ -160,19 +171,20 @@ function DeityCard({deity, setModalOpen}) {
                 width: '100%', // Set width to 100%
               }}
             />
+            <input type="file" onChange={handleImageChange} disabled={!modifyMode}/>
             </div>
-            
-   
-        
+
         <div style = {flexRow}>
             {modifyMode ? (
             <>
               {deity==null ? (
                   <>
+               
                     <button className='adminbutton' onClick={handleAdd}>Add</button>
                   </>
                 ) : (
                   <>
+                  
                     <button className='adminbutton' onClick={handleSave}>Save</button>
                   </>
               )}

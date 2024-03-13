@@ -44,7 +44,7 @@ const Admin = () => {
   
   return (
     <div>
-      <h1 className="titleText" style={headingStyle}><strong>Admin Controller</strong></h1>
+      <h1 className="titleText" style={headingStyle}><strong>🛠 Admin Controller</strong></h1>
       <div style={{ display: 'flex' }}>
       {selectedOption !== "Manage Users" && (
         <button className='adminbutton' style={buttonStyle} onClick={() => addButtonClicked()}>{`Add ${ControllerMap[selectedOption][1]}`} </button>
