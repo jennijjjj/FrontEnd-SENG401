@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ForumList from './ForumList';
+import AddNewthreadCard from './AddNewthreadCard';
 
 const Forum = () => {
     const [searchField, setSearchField] = useState("");
     const [categoryToggle, setCategoryToggle] = useState(false);
     const [searchShow, setSearchShow] = useState(false); 
+    const [addMode, setAddMode]=useState(false);
     const handleSearch = e => {
         setSearchField(e.target.value);
         if(e.target.value===""){
@@ -15,8 +17,13 @@ const Forum = () => {
         }
       };
 
+    const handleAddMode = e => {
+        setAddMode(true);
+        console.log("add");
+    };
+
+
       const clearSearch = e => {
-        setSearchField(e.target.value);
         if(e.target.value===""){
           setSearchShow(false);
         }
@@ -103,7 +110,7 @@ const Forum = () => {
                         <button id="searchQuerySubmit" 
                         type="submit" 
                         name="searchQuerySubmit"
-                        onClick={handleSearch}>
+                        onClick={() =>handleSearch}>
                         🔎︎
                         </button>
                     </div>
@@ -120,7 +127,17 @@ const Forum = () => {
 
                 </div>
                 
-                <button type="submit" className="submit-button" ><div><p style={{fontWeight:"bolder"}}>Add Thread</p></div></button>
+                
+                <button className="submit-button" 
+                onClick={() =>handleAddMode()}>
+                    <div>
+                        <p style={{fontWeight:"bolder"}}>Add Thread</p>
+                    </div>
+                </button>
+
+            </div>
+            <div style={{width:"80%"}}>
+                {addMode && <AddNewthreadCard/> }
 
             </div>
 

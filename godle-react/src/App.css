@@ -213,6 +213,18 @@ body {
   justify-items: center;
   align-items: center;
 }
+.post-button {
+  padding: 10px 20px;
+  color: #5500e7;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+}
 
 .tos-button {
   padding: 10px 20px;
@@ -230,6 +242,10 @@ body {
   background-color:#057e93;
 }
 
+.post-button:hover {
+  background-color:#057e93;
+  color:white;
+}
 .slider-form {
   text-align: center;
   margin-top: 10px;
