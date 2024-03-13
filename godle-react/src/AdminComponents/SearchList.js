@@ -1,10 +1,17 @@
 import DeityCard from "./DeityCard";
+import UserCard from './UserCard'; 
 
-
-function SearchList({ filteredSearch}) {
-
+function SearchList({ filteredSearch, controller}) {
+  let filtered;
   
-  const filtered = filteredSearch.map(deity =>  <DeityCard key={deity.DeityName} deity={deity}/>); 
+  if (controller === "Deity") {
+    filtered = filteredSearch.map((deity) => <DeityCard key={deity.id} deity={deity} />);
+  } else if (controller === "User") {
+    filtered = filteredSearch.map((user) => <UserCard key={user.id} user={user} />);
+  } else {
+    filtered = null; // or handle other cases as needed
+  }
+
   return (
     <div className={"searchContainer"}>
       {filtered}

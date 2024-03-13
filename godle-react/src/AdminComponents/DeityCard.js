@@ -17,7 +17,7 @@ function DeityCard({deity, setModalOpen}) {
   const [grandeur, setGrandeur] = useState(deity ? deity.Grandeur : null);
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
 
-  const handleClick = () => {
+  const handleDelete = () => {
     alert('Button clicked!');
   };
   const handleSave = () => {
@@ -157,7 +157,7 @@ function DeityCard({deity, setModalOpen}) {
           ) : (
             <>
               <button className='adminbutton' onClick={modifyClick}>Modify</button>
-              <button className='deletebutton' onClick={handleClick}>DELETE</button>
+              <button className='deletebutton' onClick={handleDelete}><strong>DELETE</strong></button>
             </>
           )}
                    

@@ -45,14 +45,14 @@ const AdminPanel = ({ onOptionClick }) => {
             style={listItemStyle}
             onClick={() => handleOptionClick("Manage Deities")} 
           >
-            ⚚  Manage Deities
+            ⚜  Manage Deities
           </li>
           <li
             className="list-group-item"
             style={listItemStyle}
-            onClick={() => handleOptionClick("Manage Deities")} 
+            onClick={() => handleOptionClick("Manage Users")} 
           >
-            ⚚  Manage Users
+            ☺  Manage Users
           </li>
           <li
             style={listItemStyle}

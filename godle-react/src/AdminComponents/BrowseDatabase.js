@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SearchList from './SearchList';
 
-function BrowseDatabase({selectedOption, controller}) {
+function BrowseDatabase({selectedOption, searchVar, controller}) {
 //  const {userType, setFlightCode}=props
   const [searchField, setSearchField] = useState("");
   const [searchShow, setSearchShow] = useState(false); 
-  const jsonData = 
+  const deitiesData = 
   {
     "deities": [
       {
@@ -45,14 +45,103 @@ function BrowseDatabase({selectedOption, controller}) {
     ]
   }
 
+  const usersData = 
+  {
+    "users": [
+      {
+        "UserName": "Maximus",
+        "Email": "maximus@example.com",
+        "UserPassword": "pass123",
+        "ChosenDeity": "Jupiter",
+        "Zealousness": 3.5,
+        "Mysticism": 4,
+        "Squeamishness": 0.5,
+        "Technology": 2,
+        "Erudition": 3.5,
+        "Organization": 4,
+        "Morality": 3,
+        "Zen": 1.5,
+        "Aggression": 3.5,
+        "Grandeur": 4,
+        "Temperament": 3
+      },
+      {
+        "UserName": "Livia",
+        "Email": "livia@example.com",
+        "UserPassword": "pass123",
+        "ChosenDeity": "Venus",
+        "Zealousness": 2,
+        "Mysticism": 4,
+        "Squeamishness": 1,
+        "Technology": 2,
+        "Erudition": 3.5,
+        "Organization": 3,
+        "Morality": 4,
+        "Zen": 4,
+        "Aggression": 2,
+        "Grandeur": 3.5,
+        "Temperament": 3
+      },
+      {
+        "UserName": "Julius",
+        "Email": "julius@example.com",
+        "UserPassword": "pass321",
+        "ChosenDeity": "Venus",
+        "Zealousness": 2,
+        "Mysticism": 4,
+        "Squeamishness": 1,
+        "Technology": 2,
+        "Erudition": 3.5,
+        "Organization": 3,
+        "Morality": 4,
+        "Zen": 4,
+        "Aggression": 2,
+        "Grandeur": 3.5,
+        "Temperament": 3
+      },
+      {
+        "UserName": "Titus",
+        "Email": "titus@example.com",
+        "UserPassword": "pass123",
+        "ChosenDeity": "Mars",
+        "Zealousness": 4,
+        "Mysticism": 2,
+        "Squeamishness": 0,
+        "Technology": 1.5,
+        "Erudition": 2,
+        "Organization": 2.5,
+        "Morality": 1,
+        "Zen": 1,
+        "Aggression": 4,
+        "Grandeur": 3.5,
+        "Temperament": 4
+      }
+    ]
+    
+  }
 
-const filteredSearchDeity = jsonData.deities.filter((deity) => {
+
+
+
+const filteredSearchDeity = deitiesData.deities.filter((deity) => {
     const searchTerm = searchField.toLowerCase().trim();
     if (!searchTerm) {
       return true;
     } else {
       return (
         deity.DeityName.toLowerCase().includes(searchTerm)
+      );
+    }
+  });
+
+
+  const filteredSearchUser = usersData.users.filter((user) => {
+    const searchTerm = searchField.toLowerCase().trim();
+    if (!searchTerm) {
+      return true;
+    } else {
+      return (
+        user.Email.toLowerCase().includes(searchTerm)
       );
     }
   });
@@ -70,7 +159,11 @@ const filteredSearchDeity = jsonData.deities.filter((deity) => {
   function searchList() {
     if (searchShow && controller === "Deity") {
       return (
-        <SearchList filteredSearch={filteredSearchDeity}/>
+        <SearchList filteredSearch={filteredSearchDeity} controller={controller}/>
+      );
+    } else if (searchShow && controller === "User") {
+      return (
+        <SearchList filteredSearch={filteredSearchUser} controller={controller}/>
       );
     } 
   }
@@ -86,7 +179,7 @@ const filteredSearchDeity = jsonData.deities.filter((deity) => {
         <div className={"inputContainer"}>
           <input 
             type="search" 
-            placeholder={`Search name of ${controller}`}
+            placeholder={`Search ${searchVar} of ${controller}`}
             onChange={handleChange}
           />
         </div>
