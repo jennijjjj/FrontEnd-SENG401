@@ -3,7 +3,7 @@ import ForumList from './ForumList';
 
 const Forum = () => {
     const [searchField, setSearchField] = useState("");
-    const [categoryToggle, setCategoryToggle] = useState(true);
+    const [categoryToggle, setCategoryToggle] = useState(false);
     const [searchShow, setSearchShow] = useState(false); 
     const handleSearch = e => {
         setSearchField(e.target.value);
@@ -31,7 +31,8 @@ const Forum = () => {
         flexDirection: 'column', // Display items in a column
         alignItems: 'flex-start', // Align items to the left
         marginLeft: '10px',
-        width: '100px',
+        width: '120px',
+        padding:"5px",
       };
     
     const jsonForum={
@@ -110,8 +111,8 @@ const Forum = () => {
                 
             <div className="addThreadContainer" style ={{width:"57%", marginBottom:"30px"}}>
                 <div>
-                    <h2 style={{fontSize:"bigger", marginLeft:"40px",margin:"-20px"}}>🕬</h2>
-                    <h2 style={{fontSize:"100px", marginLeft:"6px",marginTop:"-40px",margin:"-20px"}}>🗺</h2>
+                    <h2 style={{fontSize:"bigger", marginLeft:"80px",margin:"-30px", marginTop:"-18px"}}>🕬</h2>
+                    <h2 style={{fontSize:"100px", marginLeft:"15px",marginTop:"-40px",margin:"-25px"}}>🗺</h2>
                 </div>
                 <div>
                     <h2><strong>Join the conversation!</strong></h2>
@@ -159,7 +160,7 @@ const Forum = () => {
                             className="list-group-item"
                             // onClick={() => handleOptionClick("Manage Forum")}
                         >
-                            All Relevant
+                            ⮽ Clear Filter
                         </li>
                     </div>
                 )}
