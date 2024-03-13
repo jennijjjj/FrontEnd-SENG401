@@ -1,15 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SearchList from './SearchList';
+import { getDeitiesData, getCalendarData, getForumData, getUsersData } from './ApiRequests/GetRequests';
 
 function BrowseDatabase({selectedOption, searchVar, controller}) {
 //  const {userType, setFlightCode}=props
   const [searchField, setSearchField] = useState("");
   const [searchShow, setSearchShow] = useState(false); 
-  const [deitiesData, setDeitiesData] = useState(null);
-  const [forumData, setForumData] = useState(null);
-  const [deitiesData, setDeitiesData] = useState(null);
+  //UNCOMMENT WHEN BACKEND GET REQUESTS ARE MADE
+  // const [deitiesData, setDeitiesData] = useState(null);
+  // const [usersData, setUsersData] = useState(null);
+  // const [forumData, setForumData] = useState(null);
+  // const [calendarData, setCalendarData] = useState(null);
 
-  const deitiesDataH = 
+  // const fetchJsonData = () => {
+  //   if (selectedOption === 'Manage Deities'){
+  //     setDeitiesData(getDeitiesData());
+  //   }
+  //   if (selectedOption === 'Manage Users'){
+  //     setUsersData(getUsersData());
+  //   }if (selectedOption === 'Manage Forum'){
+  //     setForumData(getForumData());
+  //   }
+  //   if (selectedOption === 'Manage Calendar'){
+  //     setCalendarData(getCalendarData());
+  //   }
+  // };
+  // fetchJsonData();
+  
+  const deitiesData = 
   {
     "deities": [
       {
@@ -49,7 +67,7 @@ function BrowseDatabase({selectedOption, searchVar, controller}) {
     ]
   }
 
-  const usersDataH = 
+  const usersData = 
   {
     "users": [
       {
@@ -123,42 +141,7 @@ function BrowseDatabase({selectedOption, searchVar, controller}) {
     ]
   }
 
-  const fetchJson = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
-    try {
-
-      const retreiveData = {
-        topicData: controller
-      };
-
-      fetch('/Admin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(retreiveData)
-      })
-      .then(response => {
-        if (response.ok) {
-          response.json().then(data => {
-            console.log(data);
-            setDeitiesData(data);
-          });
-        } else {
-          alert('Response NOT ok: trying to retreive json from backend.');
-          console.error(response);
-        }
-      })
-
-    } catch (error) {
-      alert("Exception occured trying to retreive json from backend.");
-      console.error('Exception occured trying to retreive json from backend.');
-    }
-  };
-
-
-
+  
 
 const filteredSearchDeity = deitiesData.deities.filter((deity) => {
     const searchTerm = searchField.toLowerCase().trim();
@@ -182,6 +165,28 @@ const filteredSearchDeity = deitiesData.deities.filter((deity) => {
       );
     }
   });
+  
+  //UNCOMMENT WHEN CALENDAR AND FORUM IS IMPLEMENTED
+  // const filteredSearchForum = forumData.users.filter((forum) => {
+  //   const searchTerm = searchField.toLowerCase().trim();
+  //   if (!searchTerm) {
+  //     return true;
+  //   } else {
+  //     return (
+  //       forum.Title.toLowerCase().includes(searchTerm)
+  //     );
+  //   }
+  // });
+  // const filteredSearchCalendar = calendarData.users.filter((event) => {
+  //   const searchTerm = searchField.toLowerCase().trim();
+  //   if (!searchTerm) {
+  //     return true;
+  //   } else {
+  //     return (
+  //       event.Title.toLowerCase().includes(searchTerm)
+  //     );
+  //   }
+  // });
 
   const handleChange = e => {
     setSearchField(e.target.value);
@@ -203,9 +208,17 @@ const filteredSearchDeity = deitiesData.deities.filter((deity) => {
         <SearchList filteredSearch={filteredSearchUser} controller={controller}/>
       );
     } 
+    //UNCOMMENT WHEN CALENDAR AND FORUM IS IMPLEMENTED
+    // else if (searchShow && controller === "Event") {
+    //   return (
+    //     <SearchList filteredSearch={filteredSearchCalendar} controller={controller}/>
+    //   );
+    // } else if (searchShow && controller === "Forum") {
+    //   return (
+    //     <SearchList filteredSearch={filteredSearchForum} controller={controller}/>
+    //   );
+    // } 
   }
-
-  
 
   return (
     <>
