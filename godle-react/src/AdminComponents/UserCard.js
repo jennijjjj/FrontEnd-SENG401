@@ -3,7 +3,16 @@ import React from 'react';
 function UserCard({user}) {
 
   const handleDelete = () => {
-    alert('Button clicked!');
+    const userResponse = window.confirm(`Are you sure you want to delete ${user.Email}?`);
+    if (userResponse) {
+      alert(`Successfully deleted ${user.Email}!`);
+        // User clicked "OK" or "Yes"
+        // Perform action
+    } else {
+        // User clicked "Cancel" or "No"
+        // Perform alternative action or do nothing
+    }
+   
   };
   
 

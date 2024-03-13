@@ -18,15 +18,26 @@ function DeityCard({deity, setModalOpen}) {
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
 
   const handleDelete = () => {
-    alert('Button clicked!');
+    const userResponse = window.confirm(`Are you sure you want to delete ${modifiedName}?`);
+    if (userResponse) {
+      alert(`Successfully deleted ${modifiedName}!`);
+        // User clicked "OK" or "Yes"
+        // Perform action
+    } else {
+        // User clicked "Cancel" or "No"
+        // Perform alternative action or do nothing
+    }
+   
   };
   const handleSave = () => {
+    alert(`Successfully saved ${modifiedName}!`);
     setModifyMode(false); 
     if (deity==null){
       setModalOpen(false);
     }
   };
   const handleAdd = () => {
+    alert(`Added new deity: ${modifiedName}!`);
     setModifyMode(false); 
     if (deity==null){
       setModalOpen(false);
@@ -158,11 +169,11 @@ function DeityCard({deity, setModalOpen}) {
             <>
               {deity==null ? (
                   <>
-                    <button className='adminbutton' onClick={handleSave}>Add</button>
+                    <button className='adminbutton' onClick={handleAdd}>Add</button>
                   </>
                 ) : (
                   <>
-                    <button className='adminbutton' onClick={handleAdd}>Save</button>
+                    <button className='adminbutton' onClick={handleSave}>Save</button>
                   </>
               )}
               <button className='deletebutton' onClick={handleCancel}>Cancel</button>
