@@ -26,7 +26,12 @@ function DeityCard({deity, setModalOpen}) {
       setModalOpen(false);
     }
   };
-
+  const handleAdd = () => {
+    setModifyMode(false); 
+    if (deity==null){
+      setModalOpen(false);
+    }
+  };
   const handleCancel = () => {
     setModifyMode(false); 
     if (deity==null){
@@ -151,7 +156,15 @@ function DeityCard({deity, setModalOpen}) {
         <div style = {flexRow}>
             {modifyMode ? (
             <>
-              <button className='adminbutton' onClick={handleSave}>Save</button>
+              {deity==null ? (
+                  <>
+                    <button className='adminbutton' onClick={handleSave}>Add</button>
+                  </>
+                ) : (
+                  <>
+                    <button className='adminbutton' onClick={handleAdd}>Save</button>
+                  </>
+              )}
               <button className='deletebutton' onClick={handleCancel}>Cancel</button>
             </>
           ) : (
