@@ -18,7 +18,7 @@ function ThreadCard({thread}) {
 
 
   return(
-    <div className="cardContainer" style={{width:"80%"}}>
+    <div className="cardContainer" style={{width:"100%"}}>
         <div style={flexColumn}>
         <div style={flexRow}></div>
             <h1>{thread.subtitle}</h1>

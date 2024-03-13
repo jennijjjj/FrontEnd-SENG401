@@ -317,31 +317,30 @@ body {
   background-color: #b3b3b3; /* Set the background color on hover */
 }
 
+
+.searchContainer {
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  display: flex;
+  margin: 4px, 4px;
+  padding: 4px;
+  height: auto;
+  overflow-x: auto;
+  overflow-y: auto;
+  text-align: justify;
+  width:100%;
+}
 .cardContainer {
   height: auto;
-  width: auto;
+  width: 100%;
   border: 1px solid #000; /* Replace with your desired border properties */
   border-radius: 10px; /* Adjust the radius to make the corners more or less rounded */
   text-align: center; /* Aligns text content horizontally in the center */
   padding: 20px; /* Add padding to the container as needed */
-  margin: 10px;
-  transition: border-width 0.3s; /* Smooth transition for border changes */
+  margin: 20px;
   color:black;
   background-color: white;
-}
-
-.searchContainer {
-  flex-direction: column;
-  display: flex;
-  align-items: flex-start;
-  padding: 20px;
-  height: 100vh;
-  margin: 4px, 4px;
-  padding: 4px;
-  height: 550px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-align: justify;
 }
 .align-center{
   flex-direction: column;

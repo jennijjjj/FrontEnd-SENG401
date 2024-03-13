@@ -5,7 +5,7 @@ function ForumList({ filteredSearch}) {
 
   const filtered = filteredSearch.map(thread =>  <ThreadCard thread={thread} />); 
   return (
-    <div className={"searchContainer"}>
+    <div>
       {filtered}
     </div>
   );

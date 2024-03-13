@@ -74,6 +74,7 @@ const Forum = () => {
             <div>
                 <ForumList filteredSearch={filteredSearch} />
             </div>
+            
         </div>
     );
 };
