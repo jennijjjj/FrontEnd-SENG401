@@ -374,3 +374,77 @@ body {
 .modifybutton:hover{
   background-color: purple;
 }
+
+.deity-profile {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url('../public/Images/deityProfileBackground.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: calc(100vw + 220px);
+  padding-top: calc(100vw - 63%);
+}
+
+.deity-profile-image {
+  height: 175px;
+  width: 175px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  text-align: center;
+}
+
+.deity-profile-name {
+  font-size: 5vw;
+  font-family: 'UnifrakturMaguntia', cursive;
+  color: rgb(236, 215, 255);
+  text-shadow: 
+      0 0 10px rgb(136, 0, 255),
+      0 0 20px rgb(94, 2, 171),
+      0 0 30px rgb(49, 4, 88),
+      0 0 40px rgb(26, 20, 64),
+      0 0 50px #05303b,
+      0 0 60px rgb(34, 48, 77),
+      0 0 70px rgb(136, 0, 255);
+  animation: flicker 1.5s infinite alternate;
+  margin-bottom: -10px;
+}
+
+.deity-profile-source-universe {
+  font-size: medium;
+}
+
+.deity-profile-description-attributes-container {
+  display: flex;
+  max-height: calc(100vw - 95%);
+  min-height: 150px;
+  margin-top: 20%;
+  color: #000;
+  font-size: 1vw;
+}
+
+.deity-profile-attributes {
+  flex: 1;
+  color: #000;
+}
+
+.deity-profile-description {
+  flex: 0.45;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.deity-profile-description::-webkit-scrollbar {
+  display: none;
+}
+
+.deity-profile-description-title {
+  text-align: center;
+  font-weight: bold;
+  color: #000; /* Or any color you prefer */
+  padding: 5% 0; /* Space above and below the title */
+  font-size: 2vw;
+}

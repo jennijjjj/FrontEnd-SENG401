@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-const AppNavbar = ({ user, setUser }) => {
+const AppNavbar = ({ user, setUser, setDeity }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -50,6 +50,26 @@ const AppNavbar = ({ user, setUser }) => {
         .then(response => {
           if (response.ok) {
             setUser(userData);
+            fetch('/IsUserMatched', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(username),
+            })
+              .then(response => {
+                if (response.ok) {
+                  return response.json(); // Parse JSON data from the response
+                }
+                throw new Error('No Deity Matched To User'); // Handle non-OK responses
+              })
+              .then(data => {
+                console.log("Deity Object Found");
+                setDeity(data);
+              })
+              .catch(error => {
+                console.log('There was an error', error);
+              });
             navigate("/");
           }
           else {
