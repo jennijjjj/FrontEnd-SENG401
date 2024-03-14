@@ -21,8 +21,7 @@ app.post('/upload', (req, res) => {
   console.log(req.files);
 
   const file = req.files.image; // Assuming the key is 'image'
-  const uploadPath = path.join(__dirname, '..', '..', 'public', 'images', file.name);
-
+  const uploadPath = path.join(__dirname, '..', '..', 'public', 'images', file.name); //TIP for celina: __dirname can be hardcoded to: C:\Users\jenni\OneDrive\Documents\GitHub\FrontEnd-SENG401\godle-react\src\AdminComponents
   // Check if the directory exists, if not, create it
   const directory = path.dirname(uploadPath);
   if (!fs.existsSync(directory)) {
