@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-const AppNavbar = ({ user, setUser, setDeity }) => {
+const AppNavbar = ({ user, setUser, setDeity, deity }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -124,6 +124,13 @@ const AppNavbar = ({ user, setUser, setDeity }) => {
                 <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
                   Chatrooms
                 </DropdownItem>
+                {deity ? (
+                  <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
+                    Chatrooms
+                  </DropdownItem>
+                ) : (
+                  null
+                )}
                 <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); navigate('/'); }}>
                   Logout
                 </DropdownItem>
