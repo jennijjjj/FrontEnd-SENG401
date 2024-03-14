@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { UploadImage } from './UploadImage';
+import { uploadImage, deleteImage } from './ApiRequests/ImageApi';
+import {UploadImage} from './UploadImage';
 function DeityCard({deity, setModalOpen}) {
   const [modifyMode, setModifyMode] = useState(deity ? false : true);
   const [modifiedName, setModifiedName] = useState(deity ? deity.DeityName : null);
@@ -16,22 +17,35 @@ function DeityCard({deity, setModalOpen}) {
   const [aggression, setAggression] = useState(deity ? deity.Aggression : null);
   const [grandeur, setGrandeur] = useState(deity ? deity.Grandeur : null);
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
-  // const [imageFile, setImageFile] = useState(null);
-
+  const [images, setImages] = useState([]);
 
   const handleDelete = () => {
-    const userResponse = window.confirm(`Are you sure you want to delete ${modifiedName}?`);
-    if (userResponse) {
-      alert(`Successfully deleted ${modifiedName}!`);
-        // User clicked "OK" or "Yes"
-        // Perform action
-    } else {
-        // User clicked "Cancel" or "No"
-        // Perform alternative action or do nothing
+    const result =deleteImage(modifiedName);
+    if (result===1){
+        const userResponse = window.confirm(`Are you sure you want to delete ${modifiedName}?`);
+      if (userResponse) {
+        
+        alert(`Successfully deleted ${modifiedName}!`);
+        
+          // User clicked "OK" or "Yes"
+          // Perform action
+      } else {
+          // User clicked "Cancel" or "No"
+          // Perform alternative action or do nothing
+      }
+
     }
+    
    
   };
-  const handleSave = () => {
+
+  // const handleImageUpload = (uploadImageFunction) => {
+  //   // Call the uploadImageFunction whenever you want to trigger the image upload
+  //   // For example, you can call it when a submit button is pressed in another class
+  //   uploadImageFunction();
+  // };
+  const handleSave= () => {
+    uploadImage(images, modifiedName);
     alert(`Successfully saved ${modifiedName}!`);
     setModifyMode(false); 
     if (deity==null){
@@ -39,6 +53,8 @@ function DeityCard({deity, setModalOpen}) {
     }
   };
   const handleAdd = () => {
+    uploadImage(images, modifiedName);
+    uploadImage(images);
     alert(`Added new deity: ${modifiedName}!`);
     setModifyMode(false); 
     if (deity==null){
@@ -117,11 +133,7 @@ function DeityCard({deity, setModalOpen}) {
   //   setImageFile(file);
   // };
 
-  const handleUpload = () => {
-    // Send imageFile to the backend
-    // You can use Fetch API or Axios to send a POST request to the backend
-    // Include the imageFile in the request body or as form data
-  };
+  
 
   const flexColumn={
     display: "flex",
@@ -183,7 +195,7 @@ function DeityCard({deity, setModalOpen}) {
             /> */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", margin: "8px" }}>
                   {modifyMode ? (
-                      <UploadImage />
+                      <UploadImage images={images} setImages={setImages} deityName={modifiedName}/>
                   ) : (
                       <div></div>
                   )}
