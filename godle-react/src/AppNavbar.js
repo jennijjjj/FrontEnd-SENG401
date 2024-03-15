@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -34,59 +34,53 @@ const AppNavbar = ({ user, setUser }) => {
       if (response.ok) {
         console.log("hhh"+response);
         const userDataWithToken = await response.json();
-        handleSuccessfulLogin(userDataWithToken, userData);
+        handleSuccessfulLogin(userDataWithToken);
         setUser(userData)
         
       } else {
         // If there's an error, display error message
         setIncorrectLogin(true);
         console.error('User not authenticated with the provided credentials.');
+        
       }
     } catch (error) {
       setIncorrectLogin(true);
       console.error('Exception occurred trying to send login information to backend.');
     }
-
     setUsername('');
     setPassword('');
+
+    
   };
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     
     if (storedToken) {
-      const storedUsername = localStorage.getItem('username') || ''; // Default to empty string if no value found
-      const storedPassword = localStorage.getItem('password') || ''; // Default to empty string if no value found
-      setUsername(storedUsername);
-      setPassword(storedPassword);
+      const storedUser = JSON.parse(localStorage.getItem('user')); 
+      setUser(storedUser)
       console.log("effect"+username+password);
       // If there's a token stored in localStorage
       // Fetch user data or perform any necessary actions
       // For now, let's assume you're fetching user data from an API
-      handleSuccessfulLogin(storedToken, null);
     }
-  }, [username, password]);
+  }, []);
 
-  const handleSuccessfulLogin = (userDataWithToken, userData) => {
+  const handleSuccessfulLogin = (userDataWithToken) => {
     const storedToken = localStorage.getItem('token');
-    const storedUsername = localStorage.getItem('username');
-    const storedPassword = localStorage.getItem('password');
-    
-    if (storedToken && storedToken === userDataWithToken.token) {
+    console.log("compare toe"+storedToken+","+userDataWithToken.token);
+    if (storedToken === userDataWithToken.token) {
       // If the stored token matches the token received from the backend
       // and the user is already logged in with the same token, keep them logged in
-      setUsername(storedUsername);
-      setPassword(storedPassword);
-      handleLogin();
+      setUser(JSON.parse(localStorage.getItem('user')));
       console.log("same user"+user);
       navigate("/");
     } else {
       // Otherwise, perform a regular login
-      setUser(userData);
+      
       localStorage.setItem('token', userDataWithToken.token);
-      localStorage.setItem('username', userData.username);
-      localStorage.setItem('password', userData.password);
-      console.log("new user stored"+localStorage.getItem('username'));
+      localStorage.setItem('user',JSON.stringify(user));
+      console.log("new user stored"+localStorage.getItem('user'));
       navigate("/");
     }
     console.log(localStorage.token);
