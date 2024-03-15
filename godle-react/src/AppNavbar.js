@@ -10,25 +10,8 @@ const AppNavbar = ({ user, setUser }) => {
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
 
-  useEffect(() => {
-    let timer;
-    if (incorrectLogin === true) {
-      // Set a timer to set yourState to false after 5 seconds
-      timer = setTimeout(() => {
-        setIncorrectLogin(false);
-      }, 5000);
-    }
 
-    // Cleanup function to clear the timer if the component unmounts
-    // or if yourState changes before the timer finishes
-    return () => clearTimeout(timer);
-  }, [incorrectLogin, setIncorrectLogin]);
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
     // Authenticate
@@ -40,34 +23,104 @@ const AppNavbar = ({ user, setUser }) => {
       };
 
       // Send HTTP POST request to register the user
-      fetch('/Login', {
+      const response = await fetch('/Login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
-      })
-        .then(response => {
-          if (response.ok) {
-            setUser(userData);
-            navigate("/");
-          }
-          else {
-            // If there's an error, display error message
-            alert('User not authenticated with the provided credentials.');
-            // Log the error
-            console.error(response);
-          }
-        })
+      });
 
+      if (response.ok) {
+        console.log("hhh"+response);
+        const userDataWithToken = await response.json();
+        handleSuccessfulLogin(userDataWithToken, userData);
+        setUser(userData)
+        
+      } else {
+        // If there's an error, display error message
+        setIncorrectLogin(true);
+        console.error('User not authenticated with the provided credentials.');
+      }
     } catch (error) {
-      alert("Exception occured trying to send login information to backend.");
-      console.error('Exception occured trying to send login information to backend.');
+      setIncorrectLogin(true);
+      console.error('Exception occurred trying to send login information to backend.');
     }
 
     setUsername('');
     setPassword('');
   };
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    
+    if (storedToken) {
+      const storedUsername = localStorage.getItem('username') || ''; // Default to empty string if no value found
+      const storedPassword = localStorage.getItem('password') || ''; // Default to empty string if no value found
+      setUsername(storedUsername);
+      setPassword(storedPassword);
+      console.log("effect"+username+password);
+      // If there's a token stored in localStorage
+      // Fetch user data or perform any necessary actions
+      // For now, let's assume you're fetching user data from an API
+      handleSuccessfulLogin(storedToken, null);
+    }
+  }, [username, password]);
+
+  const handleSuccessfulLogin = (userDataWithToken, userData) => {
+    const storedToken = localStorage.getItem('token');
+    const storedUsername = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('password');
+    
+    if (storedToken && storedToken === userDataWithToken.token) {
+      // If the stored token matches the token received from the backend
+      // and the user is already logged in with the same token, keep them logged in
+      setUsername(storedUsername);
+      setPassword(storedPassword);
+      handleLogin();
+      console.log("same user"+user);
+      navigate("/");
+    } else {
+      // Otherwise, perform a regular login
+      setUser(userData);
+      localStorage.setItem('token', userDataWithToken.token);
+      localStorage.setItem('username', userData.username);
+      localStorage.setItem('password', userData.password);
+      console.log("new user stored"+localStorage.getItem('username'));
+      navigate("/");
+    }
+    console.log(localStorage.token);
+  };
+  const handleLogout = () => {
+    // Clear user state
+    setUser(undefined);
+    
+    // Clear token from local storage
+    localStorage.clear();
+  
+    // Navigate to the home page
+    navigate('/');
+  };
+  
+
+  // useEffect(() => {
+  //   let timer;
+  //   if (incorrectLogin === true) {
+  //     // Set a timer to set yourState to false after 5 seconds
+  //     timer = setTimeout(() => {
+  //       setIncorrectLogin(false);
+  //     }, 5000);
+  //   }
+
+  //   // Cleanup function to clear the timer if the component unmounts
+  //   // or if yourState changes before the timer finishes
+  //   return () => clearTimeout(timer);
+  // }, [incorrectLogin, setIncorrectLogin]);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
 
 
   const handleUsernameChange = (e) => {
@@ -94,7 +147,7 @@ const AppNavbar = ({ user, setUser }) => {
             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
               <DropdownToggle nav caret>
                 <>
-                  {user.username}
+                  {user.username}h
                 </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
@@ -104,7 +157,7 @@ const AppNavbar = ({ user, setUser }) => {
                 <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
                   Chatrooms
                 </DropdownItem>
-                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); navigate('/'); }}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => { handleLogout() }}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>

@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SparklingCursor from './SparklingCursor';
 
 const App = () => {
+  localStorage.clear();
+
   return (
     <div>
       <div className="gradient-container"></div>
