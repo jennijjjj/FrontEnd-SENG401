@@ -41,7 +41,7 @@ const RoutingPage = ({ page }) => {
       <div>
         <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
         <Container fluid>
-          <Home tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} />
+          <Home tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} user={user} />
         </Container>
       </div>
     );
