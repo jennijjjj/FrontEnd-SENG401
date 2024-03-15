@@ -3,7 +3,7 @@ import Slider from './Slider';
 import { useNavigate } from "react-router-dom";
 
 
-const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities }) => {
+const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }) => {
     const [sliderValues, setSliderValues] = useState({
         Zealousness: 0,
         Mysticism: 0,
