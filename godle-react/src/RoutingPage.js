@@ -78,7 +78,7 @@ const RoutingPage = ({ page }) => {
       <div>
         <AppNavbar user={user} setUser={setUser} />
         <Container fluid>
-          <Forum />
+          <Forum user={user} />
         </Container>
       </div>
     )

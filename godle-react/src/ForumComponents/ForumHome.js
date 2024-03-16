@@ -1,20 +1,67 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ForumList from './ForumList';
 import AddNewthreadCard from './AddNewthreadCard';
+import { fetchThreads } from './ForumApiRequests';
 
-const Forum = () => {
+const Forum = (user) => {
     const [searchField, setSearchField] = useState("");
     const [categoryToggle, setCategoryToggle] = useState(false);
-    const [searchShow, setSearchShow] = useState(false); 
     const [addMode, setAddMode]=useState(false);
+    const [isPostActive, setPostActive] = useState(false);
+    const [isUserActive, setUserActive] = useState(false);
+    const [isMyPostsActive, setMyPostsActive] = useState(false);
+    const username = (user ? user.user.username : "");
+    const [threads, setThreads] = useState([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const fetchedThreads = await fetchThreads(username); // Replace with the actual email
+          setThreads(fetchedThreads);
+        } catch (error) {
+          alert('Error fetching data: ' + error.message);
+        }
+
+        console.log("home"+threads);
+      };
+      fetchData();
+    }, []);
+    // Function to handle the click event for the "Post" item
+    const handlePostClick = () => {
+        setMyPostsActive(false);
+        // Toggle the active state of "Post"
+        setPostActive(true);
+        // Deactivate other items
+        setUserActive(false);
+    };
+
+    const handleMyPostsClick = () => {
+        setMyPostsActive(true);
+        // Toggle the active state of "Post"
+        setPostActive(false);
+        // Deactivate other items
+        setUserActive(false);
+    };
+
+    // Function to handle the click event for the "User" item
+    const handleUserClick = () => {
+        setMyPostsActive(false);
+        // Toggle the active state of "User"
+        setUserActive(true);
+        // Deactivate other items
+        setPostActive(false);
+    };
+
     const handleSearch = e => {
         setSearchField(e.target.value);
-        if(e.target.value===""){
-          setSearchShow(false);
-        }
-        else {
-          setSearchShow(true);
-        }
+        
+        // if(e.target.value===""){
+        //   setSearchShow(true);
+        // }
+        // else {
+        //   setSearchShow(false);
+        // }
+        console.log(e.target.value);
       };
 
     const handleAddMode = e => {
@@ -23,12 +70,9 @@ const Forum = () => {
     };
 
 
-      const clearSearch = e => {
-        if(e.target.value===""){
-          setSearchShow(false);
-        }
+      const submitSearch = e => {
+        // setSearchShow(true)
       };
-
 
       const listItemStyle = {
         transition: 'background 0.3s', // Smooth transition on hover
@@ -45,26 +89,26 @@ const Forum = () => {
     const jsonForum={
         "forums":[
             {
-              "user": "JohnDoe",
-              "date": "2024-03-12T08:30:00",
+              "user": "1@1",
+              "date": "2024-3-13 19:38:5",
               "subtitle": "Introduction",
-              "body": "Hello everyone! I'm new here. Just wanted to introduce myself."
+              "body": "Hello everyone! I'm new here job. Just wanted to introduce myself."
             },
             {
               "user": "AliceSmith",
-              "date": "2024-03-12T09:45:00",
+              "date": "2023-3-13 19:38:5",
               "subtitle": "Question about Forum Rules",
-              "body": "Can someone clarify the rules regarding posting links?"
+              "body": "Can someone clarify the rules regarding posting @1@1 links?"
             },
             {
               "user": "JaneDoe",
-              "date": "2024-03-12T11:20:00",
+              "date": "2024-3-13 10:38:5",
               "subtitle": "Feedback on New Feature",
               "body": "I really like the new feature. Great job to the development team!"
             },
             {
-              "user": "BobJohnson",
-              "date": "2024-03-12T13:10:00",
+              "user": "1@1",
+              "date": "2024-3-18 19:38:5",
               "subtitle": "Discussion on Current Events",
               "body": "What are your thoughts on the recent political developments?I really like the new feature. Great job to the development team!I really like the new feature. Great job to the development team!"
             }
@@ -90,54 +134,106 @@ const Forum = () => {
           );
         }
       });
+
+      const filteredSearchPost = jsonForum.forums.filter((thread) => {
+        const searchTerm = searchField.toLowerCase().trim();
+        if (!searchTerm) {
+          return true;
+        } else {
+          return (
+            thread.subtitle.toLowerCase().includes(searchTerm)||
+            thread.body.toLowerCase().includes(searchTerm)
+          );
+        }
+      });
+
+      const filteredSearchUser = jsonForum.forums.filter((thread) => {
+        const searchTerm = searchField.toLowerCase().trim();
+        if (!searchTerm) {
+          return true;
+        } else {
+          return (
+            thread.user.toLowerCase().includes(searchTerm)
+          );
+        }
+      });
+      const filteredMyPosts = jsonForum.forums.filter((thread) => {
+        const searchTerm = searchField.toLowerCase().trim();
+        if (!searchTerm) {
+          // If searchTerm is empty, return true to include all threads
+          return thread.user === username; // Check if thread.user exactly matches username
+        } else {
+          // Otherwise, filter based on the conditions
+          return (
+            thread.user === username && // Check if thread.user exactly matches username
+            (thread.body.includes(searchTerm) || thread.subtitle.includes(searchTerm)) // Check if body or subtitle includes searchTerm
+          );
+        }
+      });
+      
+    const filteredData=()=>{
+        if (!isPostActive && !isUserActive && !isMyPostsActive){
+            return <ForumList filteredSearch={filteredSearch} username={username} />
+        } else if (isPostActive){
+            return <ForumList filteredSearch={filteredSearchPost} username={username} />
+        } else if ( isUserActive){
+            return <ForumList filteredSearch={filteredSearchUser} username={username} />
+        } else if (isMyPostsActive){
+            return <ForumList filteredSearch={filteredMyPosts} username={username} />
+        } 
+    }
+
     
     return (
         <div>
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
                 <div className="forum-center-container">
-                    <h1 style={{fontWeight:"bolder"}}>🗪 Forum🗧</h1>
+                    <h1 style={{fontWeight:"bolder"}}>🗪 ThreadTalk🗧</h1>
                     <div class="searchBar">
                         <input id="searchQueryInput" 
                         type="text" 
                         name="searchQueryInput" 
                         placeholder="Search for a topic..." 
-                        onChange={clearSearch}
+                        onChange={handleSearch}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
-                                handleSearch(e);
+                                submitSearch(e);
                             }
                         }}/>
                         <button id="searchQuerySubmit" 
                         type="submit" 
                         name="searchQuerySubmit"
-                        onClick={() =>handleSearch}>
+                        onClick={submitSearch}>
                         🔎︎
                         </button>
                     </div>
                 </div>
-                
-            <div className="addThreadContainer" style ={{width:"57%", marginBottom:"30px"}}>
-                <div>
-                    <h2 style={{fontSize:"bigger", marginLeft:"80px",margin:"-30px", marginTop:"-18px"}}>🕬</h2>
-                    <h2 style={{fontSize:"100px", marginLeft:"15px",marginTop:"-40px",margin:"-25px"}}>🗺</h2>
-                </div>
-                <div>
-                    <h2><strong>Join the conversation!</strong></h2>
-                    <p>Share your questions and thoughts to the community.</p>
+                {!addMode &&
+                    <div className="addThreadContainer" style ={{width:"57%", marginBottom:"30px"}}>
+                        <div>
+                            <h2 style={{fontSize:"bigger", marginLeft:"80px",margin:"-30px", marginTop:"-18px"}}>
+                                🕬</h2>
+                            <h2 style={{fontSize:"100px", marginLeft:"15px",marginTop:"-40px"}}>
+                                🗺</h2>
+                        </div>
+                        <div >
+                            <h2 style={{marginTop:"20px"}}><strong>Begin your own discussion!</strong></h2>
+                            <p>Passionate about a topic but can't find it here?</p>
+                            <p style={{marginTop:"-20px"}}>Start your own thread!</p>
 
-                </div>
-                
-                
-                <button className="submit-button" 
-                onClick={() =>handleAddMode()}>
-                    <div>
-                        <p style={{fontWeight:"bolder"}}>Add Thread</p>
+                        </div>
+                        
+                        <button className="submit-button" 
+                        onClick={() =>handleAddMode()}>
+                            <div>
+                                <p style={{fontWeight:"bolder",marginTop:"12px"}}>Add Thread</p>
+                            </div>
+                        </button>
+
                     </div>
-                </button>
-
-            </div>
+            }           
             <div style={{width:"80%"}}>
-                {addMode && <AddNewthreadCard/> }
+                {addMode && <AddNewthreadCard setAddMode={setAddMode}/> }
 
             </div>
 
@@ -157,34 +253,34 @@ const Forum = () => {
                 <span style={{marginTop:"20px", fontSize:"small", textDecoration:"0.5px underline"}}>{categoryToggle ? 'Filter By 🠹' : 'Filter By 🠻'}</span>
                 {categoryToggle && ( // Conditionally render options when showOptions is true
                     <div>
-                        {/* Render your options here */}
                         <li
-                            style={listItemStyle}
+                            style={isUserActive ? { ...listItemStyle, backgroundColor: 'lightblue' } : listItemStyle}
                             className="list-group-item"
-                            // onClick={() => handleOptionClick("Manage Forum")}
-                        >
-                            Post
-                        </li>
-                        <li
-                            style={listItemStyle}
-                            className="list-group-item"
-                            // onClick={() => handleOptionClick("Manage Forum")}
+                            onClick={handleUserClick}
                         >
                             User
                         </li>
                         <li
-                            style={listItemStyle}
+                            style={isPostActive ? { ...listItemStyle, backgroundColor: 'lightblue' } : listItemStyle}
                             className="list-group-item"
-                            // onClick={() => handleOptionClick("Manage Forum")}
+                            onClick={handlePostClick}
                         >
-                            ⮽ Clear Filter
+                            All Posts
+                        </li>
+                        
+                        <li
+                            style={isMyPostsActive ? { ...listItemStyle, backgroundColor: 'lightblue' } : listItemStyle}
+                            className="list-group-item"
+                            onClick={handleMyPostsClick}
+                        >
+                            My Posts Only
                         </li>
                     </div>
                 )}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
                 <div style={{width:"60%"}}>
-                    <ForumList filteredSearch={filteredSearch} />
+                {filteredData()}
                 </div>
             </div>
         </div>
