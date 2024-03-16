@@ -7,18 +7,12 @@ export const fetchThreads = async (email) => {
     })
     .then(response => {
         if (response.ok) {
-            console.log("response", response);
-            return response.json(); // Parse response body as JSON
-        } else {
-            alert('Error: ' + response.statusText); // Display error message if response is not OK
-            throw new Error('Network response was not ok');
-        }
-    })
-    .then(data => {
-        // Handle the JSON data returned from the server
-        console.log("data", data);
-    })
-    .catch(error => {
-        console.error('Fetch error:', error); // Handle errors that occurred during the fetch operation
-    });
+          response.json().then(data => {
+            // Access the data in the response body
+            console.log(data);
+          });
+    }else{
+        console.error(response);
+
+    }});
 };
