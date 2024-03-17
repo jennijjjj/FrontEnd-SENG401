@@ -1,20 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { postThread } from './ForumApiRequests';
 
-function AddNewthreadCard({ thread }) {
-    const [expand, setExpand] = useState(false);
-    const [showTooltip, setShowTooltip] = useState(false);
-
-    const flexColumn = {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-    };
-    const flexRow = {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-    };
+function AddNewthreadCard() {
 
     const headingStyle={
         background:"#5500e7",
@@ -29,6 +16,13 @@ function AddNewthreadCard({ thread }) {
         alignItems:"center"
     }
 
+    const handlePostClick = () => {
+        if (userResponse) {
+            console.log('Item deleted');
+        } else {
+            console.log('Delete operation cancelled');
+        }
+    };
 
 
     return (
@@ -46,22 +40,6 @@ function AddNewthreadCard({ thread }) {
                     Post
                 </button>
             </div>
-            {/* // style={{ position: "relative", marginBottom: "10px" }}>
-
-            // <div style={flexRow}>
-            //     <div style={flexColumn}>
-            //         <h1>{thread.subtitle}</h1>
-            //         <p style={{ fontSize: "small" }}>Posted by: {thread.user}</p>
-            //    <p>{thread.body}</p>
-            //     </div>
-            //     <p style={{ fontSize: "small" }}>{thread.date}</p>
-            // </div>
-
-            // {showTooltip && (
-            //     <div style={{ position: "absolute", bottom: "0", right: "0" }}>
-            //         <p style={{ fontSize: "small", backgroundColor: "lightgray", padding: "4px", borderRadius: "4px" }}>
-            //         </p>
-            //     </div> */}
         </div>
     );
 }

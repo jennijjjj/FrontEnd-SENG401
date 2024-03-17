@@ -1,9 +1,9 @@
 import ThreadCard from "./ThreadCard";
 
 
-function ForumList({ filteredSearch}) {
+function ForumList({ filteredSearch, username}) {
 
-  const filtered = filteredSearch.map(thread =>  <ThreadCard thread={thread} />); 
+  const filtered = filteredSearch.map(thread =>  <ThreadCard thread={thread} username={username} />); 
   return (
     <div>
       {filtered}

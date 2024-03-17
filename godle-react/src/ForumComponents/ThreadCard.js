@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-function ThreadCard({ thread }) {
+function ThreadCard({ thread , username}) {
     const [expand, setExpand] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
+
+    const handleDelete = () => {
+        const userResponse = window.confirm(`Are you sure you want to delete your post?`);
+        if (userResponse) {
+            console.log('Item deleted');
+        } else {
+            console.log('Delete operation cancelled');
+        }
+    };
+
 
     const flexColumn = {
         display: "flex",
@@ -41,11 +51,21 @@ function ThreadCard({ thread }) {
             </div>
 
             {showTooltip && (
-                <div style={{ position: "absolute", bottom: "0", right: "0" }}>
-                    <p style={{ fontSize: "small", backgroundColor: "lightgray", padding: "4px", borderRadius: "4px" }}>
-                        {expand ? "Click to minimize" : "Click to expand"}
-                    </p>
-                </div>
+                <>
+                    {username === thread.email && (
+                        <div style={{ position: "absolute", top: "0", left: "0" }}>
+                            <button  className="deleteButton" onClick={handleDelete}>
+                                🗑️
+                            </button>
+                        </div>
+                    )}
+                    <div style={{ position: "absolute", bottom: "0", right: "0" }}>
+                        <p style={{ fontSize: "small", backgroundColor: "lightgray", padding: "4px", borderRadius: "4px" }}>
+                            {expand ? "Click to minimize" : "Click to expand"}
+                        </p>
+                    </div>
+                </>
+                
             )}
         </div>
     );

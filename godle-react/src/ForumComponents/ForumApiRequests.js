@@ -11,22 +11,48 @@ export const fetchThreads = async (email) => {
           });
           
         const jsonString = JSON.stringify(jsonData);
-        // Object.entries(data).forEach(([date, entry]) => {
-        //     const { title, body, email } = entry;
-        //     console.log('Date:', date);
-        //     console.log('Title:', title);
-        //     console.log('Body:', body);
-        //     console.log('Email:', email);
-        //   });
         console.log(jsonString);
         return jsonString;
-        
-        return data;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         throw error; // Re-throw the error for the caller to handle
     }
 };
+
+export const postThread = async (email, title, body) => {
+    const postData = {
+        email: email,
+        title: title,
+        body: body
+      };
+      
+    try {
+        fetch('http://localhost:8000/Forum', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('POST request successful');
+                console.log(data); // Response data from the server
+            })
+            .catch(error => {
+                console.error('Error during POST request:', error);
+            });
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error; // Re-throw the error for the caller to handle
+    }
+};
+
 
 
 // export const fetchThreads = async (email) => {
