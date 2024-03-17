@@ -10,25 +10,8 @@ const AppNavbar = ({ user, setUser }) => {
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
 
-  useEffect(() => {
-    let timer;
-    if (incorrectLogin === true) {
-      // Set a timer to set yourState to false after 5 seconds
-      timer = setTimeout(() => {
-        setIncorrectLogin(false);
-      }, 5000);
-    }
 
-    // Cleanup function to clear the timer if the component unmounts
-    // or if yourState changes before the timer finishes
-    return () => clearTimeout(timer);
-  }, [incorrectLogin, setIncorrectLogin]);
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
     // Authenticate
@@ -40,34 +23,84 @@ const AppNavbar = ({ user, setUser }) => {
       };
 
       // Send HTTP POST request to register the user
-      fetch('/Login', {
+      const response = await fetch('/Login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
-      })
-        .then(response => {
-          if (response.ok) {
-            setUser(userData);
-            navigate("/");
-          }
-          else {
-            // If there's an error, display error message
-            alert('User not authenticated with the provided credentials.');
-            // Log the error
-            console.error(response);
-          }
-        })
+      });
 
+      if (response.ok) {
+        const userDataWithToken = await response.json();
+        localStorage.setItem('token', userDataWithToken.token);
+        localStorage.setItem('user',JSON.stringify(userData));
+        setUser(userData)
+        
+      } else {
+        // If there's an error, display error message
+        setIncorrectLogin(true);
+        console.error('User not authenticated with the provided credentials.');
+        
+      }
     } catch (error) {
-      alert("Exception occured trying to send login information to backend.");
-      console.error('Exception occured trying to send login information to backend.');
+      setIncorrectLogin(true);
+      console.error('Exception occurred trying to send login information to backend.');
     }
-
     setUsername('');
     setPassword('');
+    
   };
+
+  const checkLocalStorage = () => {
+    try{
+      const token = localStorage.getItem('token');
+      const userString = localStorage.getItem('user');
+      if (token && userString) {
+        const user = JSON.parse(userString);
+        setUser(user);
+        }
+    } catch(err){
+    }
+    
+  };
+  
+  // Call checkLocalStorage on component mount
+  useEffect(() => {
+    checkLocalStorage();
+  }, []);
+
+
+  const handleLogout = () => {
+    // Clear user state
+    setUser(undefined);
+    
+    // Clear token from local storage
+    localStorage.clear();
+  
+    // Navigate to the home page
+    navigate('/');
+  };
+  
+
+  // useEffect(() => {
+  //   let timer;
+  //   if (incorrectLogin === true) {
+  //     // Set a timer to set yourState to false after 5 seconds
+  //     timer = setTimeout(() => {
+  //       setIncorrectLogin(false);
+  //     }, 5000);
+  //   }
+
+  //   // Cleanup function to clear the timer if the component unmounts
+  //   // or if yourState changes before the timer finishes
+  //   return () => clearTimeout(timer);
+  // }, [incorrectLogin, setIncorrectLogin]);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
 
 
   const handleUsernameChange = (e) => {
@@ -104,7 +137,7 @@ const AppNavbar = ({ user, setUser }) => {
                 <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
                   Forum
                 </DropdownItem>
-                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); navigate('/'); }}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => { handleLogout() }}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>

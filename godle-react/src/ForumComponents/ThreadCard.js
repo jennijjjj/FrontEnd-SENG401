@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { deleteThread } from './ForumApiRequests';
 
-function ThreadCard({ thread , username}) {
+function ThreadCard({ thread , username, fetchData}) {
     const [expand, setExpand] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
 
-    const handleDelete = () => {
+    // const handleDelete = () => {
+    //     const userResponse = window.confirm(`Are you sure you want to delete your post?`);
+    //     if (userResponse) {
+    //         console.log('Item deleted');
+    //     } else {
+    //         console.log('Delete operation cancelled');
+    //     }
+    // };
+
+    const handleDelete = async () => {
         const userResponse = window.confirm(`Are you sure you want to delete your post?`);
         if (userResponse) {
-            console.log('Item deleted');
-        } else {
-            console.log('Delete operation cancelled');
-        }
+            try {
+                // Call the postThread function with topic and content
+                await deleteThread(username, thread.date);
+                alert('Thread deleted!');
+            } catch (error) {
+                // Handle any errors that occur during the HTTP request
+                console.error('Error posting thread:', error);
+                alert('Error deleting thread. Please try again later.');
+            }
+        } 
+        fetchData();
+        
     };
 
 

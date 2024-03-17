@@ -10,23 +10,23 @@ const Forum = (user) => {
     const [isPostActive, setPostActive] = useState(true);
     const [isUserActive, setUserActive] = useState(false);
     const [isMyPostsActive, setMyPostsActive] = useState(false);
-    const username = (user ? user.user.username : "");
-    // const [threads, setThreads] = useState([fetchThreads]);
+    // const username = (user && user.user && user.user.username) || "";
+    const username = 'livia@example.com';
 
     const [threads, setThreads] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const fetchedThreads = await fetchThreads(username);
-                setThreads(JSON.parse(fetchedThreads));
-            } catch (error) {
-                console.error('Error fetching threads:', error);
-            }
-        };
-
         fetchData();
     }, [username]);
+
+    const fetchData = async () => {
+        try {
+            const fetchedThreads = await fetchThreads(username);
+            setThreads(JSON.parse(fetchedThreads));
+        } catch (error) {
+            console.error('Error fetching threads:', error);
+        }
+    };
 
     console.log("threads home", threads);
 
@@ -140,13 +140,13 @@ const Forum = (user) => {
       
     const filteredData=()=>{
         if (!isPostActive && !isUserActive && !isMyPostsActive){
-            return <ForumList filteredSearch={filteredSearch} username={username} />
+            return <ForumList filteredSearch={filteredSearch} username={username} fetchData={fetchData}/>
         } else if (isPostActive){
-            return <ForumList filteredSearch={filteredSearchPost} username={username} />
+            return <ForumList filteredSearch={filteredSearchPost} username={username} fetchData={fetchData}/>
         } else if ( isUserActive){
-            return <ForumList filteredSearch={filteredSearchUser} username={username} />
+            return <ForumList filteredSearch={filteredSearchUser} username={username} fetchData={fetchData} />
         } else if (isMyPostsActive){
-            return <ForumList filteredSearch={filteredMyPosts} username={username} />
+            return <ForumList filteredSearch={filteredMyPosts} username={username} fetchData={fetchData} />
         } 
     }
 
@@ -200,7 +200,7 @@ const Forum = (user) => {
                     </div>
             }           
             <div style={{width:"80%"}}>
-                {addMode && <AddNewthreadCard setAddMode={setAddMode} username={username}/> }
+                {addMode && <AddNewthreadCard setAddMode={setAddMode} username={username} fetchData={fetchData}/> }
 
             </div>
 

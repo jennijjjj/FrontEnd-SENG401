@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { postThread } from './ForumApiRequests';
 
-function AddNewthreadCard({ setAddMode, username }) {
+function AddNewthreadCard({ setAddMode, username , fetchData}) {
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
 
@@ -53,6 +53,7 @@ function AddNewthreadCard({ setAddMode, username }) {
             await postThread(username, topic, content);
             setAddMode(false);
             alert('New thread created!');
+            fetchData();
         } catch (error) {
             // Handle any errors that occur during the HTTP request
             console.error('Error posting thread:', error);
