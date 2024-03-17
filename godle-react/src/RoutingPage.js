@@ -6,6 +6,7 @@ import Register from './Register';
 import Matches from './MatchingPageComponents/Matches';
 import Admin from './AdminComponents/AdminHome';
 import Deity from './Deity';
+import Forum from './ForumComponents/ForumHome';
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
 
@@ -69,6 +70,15 @@ const RoutingPage = ({ page }) => {
         <AppNavbar user={user} setUser={setUser} />
         <Container fluid>
           <Admin />
+        </Container>
+      </div>
+    )
+  } else if (page === "Forum") {
+    return (
+      <div>
+        <AppNavbar user={user} setUser={setUser} />
+        <Container fluid>
+          <Forum user={user} />
         </Container>
       </div>
     )

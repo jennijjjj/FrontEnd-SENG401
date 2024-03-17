@@ -134,8 +134,8 @@ const AppNavbar = ({ user, setUser }) => {
                 <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
                   Home
                 </DropdownItem>
-                <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
-                  Chatrooms
+                <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
+                  Forum
                 </DropdownItem>
                 <DropdownItem className="dropdown-item-hover" onClick={() => { handleLogout() }}>
                   Logout
