@@ -32,11 +32,11 @@ function UserCard({user}) {
   return(
     <div className="cardContainer">
         <div style={flexRow}>
-        <div style={flexColumn}>
-          <p><strong>{user.UserName}</strong></p>
-          <p>{user.Email}</p>
+        <div style={flexRow}>
+          <p><strong>{user.UserName} </strong></p>
+          
+          <p style={{marginLeft:"30px"}}> Email: {user.Email}</p>
         </div>
-        
         <div style = {flexRow}>
           <button className='deletebutton' onClick={handleDelete}><strong>DELETE</strong></button>      
         </div>

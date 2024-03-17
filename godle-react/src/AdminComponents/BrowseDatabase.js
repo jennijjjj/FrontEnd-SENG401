@@ -6,144 +6,176 @@ function BrowseDatabase({selectedOption, searchVar, controller}) {
 //  const {userType, setFlightCode}=props
   const [searchField, setSearchField] = useState("");
   const [searchShow, setSearchShow] = useState(false); 
-  //UNCOMMENT WHEN BACKEND GET REQUESTS ARE MADE
-  // const [deitiesData, setDeitiesData] = useState(null);
-  // const [usersData, setUsersData] = useState(null);
-  // const [forumData, setForumData] = useState(null);
-  // const [calendarData, setCalendarData] = useState(null);
+ // UNCOMMENT WHEN BACKEND GET REQUESTS ARE MADE
+  const [data, setData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
+  const [forumData, setForumData] = useState([]);
+  const [calendarData, setCalendarData] = useState([]);
 
-  // const fetchJsonData = () => {
-  //   if (selectedOption === 'Manage Deities'){
-  //     setDeitiesData(getDeitiesData());
-  //   }
-  //   if (selectedOption === 'Manage Users'){
-  //     setUsersData(getUsersData());
-  //   }if (selectedOption === 'Manage Forum'){
-  //     setForumData(getForumData());
-  //   }
-  //   if (selectedOption === 'Manage Calendar'){
-  //     setCalendarData(getCalendarData());
-  //   }
-  // };
-  // fetchJsonData();
-  
-  const deitiesData = 
-  {
-    "deities": [
-      {
-        "DeityName": "Aetherius",
-        "SourceUniverse": "Celestial Realm",
-        "DeityDescription": "God of the Sky and Atmosphere",
-        "ImagePath": "/images/aetherius.jpg",
-        "Zealousness": 0.9,
-        "Mysticism": 0.8,
-        "Squeamishness": 0.2,
-        "Technology": 0.3,
-        "Erudition": 0.7,
-        "Organization": 0.6,
-        "Morality": 0.9,
-        "Zen": 0.8,
-        "Aggression": 0.1,
-        "Grandeur": 0.9,
-        "Temperament": 0.5
-      },
-      {
-        "DeityName": "Terrafira",
-        "SourceUniverse": "Earthrealm",
-        "DeityDescription": "Goddess of Nature and Earth",
-        "ImagePath": "/images/terrafira.jpg",
-        "Zealousness": 0.7,
-        "Mysticism": 0.6,
-        "Squeamishness": 0.3,
-        "Technology": 0.5,
-        "Erudition": 0.6,
-        "Organization": 0.8,
-        "Morality": 0.8,
-        "Zen": 0.7,
-        "Aggression": 0.2,
-        "Grandeur": 0.7,
-        "Temperament": 0.6
-      }
-    ]
-  }
 
-  const usersData = 
-  {
-    "users": [
-      {
-        "UserName": "Maximus",
-        "Email": "maximus@example.com",
-        "UserPassword": "pass123",
-        "ChosenDeity": "Jupiter",
-        "Zealousness": 3.5,
-        "Mysticism": 4,
-        "Squeamishness": 0.5,
-        "Technology": 2,
-        "Erudition": 3.5,
-        "Organization": 4,
-        "Morality": 3,
-        "Zen": 1.5,
-        "Aggression": 3.5,
-        "Grandeur": 4,
-        "Temperament": 3
-      },
-      {
-        "UserName": "Livia",
-        "Email": "livia@example.com",
-        "UserPassword": "pass123",
-        "ChosenDeity": "Venus",
-        "Zealousness": 2,
-        "Mysticism": 4,
-        "Squeamishness": 1,
-        "Technology": 2,
-        "Erudition": 3.5,
-        "Organization": 3,
-        "Morality": 4,
-        "Zen": 4,
-        "Aggression": 2,
-        "Grandeur": 3.5,
-        "Temperament": 3
-      },
-      {
-        "UserName": "Julius",
-        "Email": "julius@example.com",
-        "UserPassword": "pass321",
-        "ChosenDeity": "Venus",
-        "Zealousness": 2,
-        "Mysticism": 4,
-        "Squeamishness": 1,
-        "Technology": 2,
-        "Erudition": 3.5,
-        "Organization": 3,
-        "Morality": 4,
-        "Zen": 4,
-        "Aggression": 2,
-        "Grandeur": 3.5,
-        "Temperament": 3
-      },
-      {
-        "UserName": "Titus",
-        "Email": "titus@example.com",
-        "UserPassword": "pass123",
-        "ChosenDeity": "Mars",
-        "Zealousness": 4,
-        "Mysticism": 2,
-        "Squeamishness": 0,
-        "Technology": 1.5,
-        "Erudition": 2,
-        "Organization": 2.5,
-        "Morality": 1,
-        "Zen": 1,
-        "Aggression": 4,
-        "Grandeur": 3.5,
-        "Temperament": 4
-      }
-    ]
-  }
+
+  const fetchJsonData = async () => {
+    if (selectedOption === 'Manage Deities'){
+      getDeitiesData()
+      .then(jsonString => {
+        // Parse the JSON string to get the actual JSON object
+        const jsonData = JSON.parse(jsonString);
+        // return jsonData;
+        // Now you can use jsonData as your JSON object
+        setData(jsonData);
+        // console.log(deitiesData);
+        
+      })
+      .catch(error => {
+        console.error('Error fetching deities data:', error);
+      });
+    }
+    if (selectedOption === 'Manage Users'){
+      getUsersData()
+      .then(jsonString => {
+        // Parse the JSON string to get the actual JSON object
+        const jsonData = JSON.parse(jsonString);
+        // return jsonData;
+        // Now you can use jsonData as your JSON object
+        setData(jsonData);
+        // console.log(deitiesData);
+        
+      })
+      .catch(error => {
+        console.error('Error fetching deities data:', error);
+      });
+    }if (selectedOption === 'Manage Forum'){
+      setForumData(getForumData());
+    }
+    if (selectedOption === 'Manage Calendar'){
+      setCalendarData(getCalendarData());
+    }
+  };
+  useEffect(() => {
+    fetchJsonData();
+    // console.log("d"+deitiesData);
+    
+  }, []);
+
 
   
+  // const deitiesData = 
+  // {
+  //   "deities": [
+  //     {
+  //       "DeityName": "Aetherius",
+  //       "SourceUniverse": "Celestial Realm",
+  //       "DeityDescription": "God of the Sky and Atmosphere",
+  //       "ImagePath": "/images/aetherius.jpg",
+  //       "Zealousness": 0.9,
+  //       "Mysticism": 0.8,
+  //       "Squeamishness": 0.2,
+  //       "Technology": 0.3,
+  //       "Erudition": 0.7,
+  //       "Organization": 0.6,
+  //       "Morality": 0.9,
+  //       "Zen": 0.8,
+  //       "Aggression": 0.1,
+  //       "Grandeur": 0.9,
+  //       "Temperament": 0.5
+  //     },
+  //     {
+  //       "DeityName": "Terrafira",
+  //       "SourceUniverse": "Earthrealm",
+  //       "DeityDescription": "Goddess of Nature and Earth",
+  //       "ImagePath": "/images/terrafira.jpg",
+  //       "Zealousness": 0.7,
+  //       "Mysticism": 0.6,
+  //       "Squeamishness": 0.3,
+  //       "Technology": 0.5,
+  //       "Erudition": 0.6,
+  //       "Organization": 0.8,
+  //       "Morality": 0.8,
+  //       "Zen": 0.7,
+  //       "Aggression": 0.2,
+  //       "Grandeur": 0.7,
+  //       "Temperament": 0.6
+  //     }
+  //   ]
+  // }
 
-const filteredSearchDeity = deitiesData.deities.filter((deity) => {
+  // const usersData = 
+  // {
+  //   "users": [
+  //     {
+  //       "UserName": "Maximus",
+  //       "Email": "maximus@example.com",
+  //       "UserPassword": "pass123",
+  //       "ChosenDeity": "Jupiter",
+  //       "Zealousness": 3.5,
+  //       "Mysticism": 4,
+  //       "Squeamishness": 0.5,
+  //       "Technology": 2,
+  //       "Erudition": 3.5,
+  //       "Organization": 4,
+  //       "Morality": 3,
+  //       "Zen": 1.5,
+  //       "Aggression": 3.5,
+  //       "Grandeur": 4,
+  //       "Temperament": 3
+  //     },
+  //     {
+  //       "UserName": "Livia",
+  //       "Email": "livia@example.com",
+  //       "UserPassword": "pass123",
+  //       "ChosenDeity": "Venus",
+  //       "Zealousness": 2,
+  //       "Mysticism": 4,
+  //       "Squeamishness": 1,
+  //       "Technology": 2,
+  //       "Erudition": 3.5,
+  //       "Organization": 3,
+  //       "Morality": 4,
+  //       "Zen": 4,
+  //       "Aggression": 2,
+  //       "Grandeur": 3.5,
+  //       "Temperament": 3
+  //     },
+  //     {
+  //       "UserName": "Julius",
+  //       "Email": "julius@example.com",
+  //       "UserPassword": "pass321",
+  //       "ChosenDeity": "Venus",
+  //       "Zealousness": 2,
+  //       "Mysticism": 4,
+  //       "Squeamishness": 1,
+  //       "Technology": 2,
+  //       "Erudition": 3.5,
+  //       "Organization": 3,
+  //       "Morality": 4,
+  //       "Zen": 4,
+  //       "Aggression": 2,
+  //       "Grandeur": 3.5,
+  //       "Temperament": 3
+  //     },
+  //     {
+  //       "UserName": "Titus",
+  //       "Email": "titus@example.com",
+  //       "UserPassword": "pass123",
+  //       "ChosenDeity": "Mars",
+  //       "Zealousness": 4,
+  //       "Mysticism": 2,
+  //       "Squeamishness": 0,
+  //       "Technology": 1.5,
+  //       "Erudition": 2,
+  //       "Organization": 2.5,
+  //       "Morality": 1,
+  //       "Zen": 1,
+  //       "Aggression": 4,
+  //       "Grandeur": 3.5,
+  //       "Temperament": 4
+  //     }
+  //   ]
+  // }
+
+  
+
+const filteredSearchDeity = data.filter((deity) => {
     const searchTerm = searchField.toLowerCase().trim();
     if (!searchTerm) {
       return true;
@@ -155,7 +187,7 @@ const filteredSearchDeity = deitiesData.deities.filter((deity) => {
   });
 
 
-  const filteredSearchUser = usersData.users.filter((user) => {
+  const filteredSearchUser = data.filter((user) => {
     const searchTerm = searchField.toLowerCase().trim();
     if (!searchTerm) {
       return true;
@@ -199,11 +231,12 @@ const filteredSearchDeity = deitiesData.deities.filter((deity) => {
   };
 
   function searchList() {
-    if (searchShow && controller === "Deity") {
+    if (controller === "Deity" &&data) {
       return (
         <SearchList filteredSearch={filteredSearchDeity} controller={controller}/>
       );
-    } else if (searchShow && controller === "User") {
+    } 
+    else if (controller === "User" && data) {
       return (
         <SearchList filteredSearch={filteredSearchUser} controller={controller}/>
       );

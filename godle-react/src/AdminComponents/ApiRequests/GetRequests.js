@@ -1,23 +1,56 @@
 export function getDeitiesData(){
-    try {
-    fetch('/Admin/Deities') 
+    return fetch('/Admin/Deities') 
         .then(response => {
-        if (response.ok) {
-            response.json().then(data => {
-            console.log(data);
-            return(data);
+            if (response.ok) {
+                return response.json(); // Return the JSON parsing promise
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .then(data => {
+            const jsonData = Object.values(data).map(entry => {
+                const { Aggression,
+                    DeityDescription,
+                    DeityName,
+                    Erudition,
+                    Grandeur,
+                    ImagePath,
+                    Morality,
+                    Mysticism,
+                    Organization,
+                    SourceUniverse,
+                    Squeamishness,
+                    Technology,
+                    Temperament,
+                    Zealousness,
+                    Zen} = entry;
+                return { Aggression:Aggression, 
+                    DeityName: DeityName, 
+                    DeityDescription: DeityDescription,
+                    Erudition:Erudition,
+                    Grandeur:Grandeur,
+                    ImagePath:ImagePath,
+                    Morality:Morality,
+                    Mysticism:Mysticism,
+                    Organization:Organization,
+                    Squeamishness:Squeamishness,
+                    Technology:Technology,
+                    Temperament:Temperament,
+                    Zealousness:Zealousness,
+                    Zen:Zen,
+                    SourceUniverse: SourceUniverse };
             });
-        } else {
-            throw new Error('Network response was not ok');
-        }
+
+            const jsonString = JSON.stringify(jsonData);
+            console.log(jsonData); // Output the JSON string for verification
+            return jsonString;
         })
         .catch(error => {
-        console.error(`Error fetching data:`, error); 
+            console.error(`Error fetching data:`, error); 
+            throw error; // Rethrow the error to the caller
         });
-    } catch (error) {
-    console.error(`Exception occurred while fetching:`, error);
-    }
 }
+
 
 export function getCalendarData(){
     try {
@@ -41,24 +74,28 @@ export function getCalendarData(){
 }
 
 export function getUsersData(){
-    try {
-    fetch('/Admin/User') 
+    return fetch('/Admin/User') 
         .then(response => {
-        if (response.ok) {
-            response.json().then(data => {
-            console.log(data);
-            return(data);
+            if (response.ok) {
+                return response.json(); // Return the JSON parsing promise
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .then(data => {
+            const jsonData = Object.values(data).map(entry => {
+                const { Email, UserName} = entry;
+                return {Email:Email, UserName:UserName};
             });
-        } else {
-            throw new Error('Network response was not ok');
-        }
+
+            const jsonString = JSON.stringify(jsonData);
+            console.log(jsonData); // Output the JSON string for verification
+            return jsonString;
         })
         .catch(error => {
-        console.error(`Error fetching data:`, error); 
+            console.error(`Error fetching data:`, error); 
+            throw error; // Rethrow the error to the caller
         });
-    } catch (error) {
-    console.error(`Exception occurred while fetching:`, error);
-    }
 }
 
 export function getForumData(){
