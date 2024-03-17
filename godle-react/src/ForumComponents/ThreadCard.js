@@ -5,15 +5,6 @@ function ThreadCard({ thread , username, fetchData}) {
     const [expand, setExpand] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
 
-    // const handleDelete = () => {
-    //     const userResponse = window.confirm(`Are you sure you want to delete your post?`);
-    //     if (userResponse) {
-    //         console.log('Item deleted');
-    //     } else {
-    //         console.log('Delete operation cancelled');
-    //     }
-    // };
-
     const handleDelete = async () => {
         const userResponse = window.confirm(`Are you sure you want to delete your post?`);
         if (userResponse) {
