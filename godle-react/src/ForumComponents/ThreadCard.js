@@ -33,8 +33,8 @@ function ThreadCard({ thread }) {
 
             <div style={flexRow}>
                 <div style={flexColumn}>
-                    <h1>{thread.subtitle}</h1>
-                    <p style={{ fontSize: "small" }}>Posted by: {thread.user}</p>
+                    <h1>{thread.title}</h1>
+                    <p style={{ fontSize: "small" }}>Posted by: {thread.email}</p>
                     {expand && <p>{thread.body}</p>}
                 </div>
                 <p style={{ fontSize: "small" }}>{thread.date}</p>

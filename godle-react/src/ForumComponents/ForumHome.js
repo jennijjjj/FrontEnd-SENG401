@@ -7,26 +7,29 @@ const Forum = (user) => {
     const [searchField, setSearchField] = useState("");
     const [categoryToggle, setCategoryToggle] = useState(false);
     const [addMode, setAddMode]=useState(false);
-    const [isPostActive, setPostActive] = useState(false);
+    const [isPostActive, setPostActive] = useState(true);
     const [isUserActive, setUserActive] = useState(false);
     const [isMyPostsActive, setMyPostsActive] = useState(false);
     const username = (user ? user.user.username : "");
+    // const [threads, setThreads] = useState([fetchThreads]);
+
     const [threads, setThreads] = useState([]);
 
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const fetchedThreads = await fetchThreads(username); // Replace with the actual email
-          console.log("bb"+fetchedThreads[Object.keys(fetchedThreads)[0]]);
-          setThreads(Object.values(fetchData));
-        } catch (error) {
-          console.log('Error fetching data: ' + error.message);
-        }
-        console.log("home"+threads);
-      };
-      fetchData();
-    }, []);
-    // Function to handle the click event for the "Post" item
+        const fetchData = async () => {
+            try {
+                const fetchedThreads = await fetchThreads(username);
+                setThreads(JSON.parse(fetchedThreads));
+            } catch (error) {
+                console.error('Error fetching threads:', error);
+            }
+        };
+
+        fetchData();
+    }, [username]);
+
+    console.log("threads home", threads);
+
     const handlePostClick = () => {
         setMyPostsActive(false);
         // Toggle the active state of "Post"
@@ -54,13 +57,6 @@ const Forum = (user) => {
 
     const handleSearch = e => {
         setSearchField(e.target.value);
-        
-        // if(e.target.value===""){
-        //   setSearchShow(true);
-        // }
-        // else {
-        //   setSearchShow(false);
-        // }
         console.log(e.target.value);
       };
 
@@ -85,35 +81,6 @@ const Forum = (user) => {
         width: '120px',
         padding:"5px",
       };
-    
-    const jsonForum={
-        "forums":[
-            {
-              "user": "1@1",
-              "date": "2024-3-13 19:38:5",
-              "subtitle": "Introduction",
-              "body": "Hello everyone! I'm new here job. Just wanted to introduce myself."
-            },
-            {
-              "user": "AliceSmith",
-              "date": "2023-3-13 19:38:5",
-              "subtitle": "Question about Forum Rules",
-              "body": "Can someone clarify the rules regarding posting @1@1 links?"
-            },
-            {
-              "user": "JaneDoe",
-              "date": "2024-3-13 10:38:5",
-              "subtitle": "Feedback on New Feature",
-              "body": "I really like the new feature. Great job to the development team!"
-            },
-            {
-              "user": "1@1",
-              "date": "2024-3-18 19:38:5",
-              "subtitle": "Discussion on Current Events",
-              "body": "What are your thoughts on the recent political developments?I really like the new feature. Great job to the development team!I really like the new feature. Great job to the development team!"
-            }
-          ]          
-    }
     const handleCategoryHover = () => {
         setCategoryToggle(true);
     };
@@ -122,7 +89,7 @@ const Forum = (user) => {
         setCategoryToggle(false);
     };
     
-    const filteredSearch = jsonForum.forums.filter((thread) => {
+    const filteredSearch = threads.filter((thread) => {
         const searchTerm = searchField.toLowerCase().trim();
         if (!searchTerm) {
           return true;
@@ -135,7 +102,7 @@ const Forum = (user) => {
         }
       });
 
-      const filteredSearchPost = jsonForum.forums.filter((thread) => {
+      const filteredSearchPost = threads.filter((thread) => {
         const searchTerm = searchField.toLowerCase().trim();
         if (!searchTerm) {
           return true;
@@ -147,7 +114,7 @@ const Forum = (user) => {
         }
       });
 
-      const filteredSearchUser = jsonForum.forums.filter((thread) => {
+      const filteredSearchUser = threads.filter((thread) => {
         const searchTerm = searchField.toLowerCase().trim();
         if (!searchTerm) {
           return true;
@@ -157,7 +124,7 @@ const Forum = (user) => {
           );
         }
       });
-      const filteredMyPosts = jsonForum.forums.filter((thread) => {
+      const filteredMyPosts = threads.filter((thread) => {
         const searchTerm = searchField.toLowerCase().trim();
         if (!searchTerm) {
           // If searchTerm is empty, return true to include all threads
