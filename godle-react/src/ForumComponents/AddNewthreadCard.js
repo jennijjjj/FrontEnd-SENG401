@@ -13,12 +13,6 @@ function AddNewthreadCard({ setAddMode, username , fetchData}) {
         padding:"20px"
     };
 
-    const flexRow = {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-    };
-
     const headingStyle={
         background:"#5500e7",
         height:"60px",
@@ -74,7 +68,7 @@ function AddNewthreadCard({ setAddMode, username , fetchData}) {
                 </button>
             </div>
             <div style={flexColumn}>
-                <textarea style={{alignText:"center", width:"100%"}} rows="1" placeholder="Topic" value={topic} onChange={(e) => setTopic(e.target.value)} />
+                <textarea style={{alignText:"center", width:"100%"}} rows="1" placeholder="Title" value={topic} onChange={(e) => setTopic(e.target.value)} />
                 <textarea style={{width:"100%", marginTop:"5px"}} rows="6" placeholder="Enter your text here..." value={content} onChange={(e) => setContent(e.target.value)} />
             </div>
         </div>

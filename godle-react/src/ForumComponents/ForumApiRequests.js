@@ -1,6 +1,6 @@
 export const fetchThreads = async (email) => {
     try {
-        const response = await fetch(`/Forum?email=livia@example.com`);
+        const response = await fetch(`/Forum?email=${email}`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -19,7 +19,6 @@ export const fetchThreads = async (email) => {
 };
 
 export const postThread = async (email, title, body) => {
-    console.log("posting");
     const postData = {
         email: email,
         title: title,
@@ -87,73 +86,3 @@ export const deleteThread = async (email, date) => {
 };
 
 
-
-
-// export const fetchThreads = async (email) => {
-//     console.log("ok")
-//     try {
-//         const response = await fetch(`/Forum?email=${email}`);
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         // const data = await response.json(); 
-//         // const data = JSON.parse(rawData); // Parse the raw text into JSON
-
-//         // // Now 'data' should be a valid JSON object
-//         const rawData = await response.json();
-//         const data = JSON.parse(rawData);
-//         console.log("api"+data);
-
-//         // const flightCodes = Object.keys(data).map(key => data[key].FlightCode);
-//         // 
-//         // const DepDate = Object.keys(data).map(key => data[key].DepDate);
-//         // console.log(DepDate);
-
-//         // const Origin = Object.keys(data).map(key => data[key].Origin);
-//         // console.log(Origin);
-
-//         // const Destination = Object.keys(data).map(key => data[key].Destination);
-//         // const Model = Object.keys(data).map(key => data[key].Model);
-//         // const Duration = Object.keys(data).map(key => data[key].Duration);
-//         // const flightDetails = flightCodes.map((code, index) => ({
-//         //   FlightCode: code,
-//         //   DepDate: DepDate[index],
-//         //   Origin: Origin[index],
-//         //   Destination: Destination[index],
-//         //   Model: Model[index],
-//         //   Duration: Duration[index]
-//         // }));
-        
-//         // // Create the final JSON structure
-//         // const finalJSON = flightDetails;
-//         // setFlightDetails(finalJSON);
-        
-  
-//     } catch (error) {
-//         console.error('Error fetching flights:', error);
-//     }
-//   };
-export const addThread = async (email, body, title) => {
-    const userData = {
-        email: email,
-        title: title,
-        body: body,
-      };
-
-    fetch(`/Forum/postThread`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-          response.json().then(data => {
-            // Access the data in the response body
-            console.log(data);
-          });
-    }else{
-        console.error(response);
-
-    }});
-};

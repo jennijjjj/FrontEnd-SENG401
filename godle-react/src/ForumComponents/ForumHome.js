@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import ForumList from './ForumList';
 import AddNewthreadCard from './AddNewthreadCard';
 import { fetchThreads } from './ForumApiRequests';
@@ -10,8 +10,8 @@ const Forum = (user) => {
     const [isPostActive, setPostActive] = useState(true);
     const [isUserActive, setUserActive] = useState(false);
     const [isMyPostsActive, setMyPostsActive] = useState(false);
-    // const username = (user && user.user && user.user.username) || "";
-    const username = 'livia@example.com';
+    const username = (user && user.user && user.user.username) || "";
+    // const username = 'livia@example.com';
 
     const [threads, setThreads] = useState([]);
 
@@ -102,18 +102,6 @@ const Forum = (user) => {
         }
       });
 
-      const filteredSearchPost = threads.filter((thread) => {
-        const searchTerm = searchField.toLowerCase().trim();
-        if (!searchTerm) {
-          return true;
-        } else {
-          return (
-            thread.title.toLowerCase().includes(searchTerm)||
-            thread.body.toLowerCase().includes(searchTerm)
-          );
-        }
-      });
-
       const filteredSearchUser = threads.filter((thread) => {
         const searchTerm = searchField.toLowerCase().trim();
         if (!searchTerm) {
@@ -155,7 +143,7 @@ const Forum = (user) => {
         <div>
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
                 <div className="forum-center-container">
-                    <h1 style={{fontWeight:"bolder"}}>🗪 ThreadTalk🗧</h1>
+                    <h1 style={{fontWeight:"bolder"}}>🗪 Forum🗧</h1>
                     <div class="searchBar">
                         <input id="searchQueryInput" 
                         type="text" 
@@ -177,16 +165,13 @@ const Forum = (user) => {
                 </div>
                 {!addMode &&
                     <div className="addThreadContainer" style ={{width:"57%", marginBottom:"30px"}}>
-                        <div>
-                            <h2 style={{fontSize:"bigger", marginLeft:"80px",margin:"-30px", marginTop:"-18px"}}>
-                                🕬</h2>
-                            <h2 style={{fontSize:"100px", marginLeft:"15px",marginTop:"-40px"}}>
+                        <h2 style={{fontSize:"100px", marginLeft:"0px",marginTop:"-20px"}}>
                                 🗺</h2>
-                        </div>
+                        <p style={{fontSize:"30px",marginLeft:"-20%", marginTop:"-2%"}}>🕬</p>
+                
                         <div >
-                            <h2 style={{marginTop:"20px"}}><strong>Begin your own discussion!</strong></h2>
-                            <p>Passionate about a topic but can't find it here?</p>
-                            <p style={{marginTop:"-20px"}}>Start your own thread!</p>
+                            <h2 style={{marginTop:"20px"}}><strong>Create your own thread!</strong></h2>
+                            <p>Share your thoughts with others in the community.</p>
 
                         </div>
                         
