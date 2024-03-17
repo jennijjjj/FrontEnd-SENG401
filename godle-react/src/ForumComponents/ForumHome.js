@@ -95,8 +95,8 @@ const Forum = (user) => {
           return true;
         } else {
           return (
-            thread.subtitle.toLowerCase().includes(searchTerm)||
-            thread.user.toLowerCase().includes(searchTerm)||
+            thread.title.toLowerCase().includes(searchTerm)||
+            thread.email.toLowerCase().includes(searchTerm)||
             thread.body.toLowerCase().includes(searchTerm)
           );
         }
@@ -108,7 +108,7 @@ const Forum = (user) => {
           return true;
         } else {
           return (
-            thread.subtitle.toLowerCase().includes(searchTerm)||
+            thread.title.toLowerCase().includes(searchTerm)||
             thread.body.toLowerCase().includes(searchTerm)
           );
         }
@@ -120,7 +120,7 @@ const Forum = (user) => {
           return true;
         } else {
           return (
-            thread.user.toLowerCase().includes(searchTerm)
+            thread.email.toLowerCase().includes(searchTerm)
           );
         }
       });
@@ -128,12 +128,12 @@ const Forum = (user) => {
         const searchTerm = searchField.toLowerCase().trim();
         if (!searchTerm) {
           // If searchTerm is empty, return true to include all threads
-          return thread.user === username; // Check if thread.user exactly matches username
+          return thread.email === username; // Check if thread.user exactly matches username
         } else {
           // Otherwise, filter based on the conditions
           return (
-            thread.user === username && // Check if thread.user exactly matches username
-            (thread.body.includes(searchTerm) || thread.subtitle.includes(searchTerm)) // Check if body or subtitle includes searchTerm
+            thread.email === username && // Check if thread.user exactly matches username
+            (thread.body.includes(searchTerm) || thread.title.includes(searchTerm)) // Check if body or subtitle includes searchTerm
           );
         }
       });
@@ -142,7 +142,7 @@ const Forum = (user) => {
         if (!isPostActive && !isUserActive && !isMyPostsActive){
             return <ForumList filteredSearch={filteredSearch} username={username} fetchData={fetchData}/>
         } else if (isPostActive){
-            return <ForumList filteredSearch={filteredSearchPost} username={username} fetchData={fetchData}/>
+            return <ForumList filteredSearch={filteredSearch} username={username} fetchData={fetchData}/>
         } else if ( isUserActive){
             return <ForumList filteredSearch={filteredSearchUser} username={username} fetchData={fetchData} />
         } else if (isMyPostsActive){
