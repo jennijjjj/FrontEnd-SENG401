@@ -35,9 +35,7 @@ function ThreadCard({ thread , username, fetchData}) {
     };
 
     const handleMouseEnter = () => {
-        if (!expand) {
-            setShowTooltip(true);
-        }
+        setShowTooltip(true);
     };
 
     const handleMouseLeave = () => {
@@ -49,14 +47,20 @@ function ThreadCard({ thread , username, fetchData}) {
             onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
             style={{ position: "relative", marginBottom: "10px" }}>
 
+            
+
             <div style={flexRow}>
                 <div style={flexColumn}>
                     <h1>{thread.title}</h1>
                     <p style={{ fontSize: "small" }}>Posted by: {thread.email}</p>
-                    {expand && <p>{thread.body}</p>}
                 </div>
                 <p style={{ fontSize: "small" }}>{thread.date}</p>
             </div>
+            {expand && (
+                        <div>
+                            <p>{thread.body}</p>
+                        </div>
+                    )}
 
             {showTooltip && (
                 <>
@@ -78,5 +82,6 @@ function ThreadCard({ thread , username, fetchData}) {
         </div>
     );
 }
+
 
 export default ThreadCard;
