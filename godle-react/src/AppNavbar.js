@@ -32,9 +32,9 @@ const AppNavbar = ({ user, setUser }) => {
       });
 
       if (response.ok) {
-        console.log("hhh"+response);
         const userDataWithToken = await response.json();
-        handleSuccessfulLogin(userDataWithToken);
+        localStorage.setItem('token', userDataWithToken.token);
+        localStorage.setItem('user',JSON.stringify(userData));
         setUser(userData)
         
       } else {
@@ -49,42 +49,28 @@ const AppNavbar = ({ user, setUser }) => {
     }
     setUsername('');
     setPassword('');
-
     
   };
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    
-    if (storedToken) {
-      const storedUser = JSON.parse(localStorage.getItem('user')); 
-      setUser(storedUser)
-      console.log("effect"+username+password);
-      // If there's a token stored in localStorage
-      // Fetch user data or perform any necessary actions
-      // For now, let's assume you're fetching user data from an API
+  const checkLocalStorage = () => {
+    try{
+      const token = localStorage.getItem('token');
+      const userString = localStorage.getItem('user');
+      if (token && userString) {
+        const user = JSON.parse(userString);
+        setUser(user);
+        }
+    } catch(err){
     }
+    
+  };
+  
+  // Call checkLocalStorage on component mount
+  useEffect(() => {
+    checkLocalStorage();
   }, []);
 
-  const handleSuccessfulLogin = (userDataWithToken) => {
-    const storedToken = localStorage.getItem('token');
-    console.log("compare toe"+storedToken+","+userDataWithToken.token);
-    if (storedToken === userDataWithToken.token) {
-      // If the stored token matches the token received from the backend
-      // and the user is already logged in with the same token, keep them logged in
-      setUser(JSON.parse(localStorage.getItem('user')));
-      console.log("same user"+user);
-      navigate("/");
-    } else {
-      // Otherwise, perform a regular login
-      
-      localStorage.setItem('token', userDataWithToken.token);
-      localStorage.setItem('user',JSON.stringify(user));
-      console.log("new user stored"+localStorage.getItem('user'));
-      navigate("/");
-    }
-    console.log(localStorage.token);
-  };
+
   const handleLogout = () => {
     // Clear user state
     setUser(undefined);
@@ -141,7 +127,7 @@ const AppNavbar = ({ user, setUser }) => {
             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
               <DropdownToggle nav caret>
                 <>
-                  {user.username}h
+                  {user.username}
                 </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
