@@ -17,11 +17,11 @@ const Forum = (user) => {
       const fetchData = async () => {
         try {
           const fetchedThreads = await fetchThreads(username); // Replace with the actual email
-          setThreads(fetchedThreads);
+          console.log("bb"+fetchedThreads[Object.keys(fetchedThreads)[0]]);
+          setThreads(Object.values(fetchData));
         } catch (error) {
-          alert('Error fetching data: ' + error.message);
+          console.log('Error fetching data: ' + error.message);
         }
-
         console.log("home"+threads);
       };
       fetchData();
