@@ -20,6 +20,7 @@ export const fetchThreads = async (email) => {
 };
 
 export const postThread = async (email, title, body) => {
+    console.log("posting");
     const postData = {
         email: email,
         title: title,
@@ -27,7 +28,7 @@ export const postThread = async (email, title, body) => {
       };
       
     try {
-        fetch('http://localhost:8000/Forum', {
+        fetch('/Forum', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

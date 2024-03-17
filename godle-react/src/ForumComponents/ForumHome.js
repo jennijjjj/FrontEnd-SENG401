@@ -200,7 +200,7 @@ const Forum = (user) => {
                     </div>
             }           
             <div style={{width:"80%"}}>
-                {addMode && <AddNewthreadCard setAddMode={setAddMode}/> }
+                {addMode && <AddNewthreadCard setAddMode={setAddMode} username={username}/> }
 
             </div>
 
