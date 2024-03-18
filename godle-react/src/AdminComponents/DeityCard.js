@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { uploadImage, deleteImage } from './ApiRequests/ImageApi';
 import {UploadImage} from './UploadImage';
+import { postDeity } from './ApiRequests/PostRequest';
 function DeityCard({deity, setModalOpen}) {
   const [modifyMode, setModifyMode] = useState(deity ? false : true);
   const [modifiedName, setModifiedName] = useState(deity ? deity.DeityName : null);
@@ -18,6 +19,9 @@ function DeityCard({deity, setModalOpen}) {
   const [grandeur, setGrandeur] = useState(deity ? deity.Grandeur : null);
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
   const [images, setImages] = useState([]);
+  useEffect(() => {
+
+  }, [deity]);
 
   const handleDelete = () => {
     const result =deleteImage(modifiedName);
@@ -44,14 +48,35 @@ function DeityCard({deity, setModalOpen}) {
   //   // For example, you can call it when a submit button is pressed in another class
   //   uploadImageFunction();
   // };
-  const handleSave= () => {
+  const handleSave = async () => {
+    // Assuming 'images' and 'modifiedName' are defined elsewhere
+    await postDeity(
+        zen,
+        organization,
+        squeamishness,
+        technology,
+        temperament,
+        zealousness,
+        aggression,
+        erudition,
+        grandeur,
+        morality,
+        mysticism,
+        modifiedName,
+        sourceUniverse,
+        deityDescription,
+        images
+    );
+    
+    // Once deity is saved, you can proceed with other operations
     uploadImage(images, modifiedName);
-    alert(`Successfully saved ${modifiedName}!`);
+    // alert(`Successfully saved ${modifiedName}!`);
     setModifyMode(false); 
-    if (deity==null){
-      setModalOpen(false);
+    if (deity == null) {
+        setModalOpen(false);
     }
-  };
+};
+
   const handleAdd = () => {
     uploadImage(images, modifiedName);
     uploadImage(images);
