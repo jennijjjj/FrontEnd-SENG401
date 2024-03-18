@@ -19,9 +19,6 @@ function DeityCard({deity, setModalOpen}) {
   const [grandeur, setGrandeur] = useState(deity ? deity.Grandeur : null);
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
   const [images, setImages] = useState([]);
-  useEffect(() => {
-
-  }, [deity]);
 
   const handleDelete = () => {
     const result =deleteImage(modifiedName);
@@ -38,8 +35,7 @@ function DeityCard({deity, setModalOpen}) {
           // Perform alternative action or do nothing
       }
 
-    }
-    
+    } 
    
   };
 
@@ -49,42 +45,53 @@ function DeityCard({deity, setModalOpen}) {
   //   uploadImageFunction();
   // };
   const handleSave = async () => {
-    // Assuming 'images' and 'modifiedName' are defined elsewhere
-    await postDeity(
-        zen,
-        organization,
-        squeamishness,
-        technology,
-        temperament,
-        zealousness,
-        aggression,
-        erudition,
-        grandeur,
-        morality,
-        mysticism,
-        modifiedName,
-        sourceUniverse,
-        deityDescription,
-        images
-    );
-    
-    // Once deity is saved, you can proceed with other operations
-    uploadImage(images, modifiedName);
-    // alert(`Successfully saved ${modifiedName}!`);
-    setModifyMode(false); 
-    if (deity == null) {
-        setModalOpen(false);
-    }
+    // await postDeity(
+    //     zen,
+    //     organization,
+    //     squeamishness,
+    //     technology,
+    //     temperament,
+    //     zealousness,
+    //     aggression,
+    //     erudition,
+    //     grandeur,
+    //     morality,
+    //     mysticism,
+    //     modifiedName,
+    //     sourceUniverse,
+    //     deityDescription,
+    //     images
+    // );
+    // uploadImage(images, modifiedName);
+    // setModifyMode(false); 
+    // if (deity == null) {
+    //     setModalOpen(false);
+    // }
 };
 
-  const handleAdd = () => {
-    uploadImage(images, modifiedName);
-    uploadImage(images);
-    alert(`Added new deity: ${modifiedName}!`);
-    setModifyMode(false); 
-    if (deity==null){
-      setModalOpen(false);
-    }
+  const handleAdd = async ()=> {
+    await postDeity(
+      zen,
+      organization,
+      squeamishness,
+      technology,
+      temperament,
+      zealousness,
+      aggression,
+      erudition,
+      grandeur,
+      morality,
+      mysticism,
+      modifiedName,
+      sourceUniverse,
+      deityDescription,
+      "images.jpg"
+      );
+      uploadImage(images, modifiedName);
+      setModifyMode(false); 
+      if (deity == null) {
+          setModalOpen(false);
+      }
   };
   const handleCancel = () => {
     setModifyMode(false); 
@@ -157,8 +164,6 @@ function DeityCard({deity, setModalOpen}) {
   //   const file = event.target.files[0];
   //   setImageFile(file);
   // };
-
-  
 
   const flexColumn={
     display: "flex",

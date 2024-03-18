@@ -1,6 +1,6 @@
 
 export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temperament, Zealousness,Aggression,Erudition,Grandeur,Morality,Mysticism,DeityName, SourceUniverse, DeityDescription, ImagePath) => {
-    const formData ={
+    const data ={
         Aggression:Aggression, 
         DeityName: DeityName, 
         DeityDescription: DeityDescription,
@@ -19,25 +19,29 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
     }
 
     try {
-        const response = await fetch('/Admin/Deities', {
+        fetch('/Admin/Deities', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData),
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        } 
-
-        const data = await response.json();
-        console.log('Response from server:', data);
-        alert(`Successfully saved ${DeityName}!`);
-        // Handle success response from server
+            body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    alert("Error: Could not add Deity.");
+                throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('POST request successful');
+                console.log(data); // Response data from the server
+            })
+            .catch(error => {
+                console.error('Error during POST request:', error);
+            });
     } catch (error) {
-        console.error('Error:', error);
-        alert(`Error saving ${DeityName}. Try again later.`);
-        // Handle error
+        console.error('There was a problem with the fetch operation:', error);
+        throw error; // Re-throw the error for the caller to handle
     }
 };

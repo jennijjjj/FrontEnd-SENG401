@@ -53,24 +53,28 @@ export function getDeitiesData(){
 
 
 export function getCalendarData(){
-    try {
-    fetch('/Admin/Calendar') 
+    return fetch('/Admin/Calendar') 
         .then(response => {
-        if (response.ok) {
-            response.json().then(data => {
-            console.log(data);
-            return(data);
+            if (response.ok) {
+                return response.json(); // Return the JSON parsing promise
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .then(data => {
+            const jsonData = Object.values(data).map(entry => {
+                const { Email, UserName} = entry;
+                return {Email:Email, UserName:UserName};
             });
-        } else {
-            throw new Error('Network response was not ok');
-        }
+
+            const jsonString = JSON.stringify(jsonData);
+            console.log(jsonData); // Output the JSON string for verification
+            return jsonString;
         })
         .catch(error => {
-        console.error(`Error fetching data:`, error); 
+            console.error(`Error fetching data:`, error); 
+            throw error; // Rethrow the error to the caller
         });
-    } catch (error) {
-    console.error(`Exception occurred while fetching:`, error);
-    }
 }
 
 export function getUsersData(){
@@ -99,22 +103,26 @@ export function getUsersData(){
 }
 
 export function getForumData(){
-    try {
-    fetch('/Admin/Forum') 
+    return fetch('/Admin/Forum') 
         .then(response => {
-        if (response.ok) {
-            response.json().then(data => {
-            console.log(data);
-            return(data);
+            if (response.ok) {
+                return response.json(); // Return the JSON parsing promise
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .then(data => {
+            const jsonData = Object.values(data).map(entry => {
+                const { Email, UserName} = entry;
+                return {Email:Email, UserName:UserName};
             });
-        } else {
-            throw new Error('Network response was not ok');
-        }
+
+            const jsonString = JSON.stringify(jsonData);
+            console.log(jsonData); // Output the JSON string for verification
+            return jsonString;
         })
         .catch(error => {
-        console.error(`Error fetching data:`, error); 
+            console.error(`Error fetching data:`, error); 
+            throw error; // Rethrow the error to the caller
         });
-    } catch (error) {
-    console.error(`Exception occurred while fetching:`, error);
-    }
 }
