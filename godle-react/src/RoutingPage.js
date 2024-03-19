@@ -6,11 +6,8 @@ import Register from './Register';
 import Matches from './MatchingPageComponents/Matches';
 import Admin from './AdminComponents/AdminHome';
 import Deity from './Deity';
-<<<<<<< HEAD
 import Calendar from './CalendarComponents/Calendar';
-=======
 import Forum from './ForumComponents/ForumHome';
->>>>>>> main
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
 
