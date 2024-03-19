@@ -29,7 +29,7 @@ const RoutingPage = ({ page }) => {
   if (deity !== undefined) {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
         <Container fluid>
           <Deity deity={deity} setDeity={setDeity} />
         </Container>
@@ -40,16 +40,16 @@ const RoutingPage = ({ page }) => {
   if (page === "Home") {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
         <Container fluid>
-          <Home tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} />
+          <Home tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} user={user} />
         </Container>
       </div>
     );
   } else if (page === "Register") {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
         <Container fluid>
           <Register />
         </Container>
@@ -58,7 +58,7 @@ const RoutingPage = ({ page }) => {
   } else if (page === "Matches") {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
         <Container fluid>
           <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} />
         </Container>
@@ -67,7 +67,7 @@ const RoutingPage = ({ page }) => {
   }else if (page === "Admin") {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} />
+        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
         <Container fluid>
           <Admin />
         </Container>

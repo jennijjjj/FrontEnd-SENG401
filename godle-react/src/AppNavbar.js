@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
-const AppNavbar = ({ user, setUser }) => {
+const AppNavbar = ({ user, setUser, setDeity, deity }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -11,7 +11,7 @@ const AppNavbar = ({ user, setUser }) => {
   const [incorrectLogin, setIncorrectLogin] = useState(false);
 
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
     // Authenticate
@@ -23,33 +23,41 @@ const AppNavbar = ({ user, setUser }) => {
       };
 
       // Send HTTP POST request to register the user
-      const response = await fetch('/Login', {
+      fetch('/Login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(userData)
-      });
+      })
+      .then(response => {
+        if (response.ok) {
+          response.json().then(data => {
+            // Access the data in the response body
+            console.log(data);
+            setUser(userData);
+            if (data.admin === 1) {
+              navigate("/admin");
+              setIsAdmin(true);
+            } else {
+              navigate("/");
+            }
+          });
+        } else {
+          // If there's an error, display error message
+          alert('User not authenticated with the provided credentials.');
+          // Log the error
+          console.error(response);
+        }
+      })
 
-      if (response.ok) {
-        const userDataWithToken = await response.json();
-        localStorage.setItem('token', userDataWithToken.token);
-        localStorage.setItem('user',JSON.stringify(userData));
-        setUser(userData)
-        
-      } else {
-        // If there's an error, display error message
-        setIncorrectLogin(true);
-        console.error('User not authenticated with the provided credentials.');
-        
-      }
     } catch (error) {
-      setIncorrectLogin(true);
-      console.error('Exception occurred trying to send login information to backend.');
+      alert("Exception occured trying to send login information to backend.");
+      console.error('Exception occured trying to send login information to backend.');
     }
+
     setUsername('');
     setPassword('');
-    
   };
 
   const checkLocalStorage = () => {
@@ -134,9 +142,14 @@ const AppNavbar = ({ user, setUser }) => {
                 <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
                   Home
                 </DropdownItem>
-                <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
-                  Forum
-                </DropdownItem>
+                {deity ? (
+                  <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
+                    Forum
+                  </DropdownItem>
+                ) : (
+                  null
+                )}
+                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); navigate('/'); }}>
                 <DropdownItem className="dropdown-item-hover" onClick={() => { handleLogout() }}>
                   Logout
                 </DropdownItem>

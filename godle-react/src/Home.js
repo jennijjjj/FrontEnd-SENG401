@@ -3,7 +3,7 @@ import Slider from './Slider';
 import { useNavigate } from "react-router-dom";
 
 
-const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities }) => {
+const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }) => {
     const [sliderValues, setSliderValues] = useState({
         Zealousness: 0,
         Mysticism: 0,
@@ -16,6 +16,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities }) => {
         Aggression: 0,
         Grandeur: 0,
         Temperament: 0,
+        User: null,
     });
 
     const [termsChecked, setTermsChecked] = useState(false);
@@ -41,6 +42,10 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities }) => {
         if (tosButtonClicked) {
             console.log("Form submitted!");
             console.log("Attribute List:", sliderValues);
+            
+            if (user) {
+                sliderValues.User = user.username
+            }
 
             try {
                 fetch('/SubmitAttributes', {
