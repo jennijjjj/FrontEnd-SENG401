@@ -20,6 +20,26 @@ function DeityCard({deity, setModalOpen}) {
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
   const [images, setImages] = useState([]);
 
+  useEffect(() => {
+    if (deity) {
+        setModifyMode(false);
+        setModifiedName(deity.DeityName);
+        setSourceUniverse(deity.SourceUniverse);
+        setDeityDescription(deity.DeityDescription);
+        setZealousness(deity.Zealousness);
+        setMysticism(deity.Mysticism);
+        setSqueamishness(deity.Squeamishness);
+        setTechnology(deity.Technology);
+        setErudition(deity.Erudition);
+        setOrganization(deity.Organization);
+        setMorality(deity.Morality);
+        setZen(deity.Zen);
+        setAggression(deity.Aggression);
+        setGrandeur(deity.Grandeur);
+        setTemperament(deity.Temperament);
+    }
+}, [deity]);
+  
   const handleDelete = () => {
     const result =deleteImage(modifiedName);
     if (result===1){
