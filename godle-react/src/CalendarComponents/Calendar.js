@@ -5,39 +5,40 @@ import { format, addMonths, subMonths, startOfWeek, addDays, startOfMonth, endOf
 const Calendar = ({ deity, user }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [celebrations, setCelebrations] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState(null)
 
   useEffect(() => {
-    console.log(user);
-    console.log(deity);
-    console.log(format(currentDate, 'MMMM'));
+    if (currentMonth !== format(currentDate, 'MMMM')) {
+      setCurrentMonth(format(currentDate, 'MMMM'));
 
-    const send_packet = {
-      deityName: deity.name,
-      email: user.username,
-      month: format(currentDate, 'MMMM')
+      const send_packet = {
+        deityName: deity.name,
+        email: user.username,
+        month: format(currentDate, 'MMMM')
+      }
+
+      fetch('/Calendar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(send_packet)
+      })
+        .then(response => {
+          console.log(response);
+          if (response.ok) {
+            return response.json()
+          }
+          throw new Error("Error with calendar database connection");
+        })
+        .then(data => {
+          console.log(data);
+          setCelebrations(data);
+        })
+        .catch(error => {
+          console.log('There was an error', error);
+        });
     }
-
-    fetch('/Calendar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(send_packet)
-    })
-      .then(response => {
-        console.log(response);
-        if (response.ok) {
-          return response.json()
-        }
-        throw new Error("Error with calendar database connection");
-      })
-      .then(data => {
-        console.log(data);
-        setCelebrations(data);
-      })
-      .catch(error => {
-        console.log('There was an error', error);
-      });
 
   }, [deity, user, currentDate]);
 
