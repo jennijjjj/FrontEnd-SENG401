@@ -9,24 +9,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
-
-  useEffect(() => {
-    let timer;
-    if (incorrectLogin === true) {
-      // Set a timer to set yourState to false after 5 seconds
-      timer = setTimeout(() => {
-        setIncorrectLogin(false);
-      }, 5000);
-    }
-
-    // Cleanup function to clear the timer if the component unmounts
-    // or if yourState changes before the timer finishes
-    return () => clearTimeout(timer);
-  }, [incorrectLogin, setIncorrectLogin]);
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -49,13 +32,12 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
       })
         .then(response => {
           if (response.ok) {
-            setUser(userData);
             fetch('/IsUserMatched', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(username),
+              body: JSON.stringify(userData.username),
             })
               .then(response => {
                 if (response.ok) {
@@ -68,11 +50,20 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
                 setDeity(data);
               })
               .catch(error => {
+                setDeity(undefined);
                 console.log('There was an error', error);
               });
-            navigate("/");
-          }
-          else {
+            response.json().then(data => {
+              console.log(data);
+              setUser(userData);
+              if (data.admin === 1) {
+                navigate("/admin");
+                setIsAdmin(true);
+              } else {
+                navigate("/");
+              }
+            });
+          } else {
             // If there's an error, display error message
             alert('User not authenticated with the provided credentials.');
             // Log the error
@@ -89,6 +80,27 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
     setPassword('');
   };
 
+  const checkLocalStorage = () => {
+    try {
+      const token = localStorage.getItem('token');
+      const userString = localStorage.getItem('user');
+      if (token && userString) {
+        const user = JSON.parse(userString);
+        setUser(user);
+      }
+    } catch (err) {
+    }
+
+  };
+
+  // Call checkLocalStorage on component mount
+  useEffect(() => {
+    checkLocalStorage();
+  }, []);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -121,9 +133,15 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
                 <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
                   Home
                 </DropdownItem>
+<<<<<<< HEAD
                 {deity ? (<>
                   <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
                     Chatrooms
+=======
+                {deity ? (
+                  <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
+                    Forum
+>>>>>>> main
                   </DropdownItem>
                   <DropdownItem tag={Link} to={"/Calendar"} className="dropdown-item-hover">
                     Calendar

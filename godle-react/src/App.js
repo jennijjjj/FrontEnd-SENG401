@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SparklingCursor from './SparklingCursor';
 
 const App = () => {
+
   return (
     <div>
       <div className="gradient-container"></div>
@@ -17,6 +18,7 @@ const App = () => {
             <Route exact={true} path='/Matches' element={<RoutingPage page="Matches" />} />
             <Route exact={true} path='/Admin' element={<RoutingPage page="Admin" />} />
             <Route exact={true} path='/Calendar' element={<RoutingPage page="Calendar" />} />
+            <Route exact={true} path='/Forum' element={<RoutingPage page="Forum" />} />
             {//<Route path="/page-variable" exact={true} element={<RoutingPage page={"page-variable"}/>}/>
             }
           </Routes>
