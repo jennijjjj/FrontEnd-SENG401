@@ -121,14 +121,14 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
                 <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
                   Home
                 </DropdownItem>
-                <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
-                  Chatrooms
-                </DropdownItem>
-                {deity ? (
+                {deity ? (<>
                   <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
                     Chatrooms
                   </DropdownItem>
-                ) : (
+                  <DropdownItem tag={Link} to={"/Calendar"} className="dropdown-item-hover">
+                    Calendar
+                  </DropdownItem>
+                </>) : (
                   null
                 )}
                 <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); navigate('/'); }}>

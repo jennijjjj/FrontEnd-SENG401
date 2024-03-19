@@ -6,6 +6,7 @@ import Register from './Register';
 import Matches from './MatchingPageComponents/Matches';
 import Admin from './AdminComponents/AdminHome';
 import Deity from './Deity';
+import Calendar from './CalendarComponents/Calendar';
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
 
@@ -25,7 +26,19 @@ const RoutingPage = ({ page }) => {
     return <p>Loading...</p>;
   }
 
+
+
   if (deity !== undefined) {
+    if(page === "Calendar") {
+      return (
+        <div>
+          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
+          <Container fluid>
+            <Calendar deity={deity} />
+          </Container>
+        </div>
+      );
+    }
     return (
       <div>
         <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />

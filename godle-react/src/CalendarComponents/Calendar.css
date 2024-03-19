@@ -1,0 +1,39 @@
+.calendar {
+    margin: 50px auto;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .days, .body .row {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .cell {
+    padding: 8px;
+    margin: 2px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .selected {
+    background-color: #9fa8da;
+  }
+  
+  .disabled {
+    color: #ccc;
+  }
+  
