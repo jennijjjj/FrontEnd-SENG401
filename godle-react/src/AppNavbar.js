@@ -50,6 +50,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
                 setDeity(data);
               })
               .catch(error => {
+                setDeity(undefined);
                 console.log('There was an error', error);
               });
             response.json().then(data => {
