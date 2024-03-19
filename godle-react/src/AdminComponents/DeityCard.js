@@ -151,28 +151,28 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
   const handleZealousnessChange = (e) => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
-        setZealousness(parseFloat(e.target.value));
-    } else if (e.target.value ===""){
+        setZealousness(Number(e.target.value));
+    } else if (e.target.value === "") {
         setZealousness("");
     } else {
-      console.log("Input is not a valid float.");
-  }
+        console.log("Input is not a valid double.");
+    }
 };
 
 const handleMysticismChange = (e) => {
   const value = parseFloat(e.target.value);
-  if (!isNaN(value)) {
-      setMysticism(value);
-  } else if (e.target.value === "") {
+    if (!isNaN(value)) {
+      setMysticism(Number(e.target.value));
+    } else if (e.target.value === "") {
       setMysticism("");
-  } else {
-      console.log("Input is not a valid float.");
-  }
+    } else {
+        console.log("Input is not a valid double.");
+    }
 };
 
 const handleSqueamishnessChange = (e) => {
   const value = parseFloat(e.target.value);
-  if (!isNaN(value)) {
+  if (!isNaN(Number(e.target.value))) {
       setSqueamishness(value);
   } else if (e.target.value === "") {
       setSqueamishness("");
@@ -184,7 +184,7 @@ const handleSqueamishnessChange = (e) => {
 const handleTechnologyChange = (e) => {
   const value = parseFloat(e.target.value);
   if (!isNaN(value)) {
-      setTechnology(value);
+      setTechnology(Number(e.target.value));
   } else if (e.target.value === "") {
       setTechnology("");
   } else {
@@ -194,7 +194,7 @@ const handleTechnologyChange = (e) => {
 const handleEruditionChange = (e) => {
   const value = parseFloat(e.target.value);
   if (!isNaN(value)) {
-      setErudition(value);
+      setErudition(Number(e.target.value));
   } else if (e.target.value === "") {
       setErudition("");
   } else {
@@ -205,7 +205,7 @@ const handleEruditionChange = (e) => {
 const handleOrganizationChange = (e) => {
   const value = parseFloat(e.target.value);
   if (!isNaN(value)) {
-      setOrganization(value);
+      setOrganization(Number(e.target.value));
   } else if (e.target.value === "") {
       setOrganization("");
   } else {
@@ -216,7 +216,7 @@ const handleOrganizationChange = (e) => {
 const handleMoralityChange = (e) => {
   const value = parseFloat(e.target.value);
   if (!isNaN(value)) {
-      setMorality(value);
+      setMorality(Number(e.target.value));
   } else if (e.target.value === "") {
       setMorality("");
   } else {
@@ -227,7 +227,7 @@ const handleMoralityChange = (e) => {
 const handleZenChange = (e) => {
   const value = parseFloat(e.target.value);
   if (!isNaN(value)) {
-      setZen(value);
+      setZen(Number(e.target.value));
   } else if (e.target.value === "") {
       setZen("");
   } else {
@@ -238,7 +238,7 @@ const handleZenChange = (e) => {
 const handleAggressionChange = (e) => {
   const value = parseFloat(e.target.value);
   if (!isNaN(value)) {
-      setAggression(value);
+      setAggression(Number(e.target.value));
   } else if (e.target.value === "") {
       setAggression("");
   } else {
@@ -249,7 +249,7 @@ const handleAggressionChange = (e) => {
 const handleGrandeurChange = (e) => {
   const value = parseFloat(e.target.value);
   if (!isNaN(value)) {
-      setGrandeur(value);
+      setGrandeur(Number(e.target.value));
   } else if (e.target.value === "") {
       setGrandeur("");
   } else {
@@ -260,7 +260,7 @@ const handleGrandeurChange = (e) => {
 const handleTemperamentChange = (e) => {
   const value = parseFloat(e.target.value);
   if (!isNaN(value)) {
-      setTemperament(value);
+      setTemperament(Number(e.target.value));
   } else if (e.target.value === "") {
       setTemperament("");
   } else {
