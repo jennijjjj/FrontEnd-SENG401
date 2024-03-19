@@ -37,7 +37,7 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ user, card })
+        body: JSON.stringify({ "email": user.username, card })
       })
         .then(response => {
           if (response.ok) {

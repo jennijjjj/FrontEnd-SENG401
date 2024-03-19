@@ -3,31 +3,13 @@ import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler,
 import { Link, useNavigate } from 'react-router-dom';
 import { FastLayer } from 'konva/lib/FastLayer';
 
-const AppNavbar = ({ user, setUser, setIsAdmin, isAdmin }) => {
+const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
-
-  useEffect(() => {
-    let timer;
-    if (incorrectLogin === true) {
-      // Set a timer to set yourState to false after 5 seconds
-      timer = setTimeout(() => {
-        setIncorrectLogin(false);
-      }, 5000);
-    }
-
-    // Cleanup function to clear the timer if the component unmounts
-    // or if yourState changes before the timer finishes
-    return () => clearTimeout(timer);
-  }, [incorrectLogin, setIncorrectLogin]);
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
 
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -48,26 +30,46 @@ const AppNavbar = ({ user, setUser, setIsAdmin, isAdmin }) => {
         },
         body: JSON.stringify(userData)
       })
-      .then(response => {
-        if (response.ok) {
-          response.json().then(data => {
-            // Access the data in the response body
-            console.log(data);
-            setUser(userData);
-            if (data.admin === 1) {
-              navigate("/admin");
-              setIsAdmin(true);
-            } else {
-              navigate("/");
-            }
-          });
-        } else {
-          // If there's an error, display error message
-          alert('User not authenticated with the provided credentials.');
-          // Log the error
-          console.error(response);
-        }
-      })
+        .then(response => {
+          if (response.ok) {
+            fetch('/IsUserMatched', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(userData.username),
+            })
+              .then(response => {
+                if (response.ok) {
+                  return response.json(); // Parse JSON data from the response
+                }
+                throw new Error('No Deity Matched To User'); // Handle non-OK responses
+              })
+              .then(data => {
+                console.log("Deity Object Found");
+                setDeity(data);
+              })
+              .catch(error => {
+                setDeity(undefined);
+                console.log('There was an error', error);
+              });
+            response.json().then(data => {
+              console.log(data);
+              setUser(userData);
+              if (data.admin === 1) {
+                navigate("/admin");
+                setIsAdmin(true);
+              } else {
+                navigate("/");
+              }
+            });
+          } else {
+            // If there's an error, display error message
+            alert('User not authenticated with the provided credentials.');
+            // Log the error
+            console.error(response);
+          }
+        })
 
     } catch (error) {
       alert("Exception occured trying to send login information to backend.");
@@ -78,6 +80,27 @@ const AppNavbar = ({ user, setUser, setIsAdmin, isAdmin }) => {
     setPassword('');
   };
 
+  const checkLocalStorage = () => {
+    try {
+      const token = localStorage.getItem('token');
+      const userString = localStorage.getItem('user');
+      if (token && userString) {
+        const user = JSON.parse(userString);
+        setUser(user);
+      }
+    } catch (err) {
+    }
+
+  };
+
+  // Call checkLocalStorage on component mount
+  useEffect(() => {
+    checkLocalStorage();
+  }, []);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -114,10 +137,14 @@ const AppNavbar = ({ user, setUser, setIsAdmin, isAdmin }) => {
                     <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
                       Home
                     </DropdownItem>
-                    <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
-                      Chatrooms
-                    </DropdownItem>
-                  </>
+                    {deity ? (
+                      <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
+                        Forum
+                      </DropdownItem>
+                    ) : (
+                      null
+                    )}
+                    </>
                 )}
                 <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); setIsAdmin(false); navigate('/'); }}>
                   Logout
