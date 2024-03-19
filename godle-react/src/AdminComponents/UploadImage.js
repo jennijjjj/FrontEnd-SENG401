@@ -1,24 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import ImageUploading from 'react-images-uploading';
 
-export function UploadImage({ images, setImages, deityName }) {
+export function UploadImage({ images, setImages, deityName, deityImagePath }) {
   
   const maxNumber = 1;
 
   const onChange = (imageList) => {
-    // Rename the image file before updating the state
     const renamedImageList = imageList.map((image) => {
-        const imageName = `${deityName}.${image.file.name.split('.').pop()}`; // Rename the file with a timestamp
+        const imageName = `${deityName}.${image.file.name.split('.').pop()}`;
         return { ...image, file: new File([image.file], imageName, { type: image.file.type }) };
     });
-    // Update the state with the renamed image list
     setImages(renamedImageList);
     
     
   };
 
+  const boxStyle = {
+    width: '300px',
+    border: '2px dashed #aaa',
+    padding: '20px',
+    textAlign: 'center'
+};
 
-return (
+  const dividerStyle = {
+      marginBottom: '10px'
+  };
+
+  const onImageUploadDefault = () => {
+    fetch(deityImagePath)
+      .then(response => response.blob())
+      .then(blob => {
+        const file = new File([blob], deityImagePath, { type: 'image/jpeg' });
+        console.log([{ data_url: URL.createObjectURL(blob), file }]);
+        onChange([{ data_url: URL.createObjectURL(blob), file }]);
+      })
+      .catch(error => console.error('Error fetching default image:', error));
+  };
+  useEffect(() => {
+    if (images.length === 0 && deityImagePath!=="") {
+      onImageUploadDefault();
+    }
+  }, [deityImagePath]); 
+
+  return (
     <div className="App">
       <ImageUploading
         value={images}
@@ -34,14 +58,28 @@ return (
           dragProps,
         }) => (
           <div className="upload__image-wrapper">
-            <p
-              className='list-group-item'
-              style={{ textDecoration: 'underline', ...(isDragging ? { color: 'red', fontWeight:"bolder" } : {}) }}
-              onClick={onImageUpload}
+            {images.length === 0 && (
+              <div
+              style={{
+                ...(isDragging ? { backgroundColor: '#eaf6ff', fontWeight: 'bolder' } : {}),
+                ...boxStyle // Merge with the existing boxStyle object
+              }}
+              // onClick={onImageUpload}
               {...dragProps}
-            >
-              Click or Drop image here
-            </p>
+            > <div >
+                  <p>☁️📁</p>
+              </div>
+                <div >
+                    <p>Drag & Drop File Here</p>
+                </div>
+                <div style={dividerStyle}>
+                    <p>OR</p>
+                </div>
+                <div className="browse-button">
+                    <button className='adminbutton' onClick={onImageUpload}>Browse File</button>
+                </div>
+            </div>
+          )}
             &nbsp;
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
@@ -54,7 +92,6 @@ return (
           </div>
         )}
       </ImageUploading>
-      {/* <button onClick={uploadImage}>Upload Image</button> */}
     </div>
   );
 }

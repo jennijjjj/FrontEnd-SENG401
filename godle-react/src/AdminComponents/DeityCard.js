@@ -4,6 +4,7 @@ import {UploadImage} from './UploadImage';
 import { postDeity } from './ApiRequests/PostRequest';
 import { deleteDeity } from './ApiRequests/DeleteRequests';
 import { ImageReader } from './ImageReader';
+import { putDeity } from './ApiRequests/ModifyRequests';
 function DeityCard({deity, setModalOpen, fetchJsonData}) {
   const [modifyMode, setModifyMode] = useState(deity ? false : true);
   const [modifiedName, setModifiedName] = useState(deity ? deity.DeityName : null);
@@ -21,6 +22,7 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
   const [grandeur, setGrandeur] = useState(deity ? deity.Grandeur : null);
   const [temperament, setTemperament] = useState(deity ? deity.Temperament : null);
   const [images, setImages] = useState([]);
+  const [imagePath, setImagePath] = useState("");
 
   useEffect(() => {
     if (deity) {
@@ -39,18 +41,27 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
         setAggression(deity.Aggression);
         setGrandeur(deity.Grandeur);
         setTemperament(deity.Temperament);
-        // const imagePath = `../../public/images/${deity.ImagePath}`;
-        const imagePath = `../../public/images/Azura.png`;
-        console.log("imagePath:", imagePath);
-        ImageReader({ imagePath })
+        if (deity.ImagePath) {
+          const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']; // Add more extensions if needed
+          const lowerImagePath = deity.ImagePath.toLowerCase();
+          const hasValidExtension = imageExtensions.some(ext => lowerImagePath.endsWith(ext));
+        
+          if (hasValidExtension) {
+            setImagePath(`./images/${deity.ImagePath}`);
+          }
+        }
+
+        if (imagePath!==""){
+          ImageReader({ imagePath })
             .then(imageInfo => {
-              console.log("imagePath:", imageInfo);
-                // Set the first index of the images array to the return value of ImageReader
-                setImages([imageInfo]);
+              console.log('Image info:', imageInfo);
             })
             .catch(error => {
-                console.error('Error:', error.message);
+              console.error('Error reading image:', error);
             });
+        }
+        console.log(imagePath);
+        
             
     }
 }, [deity]);
@@ -73,25 +84,29 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
   //   uploadImageFunction();
   // };
   const handleSave = async () => {
-    await postDeity(
-        zen,
-        organization,
-        squeamishness,
-        technology,
-        temperament,
-        zealousness,
-        aggression,
-        erudition,
-        grandeur,
-        morality,
-        mysticism,
-        modifiedName,
-        sourceUniverse,
-        deityDescription,
-        images
-    );
+    let imageName = null;
+    if (images.length>0){
+      imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
+    }
+    await putDeity(
+      zen,
+      organization,
+      squeamishness,
+      technology,
+      temperament,
+      zealousness,
+      aggression,
+      erudition,
+      grandeur,
+      morality,
+      mysticism,
+      modifiedName,
+      sourceUniverse,
+      deityDescription,
+      imageName
+      );
     console.log("save",images);
-    uploadImage(images, modifiedName);
+    uploadImage(images, setImages, deity);
     setModifyMode(false); 
     if (deity == null) {
         setModalOpen(false);
@@ -99,8 +114,10 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
 };
 
   const handleAdd = async ()=> {
-    console.log("save",images);
-    const imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
+    let imageName = null;
+    if (images.length>0){
+      imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
+    }
     await postDeity(
       zen,
       organization,
@@ -116,7 +133,7 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
       modifiedName,
       sourceUniverse,
       deityDescription,
-      "image.jpg"
+      imageName
       );
       // uploadImage(images, modifiedName);
       setModifyMode(false); 
@@ -334,7 +351,7 @@ const handleTemperamentChange = (e) => {
             /> */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", margin: "8px" }}>
                   {modifyMode ? (
-                      <UploadImage images={images} setImages={setImages} deityName={modifiedName}/>
+                      <UploadImage images={images} setImages={setImages} deityName={modifiedName} deityImagePath={imagePath}/>
                   ) : (
                       <div></div>
                   )}
