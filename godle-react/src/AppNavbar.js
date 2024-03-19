@@ -52,16 +52,16 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
               .catch(error => {
                 console.log('There was an error', error);
               });
-            // response.json().then(data => {
-            //   console.log(data);
-            //   setUser(userData);
-            //   if (data.admin === 1) {
-            //     navigate("/admin");
-            //     setIsAdmin(true);
-            //   } else {
-            //     navigate("/");
-            //   }
-            // });
+            response.json().then(data => {
+              console.log(data);
+              setUser(userData);
+              if (data.admin === 1) {
+                navigate("/admin");
+                setIsAdmin(true);
+              } else {
+                navigate("/");
+              }
+            });
           } else {
             // If there's an error, display error message
             alert('User not authenticated with the provided credentials.');
