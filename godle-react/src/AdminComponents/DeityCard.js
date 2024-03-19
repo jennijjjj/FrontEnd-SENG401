@@ -70,6 +70,7 @@ function DeityCard({deity, setModalOpen}) {
 };
 
   const handleAdd = async ()=> {
+    const imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
     await postDeity(
       zen,
       organization,
@@ -85,7 +86,7 @@ function DeityCard({deity, setModalOpen}) {
       modifiedName,
       sourceUniverse,
       deityDescription,
-      "images.jpg"
+      imageName
       );
       uploadImage(images, modifiedName);
       setModifyMode(false); 
@@ -115,50 +116,128 @@ function DeityCard({deity, setModalOpen}) {
   const handleDeityDescriptionChange = (e) => {
     setDeityDescription(e.target.value);
   };
-  
+
+
   const handleZealousnessChange = (e) => {
-    setZealousness(e.target.value);
-  };
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+        setZealousness(parseFloat(e.target.value));
+    } else if (e.target.value ===""){
+        setZealousness("");
+    } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleMysticismChange = (e) => {
-    setMysticism(e.target.value);
-  };
+const handleMysticismChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setMysticism(value);
+  } else if (e.target.value === "") {
+      setMysticism("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleSqueamishnessChange = (e) => {
-    setSqueamishness(e.target.value);
-  };
+const handleSqueamishnessChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setSqueamishness(value);
+  } else if (e.target.value === "") {
+      setSqueamishness("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleTechnologyChange = (e) => {
-    setTechnology(e.target.value);
-  };
+const handleTechnologyChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setTechnology(value);
+  } else if (e.target.value === "") {
+      setTechnology("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
+const handleEruditionChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setErudition(value);
+  } else if (e.target.value === "") {
+      setErudition("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleEruditionChange = (e) => {
-    setErudition(e.target.value);
-  };
+const handleOrganizationChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setOrganization(value);
+  } else if (e.target.value === "") {
+      setOrganization("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleOrganizationChange = (e) => {
-    setOrganization(e.target.value);
-  };
+const handleMoralityChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setMorality(value);
+  } else if (e.target.value === "") {
+      setMorality("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleMoralityChange = (e) => {
-    setMorality(e.target.value);
-  };
+const handleZenChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setZen(value);
+  } else if (e.target.value === "") {
+      setZen("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleZenChange = (e) => {
-    setZen(e.target.value);
-  };
+const handleAggressionChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setAggression(value);
+  } else if (e.target.value === "") {
+      setAggression("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleAggressionChange = (e) => {
-    setAggression(e.target.value);
-  };
+const handleGrandeurChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setGrandeur(value);
+  } else if (e.target.value === "") {
+      setGrandeur("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleGrandeurChange = (e) => {
-    setGrandeur(e.target.value);
-  };
+const handleTemperamentChange = (e) => {
+  const value = parseFloat(e.target.value);
+  if (!isNaN(value)) {
+      setTemperament(value);
+  } else if (e.target.value === "") {
+      setTemperament("");
+  } else {
+      console.log("Input is not a valid float.");
+  }
+};
 
-  const handleTemperamentChange = (e) => {
-    setTemperament(e.target.value);
-  };
 
   // const handleImageChange = (event) => {
   //   const file = event.target.files[0];

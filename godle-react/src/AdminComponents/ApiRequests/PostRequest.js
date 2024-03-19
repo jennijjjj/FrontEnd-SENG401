@@ -1,21 +1,21 @@
 
 export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temperament, Zealousness,Aggression,Erudition,Grandeur,Morality,Mysticism,DeityName, SourceUniverse, DeityDescription, ImagePath) => {
     const data ={
-        Aggression:Aggression, 
-        DeityName: DeityName, 
+        DeityName: DeityName,
         DeityDescription: DeityDescription,
-        Erudition:Erudition,
-        Grandeur:Grandeur,
+        SourceUniverse: SourceUniverse,
         ImagePath:ImagePath,
-        Morality:Morality,
-        Mysticism:Mysticism,
-        Organization:Organization,
-        Squeamishness:Squeamishness,
-        Technology:Technology,
-        Temperament:Temperament,
-        Zealousness:Zealousness,
-        Zen:Zen,
-        SourceUniverse: SourceUniverse 
+        AGGRESSION:Aggression, 
+        ERUDITION:Erudition,
+        GRANDEUR:Grandeur,
+        MORALITY:Morality,
+        MYSTICISM:Mysticism,
+        ORGANIZATION:Organization,
+        SQUEAMISHNESS:Squeamishness,
+        TECHNOLOGY:Technology,
+        TEMPERAMENT:Temperament,
+        ZEALOUSNESS:Zealousness,
+        ZEN:Zen    
     }
 
     try {
@@ -28,9 +28,11 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
             })
             .then(response => {
                 if (!response.ok) {
+                    console.log(data);
                     alert("Error: Could not add Deity.");
                 throw new Error('Network response was not ok');
                 }
+                
                 return response.json();
             })
             .then(data => {
