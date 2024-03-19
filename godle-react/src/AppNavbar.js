@@ -28,7 +28,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userData.username)
+        body: JSON.stringify(userData)
       })
         .then(response => {
           if (response.ok) {
@@ -37,7 +37,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(username),
+              body: JSON.stringify(userData.username),
             })
               .then(response => {
                 if (response.ok) {
