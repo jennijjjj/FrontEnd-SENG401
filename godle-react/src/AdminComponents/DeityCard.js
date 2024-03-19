@@ -88,58 +88,61 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
     if (images.length>0){
       imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
     }
-    await putDeity(
-      zen,
-      organization,
-      squeamishness,
-      technology,
-      temperament,
-      zealousness,
-      aggression,
-      erudition,
-      grandeur,
-      morality,
-      mysticism,
-      modifiedName,
-      sourceUniverse,
-      deityDescription,
-      imageName
-      );
-    console.log("save",images);
-    uploadImage(images, setImages, deity);
-    setModifyMode(false); 
-    if (deity == null) {
-        setModalOpen(false);
-    }
-};
+    try {
+      await postDeity(
+        zen,
+        organization,
+        squeamishness,
+        technology,
+        temperament,
+        zealousness,
+        aggression,
+        erudition,
+        grandeur,
+        morality,
+        mysticism,
+        modifiedName,
+        sourceUniverse,
+        deityDescription,
+        imageName
+        );
+    } catch (error) {
+        setModifyMode(false); 
+        if (deity == null) {
+            setModalOpen(false);
+        }
+    }  
+  };
 
   const handleAdd = async ()=> {
     let imageName = null;
     if (images.length>0){
       imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
     }
-    await postDeity(
-      zen,
-      organization,
-      squeamishness,
-      technology,
-      temperament,
-      zealousness,
-      aggression,
-      erudition,
-      grandeur,
-      morality,
-      mysticism,
-      modifiedName,
-      sourceUniverse,
-      deityDescription,
-      imageName
-      );
-      // uploadImage(images, modifiedName);
-      setModifyMode(false); 
-      if (deity == null) {
-          setModalOpen(false);
-      }
+    try {
+      await postDeity(
+        zen,
+        organization,
+        squeamishness,
+        technology,
+        temperament,
+        zealousness,
+        aggression,
+        erudition,
+        grandeur,
+        morality,
+        mysticism,
+        modifiedName,
+        sourceUniverse,
+        deityDescription,
+        imageName
+        );
+    } catch (error) {
+        setModifyMode(false); 
+        if (deity == null) {
+            setModalOpen(false);
+        }
+    }  
   };
   const handleCancel = () => {
     setModifyMode(false); 
