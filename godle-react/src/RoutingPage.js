@@ -34,7 +34,7 @@ const RoutingPage = ({ page }) => {
         <div>
           <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
           <Container fluid>
-            <Calendar deity={deity} />
+            <Calendar deity={deity} user={user} />
           </Container>
         </div>
       );

@@ -9,7 +9,13 @@ const Calendar = ({ deity, user }) => {
   useEffect( () => {
     console.log(user);
     console.log(deity);
-    const send_packet = [deity.name, user.username, currentDate]
+    console.log(format(currentDate, 'MMMM'));
+
+    const send_packet = { 
+        deityName: deity.name,
+        email: user.username,
+        month: format(currentDate, 'MMMM')
+    }
 
     fetch('/Calendar', {
         method: 'POST',
@@ -41,7 +47,7 @@ const Calendar = ({ deity, user }) => {
           </div>
         </div>
         <div className="column col-center">
-          <span>{format(currentDate, 'MMMM yyyy')}</span>
+          <span>{format(currentDate, 'MMMM')}</span>
         </div>
         <div className="column col-end" onClick={nextMonth}>
           <div className="icon">{'>'}</div>
