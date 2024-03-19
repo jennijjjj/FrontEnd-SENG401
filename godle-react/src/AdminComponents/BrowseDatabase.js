@@ -109,15 +109,15 @@ function BrowseDatabase({selectedOption, searchVar, controller}) {
     } 
     else if (selectedOption==='Manage Users' && userData && userData.length > 0) {
       return (
-       <SearchList filteredSearch={filteredSearchUser} controller={controller}/>
+       <SearchList filteredSearch={filteredSearchUser} controller={controller} fetchJsonData={fetchJsonData}/>
       );
     } else if (selectedOption==='Manage Forum' && forumData && forumData.length > 0) {
       return (
-       <SearchList filteredSearch={filteredSearchForum} controller={controller}/>
+       <SearchList filteredSearch={filteredSearchForum} controller={controller} fetchJsonData={fetchJsonData}/>
       );
     } else if (selectedOption==='Manage Calendar' && calendarData && calendarData.length > 0) {
       return (
-       <SearchList filteredSearch={filteredSearchCalendar} controller={controller}/>
+       <SearchList filteredSearch={filteredSearchCalendar} controller={controller} fetchJsonData={fetchJsonData}/>
       );
     } 
   }

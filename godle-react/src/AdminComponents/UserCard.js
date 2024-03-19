@@ -1,17 +1,14 @@
 import React from 'react';
+import { deleteUser } from './ApiRequests/DeleteRequests';
 
-function UserCard({user}) {
+function UserCard({user, fetchJsonData}) {
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const userResponse = window.confirm(`Are you sure you want to delete ${user.Email}?`);
     if (userResponse) {
-      alert(`Successfully deleted ${user.Email}!`);
-        // User clicked "OK" or "Yes"
-        // Perform action
-    } else {
-        // User clicked "Cancel" or "No"
-        // Perform alternative action or do nothing
-    }
+      await deleteUser(user.Email);
+      fetchJsonData();
+    } 
    
   };
   

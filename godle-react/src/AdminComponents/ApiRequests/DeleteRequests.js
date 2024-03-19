@@ -50,10 +50,10 @@ export const deleteUser = async (Email) => {
             .then(response => {
                 if (!response.ok) {
                     console.log(data);
-                    alert("Error: Could not delete User.");
+                    alert(`ERROR: could not delete ${Email}.`);
                 throw new Error('Network response was not ok');
                 }
-                
+                alert(`Successfully deleted ${Email}!`);
                 return response.json();
             })
             .then(data => {

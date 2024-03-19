@@ -7,7 +7,7 @@ function SearchList({ filteredSearch, controller, fetchJsonData}) {
   if (controller === "Deity") {
     filtered = filteredSearch.map((deity) => <DeityCard deity={deity} fetchJsonData={fetchJsonData}/>);
   } else if (controller === "User") {
-    filtered = filteredSearch.map((user) => <UserCard user={user} />);
+    filtered = filteredSearch.map((user) => <UserCard user={user} fetchJsonData={fetchJsonData}/>);
   } else {
     filtered = null; // or handle other cases as needed
   }
