@@ -9,36 +9,37 @@ export function getDeitiesData(){
         })
         .then(data => {
             const jsonData = Object.values(data).map(entry => {
-                const { Aggression,
+                const { AGGRESSION,
                     DeityDescription,
                     DeityName,
-                    Erudition,
-                    Grandeur,
+                    ERUDITION,
+                    GRANDEUR,
                     ImagePath,
-                    Morality,
-                    Mysticism,
-                    Organization,
+                    MORALITY,
+                    MYSTICISM,
+                    ORGANIZATION,
                     SourceUniverse,
-                    Squeamishness,
-                    Technology,
-                    Temperament,
-                    Zealousness,
-                    Zen} = entry;
-                return { Aggression:Aggression, 
-                    DeityName: DeityName, 
+                    SQUEAMISHNESS,
+                    TECHNOLOGY,
+                    TEMPERAMENT,
+                    ZEALOUSNESS,
+                    ZEN} = entry;
+                return { DeityName: DeityName,
                     DeityDescription: DeityDescription,
-                    Erudition:Erudition,
-                    Grandeur:Grandeur,
-                    ImagePath:ImagePath,
-                    Morality:Morality,
-                    Mysticism:Mysticism,
-                    Organization:Organization,
-                    Squeamishness:Squeamishness,
-                    Technology:Technology,
-                    Temperament:Temperament,
-                    Zealousness:Zealousness,
-                    Zen:Zen,
-                    SourceUniverse: SourceUniverse };
+                    SourceUniverse: SourceUniverse,
+                    ImagePath: ImagePath,
+                    Aggression: AGGRESSION,
+                    Erudition: ERUDITION,
+                    Grandeur: GRANDEUR,
+                    Morality: MORALITY,
+                    Mysticism: MYSTICISM,
+                    Organization: ORGANIZATION,
+                    Squeamishness: SQUEAMISHNESS,
+                    Technology: TECHNOLOGY,
+                    Temperament: TEMPERAMENT,
+                    Zealousness: ZEALOUSNESS,
+                    Zen: ZEN
+                     };
             });
 
             const jsonString = JSON.stringify(jsonData);
