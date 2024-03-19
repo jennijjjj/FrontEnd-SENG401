@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { uploadImage, deleteImage } from './ApiRequests/ImageApi';
 import {UploadImage} from './UploadImage';
 import { postDeity } from './ApiRequests/PostRequest';
-function DeityCard({deity, setModalOpen}) {
+import { deleteDeity } from './ApiRequests/DeleteRequests';
+function DeityCard({deity, setModalOpen, fetchJsonData}) {
   const [modifyMode, setModifyMode] = useState(deity ? false : true);
   const [modifiedName, setModifiedName] = useState(deity ? deity.DeityName : null);
   const [sourceUniverse, setSourceUniverse] = useState(deity ? deity.SourceUniverse : null);
@@ -40,21 +41,14 @@ function DeityCard({deity, setModalOpen}) {
     }
 }, [deity]);
   
-  const handleDelete = () => {
-    const result =deleteImage(modifiedName);
-    if (result===1){
-        const userResponse = window.confirm(`Are you sure you want to delete ${modifiedName}?`);
-      if (userResponse) {
-        
-        alert(`Successfully deleted ${modifiedName}!`);
-        
-          // User clicked "OK" or "Yes"
-          // Perform action
-      } else {
-          // User clicked "Cancel" or "No"
-          // Perform alternative action or do nothing
-      }
-
+  const handleDelete = async () => {
+    // const result =deleteImage(modifiedName);
+    // if (result===1){
+    const userResponse = window.confirm(`Are you sure you want to delete ${modifiedName}?`);
+    if (userResponse) {
+      
+      await deleteDeity(modifiedName);
+      fetchJsonData();
     } 
    
   };

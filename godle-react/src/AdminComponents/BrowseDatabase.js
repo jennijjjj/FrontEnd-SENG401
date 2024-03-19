@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import SearchList from './SearchList';
 import { getDeitiesData, getCalendarData, getForumData, getUsersData } from './ApiRequests/GetRequests';
 
-function BrowseDatabase({selectedOption, searchVar, controller, data}) {
+function BrowseDatabase({selectedOption, searchVar, controller}) {
   const [searchField, setSearchField] = useState("");
   const [search, setSearch] = useState(false);
   const [deityData, setDeityData] = useState([]);
@@ -104,7 +104,7 @@ function BrowseDatabase({selectedOption, searchVar, controller, data}) {
   function searchList() {
     if (selectedOption==='Manage Deities' && deityData && deityData.length>0) {
       return (
-        <SearchList filteredSearch={filteredSearchDeity} controller={controller}/>
+        <SearchList filteredSearch={filteredSearchDeity} controller={controller} fetchJsonData={fetchJsonData}/>
       );
     } 
     else if (selectedOption==='Manage Users' && userData && userData.length > 0) {
