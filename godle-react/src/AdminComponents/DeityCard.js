@@ -3,6 +3,7 @@ import { uploadImage, deleteImage } from './ApiRequests/ImageApi';
 import {UploadImage} from './UploadImage';
 import { postDeity } from './ApiRequests/PostRequest';
 import { deleteDeity } from './ApiRequests/DeleteRequests';
+import { ImageReader } from './ImageReader';
 function DeityCard({deity, setModalOpen, fetchJsonData}) {
   const [modifyMode, setModifyMode] = useState(deity ? false : true);
   const [modifiedName, setModifiedName] = useState(deity ? deity.DeityName : null);
@@ -38,6 +39,19 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
         setAggression(deity.Aggression);
         setGrandeur(deity.Grandeur);
         setTemperament(deity.Temperament);
+        // const imagePath = `../../public/images/${deity.ImagePath}`;
+        const imagePath = `../../public/images/Azura.png`;
+        console.log("imagePath:", imagePath);
+        ImageReader({ imagePath })
+            .then(imageInfo => {
+              console.log("imagePath:", imageInfo);
+                // Set the first index of the images array to the return value of ImageReader
+                setImages([imageInfo]);
+            })
+            .catch(error => {
+                console.error('Error:', error.message);
+            });
+            
     }
 }, [deity]);
   
@@ -59,31 +73,33 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
   //   uploadImageFunction();
   // };
   const handleSave = async () => {
-    // await postDeity(
-    //     zen,
-    //     organization,
-    //     squeamishness,
-    //     technology,
-    //     temperament,
-    //     zealousness,
-    //     aggression,
-    //     erudition,
-    //     grandeur,
-    //     morality,
-    //     mysticism,
-    //     modifiedName,
-    //     sourceUniverse,
-    //     deityDescription,
-    //     images
-    // );
-    // uploadImage(images, modifiedName);
-    // setModifyMode(false); 
-    // if (deity == null) {
-    //     setModalOpen(false);
-    // }
+    await postDeity(
+        zen,
+        organization,
+        squeamishness,
+        technology,
+        temperament,
+        zealousness,
+        aggression,
+        erudition,
+        grandeur,
+        morality,
+        mysticism,
+        modifiedName,
+        sourceUniverse,
+        deityDescription,
+        images
+    );
+    console.log("save",images);
+    uploadImage(images, modifiedName);
+    setModifyMode(false); 
+    if (deity == null) {
+        setModalOpen(false);
+    }
 };
 
   const handleAdd = async ()=> {
+    console.log("save",images);
     const imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
     await postDeity(
       zen,
@@ -100,9 +116,9 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
       modifiedName,
       sourceUniverse,
       deityDescription,
-      imageName
+      "image.jpg"
       );
-      uploadImage(images, modifiedName);
+      // uploadImage(images, modifiedName);
       setModifyMode(false); 
       if (deity == null) {
           setModalOpen(false);

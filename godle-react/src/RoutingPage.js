@@ -37,7 +37,7 @@ const RoutingPage = ({ page }) => {
     );
   }
 
-  if (isAdmin) {
+  if (isAdmin || page === "Admin") {
     return (
       <div>
         <AppNavbar user={user} setUser={setUser} 

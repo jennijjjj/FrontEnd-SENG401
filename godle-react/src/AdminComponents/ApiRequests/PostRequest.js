@@ -17,6 +17,7 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
         ZEALOUSNESS:Zealousness,
         ZEN:Zen    
     }
+    console.log("postin");
 
     try {
         fetch('/Admin/Deities', {

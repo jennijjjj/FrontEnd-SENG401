@@ -18,7 +18,7 @@ app.post('/upload', (req, res) => {
     return res.status(400).json({ msg: 'No file uploaded' });
   }
 
-  console.log(req.files);
+  console.log("requestBody:",req.files);
 
   const file = req.files.image; // Assuming the key is 'image'
   const uploadPath = path.join(__dirname, '..', '..', 'public', 'images', file.name); //TIP for celina: __dirname can be hardcoded to: C:\Users\jenni\OneDrive\Documents\GitHub\FrontEnd-SENG401\godle-react\src\AdminComponents
