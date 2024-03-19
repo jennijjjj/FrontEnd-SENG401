@@ -11,12 +11,20 @@
     padding: 10px 0;
   }
   
-  .days, .body .row {
+  .days, .body {
     display: flex;
     justify-content: space-around;
   }
+
+  .row {
+    display: flex;
+    flex-direction: row; /* Explicitly set the direction to row */
+    justify-content: space-around;
+    width: 100%; /* Ensure the row takes full width */
+  }
   
   .column {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;

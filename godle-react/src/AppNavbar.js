@@ -133,15 +133,9 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
                 <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
                   Home
                 </DropdownItem>
-<<<<<<< HEAD
                 {deity ? (<>
-                  <DropdownItem tag={Link} to={"/Chatrooms"} className="dropdown-item-hover">
-                    Chatrooms
-=======
-                {deity ? (
                   <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
                     Forum
->>>>>>> main
                   </DropdownItem>
                   <DropdownItem tag={Link} to={"/Calendar"} className="dropdown-item-hover">
                     Calendar
