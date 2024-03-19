@@ -12,7 +12,7 @@ const Calendar = ({ deity, user }) => {
     console.log(format(currentDate, 'MMMM'));
 
     const send_packet = { 
-        deityName: deity.name,
+        deityName: deity.name, 
         email: user.username,
         month: format(currentDate, 'MMMM')
     }
@@ -25,6 +25,7 @@ const Calendar = ({ deity, user }) => {
         body: JSON.stringify(send_packet)
     })
         .then(response => {
+            console.log(response);
             if (response.ok) {
                 return response.json()
             }
