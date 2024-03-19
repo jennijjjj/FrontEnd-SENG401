@@ -25,14 +25,13 @@ const Calendar = ({ deity, user }) => {
         body: JSON.stringify(send_packet)
       })
         .then(response => {
-          console.log(response);
           if (response.ok) {
+            if(response)
             return response.json()
           }
           throw new Error("Error with calendar database connection");
         })
         .then(data => {
-          console.log(data);
           setCelebrations(data);
         })
         .catch(error => {
@@ -40,7 +39,7 @@ const Calendar = ({ deity, user }) => {
         });
     }
 
-  }, [deity, user, currentDate]);
+  }, [deity, user, currentDate, currentMonth, setCelebrations]);
 
 
   const header = () => {
