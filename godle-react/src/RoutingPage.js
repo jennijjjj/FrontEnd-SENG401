@@ -6,7 +6,7 @@ import Register from './Register';
 import Matches from './MatchingPageComponents/Matches';
 import Admin from './AdminComponents/AdminHome';
 import Deity from './Deity';
-import Calendar from './CalendarComponents/Calendar';
+import CalendarPage from './CalendarComponents/CalendarPage';
 import Forum from './ForumComponents/ForumHome';
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
@@ -35,7 +35,7 @@ const RoutingPage = ({ page }) => {
         <div>
           <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} />
           <Container fluid>
-            <Calendar deity={deity} user={user} />
+            <CalendarPage deity={deity} user={user} />
           </Container>
         </div>
       );
