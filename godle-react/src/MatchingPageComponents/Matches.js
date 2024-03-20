@@ -5,17 +5,14 @@ import DisplayCardAnimation from "./DisplayCardAnimation";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 
-const Matches = ({ user, matchedDeities, setDeity, setLoading }) => {
+const Matches = ({ user, matchedDeities, setDeity, setLoading, loading }) => {
   const [cards, setCards] = useState(undefined);
   const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
     setCards(matchedDeities);
-    return () => clearTimeout(timer);
+    setLoading(false);
   }, [matchedDeities, setCards]);
 
   const remove = () => {
