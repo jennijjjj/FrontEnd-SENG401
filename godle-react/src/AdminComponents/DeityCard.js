@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { uploadImage, deleteImage } from './ApiRequests/ImageApi';
 import {UploadImage} from './UploadImage';
 import { postDeity } from './ApiRequests/PostRequest';
 import { deleteDeity } from './ApiRequests/DeleteRequests';
@@ -174,8 +173,14 @@ const checkForNullAndAlert = () => {
         if (deity == null) {
             setModalOpen(false);
         }
+        
     } catch (error) {
-
+      // fetchJsonData();
+      //   setModifyMode(false); 
+      //   if (deity == null) {
+      //       setModalOpen(false);
+      //   }
+      
         
     }  
   }

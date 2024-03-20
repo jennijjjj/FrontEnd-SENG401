@@ -1,4 +1,3 @@
-
 export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temperament, Zealousness,Aggression,Erudition,Grandeur,Morality,Mysticism,DeityName, SourceUniverse, DeityDescription, ImagePath) => {
     const data ={
         DeityName: DeityName,
@@ -31,16 +30,18 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
                     alert(`Error: could not add diety.`);
                 throw new Error('Network response was not ok');
                 }
+                alert(`Successfully added ${DeityName}!`);
                 
                 return response.json();
             })
             .then(data => {
                 console.log('POST request successful');
-                alert.window(`Successfully added ${DeityName}!`)
+                alert(`Successfully added ${DeityName}!`);
                 console.log(data); // Response data from the server
             })
             .catch(error => {
                 console.error('Error during POST request:', error);
+                
             });
     } 
     catch (error) {
