@@ -24,52 +24,56 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
   const [images, setImages] = useState([]);
   const [imagePath, setImagePath] = useState("");
 
-  useEffect(() => {
+  const rerenderPage =()=>{
     if (deity) {
-        setModifyMode(false);
-        setModifiedName(deity.DeityName);
-        setSourceUniverse(deity.SourceUniverse);
-        setDeityDescription(deity.DeityDescription);
-        setZealousness(deity.Zealousness);
-        setMysticism(deity.Mysticism);
-        setSqueamishness(deity.Squeamishness);
-        setTechnology(deity.Technology);
-        setErudition(deity.Erudition);
-        setOrganization(deity.Organization);
-        setMorality(deity.Morality);
-        setZen(deity.Zen);
-        setAggression(deity.Aggression);
-        setGrandeur(deity.Grandeur);
-        setTemperament(deity.Temperament);
-        if (deity.ImagePath) {
-          const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']; // Add more extensions if needed
-          const lowerImagePath = deity.ImagePath.toLowerCase();
-          const hasValidExtension = imageExtensions.some(ext => lowerImagePath.endsWith(ext));
-        
-          if (hasValidExtension) {
-            setImagePath(`./images/${deity.ImagePath}`);
-          }
+      setModifyMode(false);
+      setModifiedName(deity.DeityName);
+      setSourceUniverse(deity.SourceUniverse);
+      setDeityDescription(deity.DeityDescription);
+      setZealousness(deity.Zealousness);
+      setMysticism(deity.Mysticism);
+      setSqueamishness(deity.Squeamishness);
+      setTechnology(deity.Technology);
+      setErudition(deity.Erudition);
+      setOrganization(deity.Organization);
+      setMorality(deity.Morality);
+      setZen(deity.Zen);
+      setAggression(deity.Aggression);
+      setGrandeur(deity.Grandeur);
+      setTemperament(deity.Temperament);
+      if (deity.ImagePath) {
+        const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']; // Add more extensions if needed
+        const lowerImagePath = deity.ImagePath.toLowerCase();
+        const hasValidExtension = imageExtensions.some(ext => lowerImagePath.endsWith(ext));
+      
+        if (hasValidExtension) {
+          setImagePath(`./images/${deity.ImagePath}`);
         }
-        try{
-          if (imagePath!==""){
-            ImageReader({ imagePath })
-              .then(imageInfo => {
-                console.log('Image info:', imageInfo);
-              })
-              .catch(error => {
-                console.error('Error reading image:', error);
-              });
-          }
-          console.log(imagePath);
-
-        }catch (error){
-
+      }
+      try{
+        if (imagePath!==""){
+          ImageReader({ imagePath })
+            .then(imageInfo => {
+              console.log('Image info:', imageInfo);
+            })
+            .catch(error => {
+              console.error('Error reading image:', error);
+            });
         }
-        
-        
-            
-    }
+        console.log(imagePath);
+
+      }catch (error){
+
+      }
+          
+  }
+
+  }
+  useEffect(() => {
+    rerenderPage();
 }, [deity]);
+
+  
   
   const handleDelete = async () => {
     // const result =deleteImage(modifiedName);
@@ -153,6 +157,7 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
     }  
   };
   const handleCancel = () => {
+    rerenderPage();
     setModifyMode(false); 
     if (deity==null){
       setModalOpen(false);
