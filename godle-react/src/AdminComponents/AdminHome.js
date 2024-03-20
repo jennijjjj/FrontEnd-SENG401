@@ -105,7 +105,7 @@ const Admin = () => {
       </div>
       
       <div style={{ display: 'flex', justifyContent: 'center'}}>
-        <BrowseDatabase selectedOption={selectedOption} searchVar={ControllerMap[selectedOption][0]} controller={ControllerMap[selectedOption][1]} data={data}></BrowseDatabase>
+        <BrowseDatabase selectedOption={selectedOption} searchVar={ControllerMap[selectedOption][0]} controller={ControllerMap[selectedOption][1]} data={data} madalOpen={modalOpen}></BrowseDatabase>
       </div>
       
     </div>
