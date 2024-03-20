@@ -196,7 +196,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                   {/* Submit Button */}
                   <ButtonGroup style={{ marginLeft: "40px", marginTop: "10px" }}>
                     <button type="submit" className="btn btn-primary">Login</button>
-                    <Button tag={Link} to={"/Register"} color='danger'>Register</Button>
+                    <Button onClick={() => setDeity(undefined)} tag={Link} to={"/Register"} color='danger'>Register</Button>
                   </ButtonGroup>
                 </form>
                 {message}
