@@ -93,7 +93,7 @@ const RoutingPage = ({ page }) => {
         </Container>
       </div>
     )
-  } else if (page === "Forum" && deity) {
+  } else if (page === "Forum") {
     return (
       <div>
         <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
