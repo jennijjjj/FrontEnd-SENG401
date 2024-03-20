@@ -60,7 +60,7 @@ export function UploadImage({ images, setImages, deityName, deityImagePath }) {
           dragProps,
         }) => (
           <div className="upload__image-wrapper">
-            {imageExists && (
+            {!imageExists && (
               <div
               style={{
                 ...(isDragging ? { backgroundColor: '#eaf6ff', fontWeight: 'bolder' } : {}),
