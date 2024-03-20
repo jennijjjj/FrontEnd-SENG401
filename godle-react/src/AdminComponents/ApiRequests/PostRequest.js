@@ -1,4 +1,3 @@
-
 export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temperament, Zealousness,Aggression,Erudition,Grandeur,Morality,Mysticism,DeityName, SourceUniverse, DeityDescription, ImagePath) => {
     const data ={
         DeityName: DeityName,
@@ -49,20 +48,29 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
     }
 };
 
-export const uploadImage = async (file) => {
+export const uploadImage = async (file, imageName) => {
     console.log("posssstimaggee");
-    try {
-      const formData = new FormData();
-      formData.append('image', file);
-  
-      const response = await fetch('/Admin/Deities', {
-        method: 'POST',
-        body: formData
-      });
-  
-      const result = await response.text();
-      console.log(result);
-    } catch (error) {
-      console.error('Error uploading image: ', error);
+    const uploadPath = 'C:/Users/jenni/OneDrive/Documents/GitHub/FrontEnd-SENG401/godle-react/public/images/' + file.name;
+    if (imageName!==""){
+        try {
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('string', uploadPath)
+            formData.append('string', imageName)
+            console.log("formData: ")
+            for (const [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
+        
+            const response = await fetch('/Admin/Deities', {
+              method: 'POST',
+              body: formData
+            });
+        
+            const result = await response.text();
+            console.log(result);
+          } catch (error) {
+            console.error('Error uploading image: ', error);
+          }
     }
-  };
+};

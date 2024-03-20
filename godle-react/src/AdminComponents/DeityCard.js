@@ -176,6 +176,8 @@ const checkForNullAndAlert = () => {
         deityDescription,
         imageName
         );
+        await uploadImage(images[0],
+          imageName);
         fetchJsonData();
         setModifyMode(false); 
         if (deity == null) {
