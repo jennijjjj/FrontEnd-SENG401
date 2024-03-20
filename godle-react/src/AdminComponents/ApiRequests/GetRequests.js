@@ -1,17 +1,34 @@
-export function getDeitiesData(){
-    return fetch('/Admin/Deities') 
-    
-        
+import JSZip from 'jszip';
+
+export function getDeitiesData() {
+    return fetch('/Admin/Deities')
         .then(response => {
             if (response.ok) {
-                return response.json(); // Return the JSON parsing promise
+                return response.blob(); // Get response body as blob
             } else {
                 throw new Error('Network response was not ok');
             }
         })
-        .then(data => {
+        .then(blob => {
+            // Unzip the blob using JSZip
+            return JSZip.loadAsync(blob);
+        })
+        .then(zip => {
+            // Assuming your JSON file is named 'data.json' inside the zip
+            const jsonFile = zip.file('data.json');
+            if (!jsonFile) {
+                throw new Error('JSON file not found inside the zip');
+            }
+            return jsonFile.async('text');
+        })
+        .then(jsonString => {
+            // Parse the JSON string
+            const data = JSON.parse(jsonString);
+
+            // Perform any necessary transformations on the data
             const jsonData = Object.values(data).map(entry => {
-                const { AGGRESSION,
+                const {
+                    AGGRESSION,
                     DeityDescription,
                     DeityName,
                     ERUDITION,
@@ -25,8 +42,10 @@ export function getDeitiesData(){
                     TECHNOLOGY,
                     TEMPERAMENT,
                     ZEALOUSNESS,
-                    ZEN} = entry;
-                return { DeityName: DeityName,
+                    ZEN
+                } = entry;
+                return {
+                    DeityName: DeityName,
                     DeityDescription: DeityDescription,
                     SourceUniverse: SourceUniverse,
                     ImagePath: ImagePath,
@@ -41,19 +60,17 @@ export function getDeitiesData(){
                     Temperament: TEMPERAMENT,
                     Zealousness: ZEALOUSNESS,
                     Zen: ZEN
-                     };
+                };
             });
 
-            const jsonString = JSON.stringify(jsonData);
-            console.log(jsonData); // Output the JSON string for verification
-            return jsonString;
+            console.log(jsonData); 
+            return JSON.stringify(jsonData);
         })
         .catch(error => {
-            console.error(`Error fetching data:`, error); 
+            console.error(`Error fetching data:`, error);
             throw error; // Rethrow the error to the caller
         });
 }
-
 
 export function getCalendarData(){
     return fetch('/Admin/Calendar') 
