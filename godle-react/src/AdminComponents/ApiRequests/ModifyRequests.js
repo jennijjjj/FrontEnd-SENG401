@@ -20,7 +20,7 @@ export const putDeity = async (Zen,Organization,Squeamishness, Technology, Tempe
 
     try {
         fetch('/Admin/Deities', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -29,14 +29,14 @@ export const putDeity = async (Zen,Organization,Squeamishness, Technology, Tempe
             .then(response => {
                 if (!response.ok) {
                     console.log(data);
-                    alert("Error: Could not add Deity.");
+                    alert("Error: Could not modify Deity.");
                 throw new Error('Network response was not ok');
                 }
                 
                 return response.json();
             })
             .then(data => {
-                console.log('POST request successful');
+                console.log('PUT request successful');
                 console.log(data); // Response data from the server
             })
             .catch(error => {

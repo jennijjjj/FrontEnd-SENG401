@@ -41,7 +41,8 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
             .catch(error => {
                 console.error('Error during POST request:', error);
             });
-    } catch (error) {
+    } 
+    catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         throw error; // Re-throw the error for the caller to handle
     }

@@ -50,17 +50,22 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
             setImagePath(`./images/${deity.ImagePath}`);
           }
         }
+        try{
+          if (imagePath!==""){
+            ImageReader({ imagePath })
+              .then(imageInfo => {
+                console.log('Image info:', imageInfo);
+              })
+              .catch(error => {
+                console.error('Error reading image:', error);
+              });
+          }
+          console.log(imagePath);
 
-        if (imagePath!==""){
-          ImageReader({ imagePath })
-            .then(imageInfo => {
-              console.log('Image info:', imageInfo);
-            })
-            .catch(error => {
-              console.error('Error reading image:', error);
-            });
+        }catch (error){
+
         }
-        console.log(imagePath);
+        
         
             
     }
@@ -84,12 +89,12 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
   //   uploadImageFunction();
   // };
   const handleSave = async () => {
-    let imageName = null;
+    let imageName = "";
     if (images.length>0){
       imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
     }
     try {
-      await postDeity(
+      await putDeity(
         zen,
         organization,
         squeamishness,
@@ -106,16 +111,17 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
         deityDescription,
         imageName
         );
-    } catch (error) {
         setModifyMode(false); 
         if (deity == null) {
             setModalOpen(false);
         }
+    } catch (error) {
+        
     }  
   };
 
   const handleAdd = async ()=> {
-    let imageName = null;
+    let imageName = "";
     if (images.length>0){
       imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
     }
@@ -137,11 +143,13 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
         deityDescription,
         imageName
         );
-    } catch (error) {
         setModifyMode(false); 
         if (deity == null) {
             setModalOpen(false);
         }
+    } catch (error) {
+
+        
     }  
   };
   const handleCancel = () => {

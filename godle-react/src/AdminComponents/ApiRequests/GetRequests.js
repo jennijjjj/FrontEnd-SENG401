@@ -1,5 +1,7 @@
 export function getDeitiesData(){
     return fetch('/Admin/Deities') 
+    
+        
         .then(response => {
             if (response.ok) {
                 return response.json(); // Return the JSON parsing promise
