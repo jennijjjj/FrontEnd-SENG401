@@ -74,7 +74,26 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
 }, [deity]);
 
   
-  
+const checkForNullAndAlert = () => {
+  let nullProperties = '';
+
+  if (deity.DeityName === null || deity.DeityName === undefined) nullProperties += 'DeityName\n';
+  if (deity.Aggression === null || deity.Aggression === undefined) nullProperties += 'Aggression\n';
+  if (deity.Erudition === null || deity.Erudition === undefined) nullProperties += 'Erudition\n';
+  if (deity.Grandeur === null || deity.Grandeur === undefined) nullProperties += 'Grandeur\n';
+  if (deity.Morality === null || deity.Morality === undefined) nullProperties += 'Morality\n';
+  if (deity.Mysticism === null || deity.Mysticism === undefined) nullProperties += 'Mysticism\n';
+  if (deity.Organization === null || deity.Organization === undefined) nullProperties += 'Organization\n';
+  if (deity.Squeamishness === null || deity.Squeamishness === undefined) nullProperties += 'Squeamishness\n';
+  if (deity.Technology === null || deity.Technology === undefined) nullProperties += 'Technology\n';
+  if (deity.Temperament === null || deity.Temperament === undefined) nullProperties += 'Temperament\n';
+  if (deity.Zealousness === null || deity.Zealousness === undefined) nullProperties += 'Zealousness\n';
+  if (deity.Zen === null || deity.Zen === undefined) nullProperties += 'Zen\n';
+
+  return nullProperties;
+};
+
+
   const handleDelete = async () => {
     // const result =deleteImage(modifiedName);
     // if (result===1){
@@ -93,7 +112,10 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
   //   uploadImageFunction();
   // };
   const handleSave = async () => {
-    let imageName = "";
+    if (checkForNullAndAlert()!==""){
+      window.alert(`Ensure name and attributes are not null.`);
+    } else{
+      let imageName = "";
     if (images.length>0){
       imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
     }
@@ -122,6 +144,9 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
     } catch (error) {
         
     }  
+
+    }
+    
   };
 
   const handleAdd = async ()=> {

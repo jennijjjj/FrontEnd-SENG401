@@ -27,8 +27,8 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
             })
             .then(response => {
                 if (!response.ok) {
-                    console.log(data);
-                    alert("Error: Could not add Deity.");
+                    console.log(response)
+                    alert(`Error: make sure deity name is unique.`);
                 throw new Error('Network response was not ok');
                 }
                 
@@ -36,6 +36,7 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
             })
             .then(data => {
                 console.log('POST request successful');
+                alert.window(`Successfully added ${DeityName}!`)
                 console.log(data); // Response data from the server
             })
             .catch(error => {
