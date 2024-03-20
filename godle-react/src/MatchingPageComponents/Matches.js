@@ -5,14 +5,18 @@ import DisplayCardAnimation from "./DisplayCardAnimation";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 
-const Matches = ({ user, matchedDeities, setDeity, setLoading, loading }) => {
+const Matches = ({ user, matchedDeities, setDeity }) => {
   const [cards, setCards] = useState(undefined);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
     setCards(matchedDeities);
-    setLoading(false);
+    return () => clearTimeout(timer);
   }, [matchedDeities, setCards]);
 
   const remove = () => {
@@ -28,7 +32,6 @@ const Matches = ({ user, matchedDeities, setDeity, setLoading, loading }) => {
 
   const handleswiperight = (card) => {
     if (user !== undefined) {
-      setLoading(true);
       fetch('/UserMatched', {
         method: 'POST',
         headers: {
@@ -39,9 +42,7 @@ const Matches = ({ user, matchedDeities, setDeity, setLoading, loading }) => {
         .then(response => {
           if (response.ok) {
             setDeity(card);
-            setLoading(false);
           } else {
-            setLoading(false);
             alert("Error, please try again");
           }
         })
