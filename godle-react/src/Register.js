@@ -20,7 +20,6 @@ const Register = () => {
         try {
             // Prepare data to send in the request body
             const userData = {
-                username: username,
                 email: email,
                 password: password
             };
