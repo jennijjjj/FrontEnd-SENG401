@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const Navigate = useNavigate();
-
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -65,8 +60,7 @@ const Register = () => {
             // Log the error
             console.error('Registration failed:', error);
         }
-
-        setUsername("");
+        
         setEmail("");
         setPassword("");
     }
