@@ -81,7 +81,7 @@ export function getCalendarData(){
 }
 
 export function getUsersData(){
-    return fetch('/Admin/User') 
+    return fetch('/Admin/Users') 
         .then(response => {
             if (response.ok) {
                 return response.json(); // Return the JSON parsing promise
