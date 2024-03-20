@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { uploadImage, deleteImage } from './ApiRequests/ImageApi';
 import {UploadImage} from './UploadImage';
-import { postDeity } from './ApiRequests/PostRequest';
+import { postDeity , uploadImage} from './ApiRequests/PostRequest';
 import { deleteDeity } from './ApiRequests/DeleteRequests';
 import { ImageReader } from './ImageReader';
 import { putDeity } from './ApiRequests/ModifyRequests';
@@ -71,6 +70,8 @@ function DeityCard({deity, setModalOpen, fetchJsonData}) {
   }
   useEffect(() => {
     rerenderPage();
+    
+    
 }, [deity]);
 
   
@@ -112,6 +113,12 @@ const checkForNullAndAlert = () => {
   //   uploadImageFunction();
   // };
   const handleSave = async () => {
+    try{
+      console.log(images)
+
+    }catch(error){
+
+    }
     if (checkForNullAndAlert()!==""){
       window.alert(`Ensure name and attributes are not null.`);
     } else{
@@ -172,6 +179,8 @@ const checkForNullAndAlert = () => {
         deityDescription,
         imageName
         );
+
+        await uploadImage(images[0].file);
         setModifyMode(false); 
         if (deity == null) {
             setModalOpen(false);

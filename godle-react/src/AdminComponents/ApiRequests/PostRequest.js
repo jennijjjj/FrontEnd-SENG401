@@ -48,3 +48,21 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
         throw error; // Re-throw the error for the caller to handle
     }
 };
+
+export const uploadImage = async (file) => {
+    console.log("posssstimaggee");
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+  
+      const response = await fetch('/Admin/Deities', {
+        method: 'POST',
+        body: formData
+      });
+  
+      const result = await response.text();
+      console.log(result);
+    } catch (error) {
+      console.error('Error uploading image: ', error);
+    }
+  };
