@@ -28,7 +28,7 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
             .then(response => {
                 if (!response.ok) {
                     console.log(response)
-                    alert(`Error: make sure deity name is unique.`);
+                    alert(`Error: could not add diety.`);
                 throw new Error('Network response was not ok');
                 }
                 
