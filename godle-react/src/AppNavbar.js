@@ -44,8 +44,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                   return response.json(); // Parse JSON data from the response
                 }
                 throw new Error('No Deity Matched To User'); // Handle non-OK responses
-              }
-              )
+              })
               .then(data => {
                 console.log("Deity Object Found");
                 setDeity(data);
@@ -53,8 +52,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               .catch(error => {
                 setDeity(undefined);
                 console.log('There was an error', error);
-              })
-                ;
+              });
             response.json().then(data => {
               console.log(data);
               localStorage.setItem('token', data.token);
