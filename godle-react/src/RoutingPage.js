@@ -25,8 +25,10 @@ const RoutingPage = ({ page }) => {
   }, [setLoading])
 
   if (loading) {
-    return <p style={{ textAlign: "center" }}>Loading...</p>;
+    return <p>Loading...</p>;
   }
+
+
 
   if (deity !== undefined) {
     if(page === "Calendar") {
@@ -97,7 +99,7 @@ const RoutingPage = ({ page }) => {
         <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
         setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
         <Container fluid>
-          <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} setLoading={setLoading} loading={loading} />
+          <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} />
         </Container>
       </div>
     )
