@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { FastLayer } from 'konva/lib/FastLayer';
 
-const AppNavbar = ({ user, setUser, setDeity, deity }) => {
+const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -44,7 +44,8 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
                   return response.json(); // Parse JSON data from the response
                 }
                 throw new Error('No Deity Matched To User'); // Handle non-OK responses
-              })
+              }
+              )
               .then(data => {
                 console.log("Deity Object Found");
                 setDeity(data);
@@ -52,9 +53,12 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
               .catch(error => {
                 setDeity(undefined);
                 console.log('There was an error', error);
-              });
+              })
+                ;
             response.json().then(data => {
               console.log(data);
+              localStorage.setItem('token', data.token);
+              localStorage.setItem('user',JSON.stringify(userData));
               setUser(userData);
               if (data.admin === 1) {
                 navigate("/admin");
@@ -70,8 +74,9 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
             console.error(response);
           }
         })
-
+        
     } catch (error) {
+      setIncorrectLogin(true);
       alert("Exception occured trying to send login information to backend.");
       console.error('Exception occured trying to send login information to backend.');
     }
@@ -118,7 +123,9 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
 
   return (
     <Navbar dark expand="md">
-      <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+      {!isAdmin && (
+        <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+      )}
       <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="justify-content-end" style={{ width: "100%" }} navbar>
@@ -130,17 +137,21 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
                 </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
-                <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
-                  Home
-                </DropdownItem>
-                {deity ? (
-                  <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
-                    Forum
-                  </DropdownItem>
-                ) : (
-                  null
+              {!isAdmin && (
+                  <>
+                    <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
+                      Home
+                    </DropdownItem>
+                    {deity ? (
+                      <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
+                        Forum
+                      </DropdownItem>
+                    ) : (
+                      null
+                    )}
+                    </>
                 )}
-                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); navigate('/'); }}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); setIsAdmin(false); navigate('/'); localStorage.clear();}}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>
@@ -198,3 +209,4 @@ const AppNavbar = ({ user, setUser, setDeity, deity }) => {
 };
 
 export default AppNavbar;
+
