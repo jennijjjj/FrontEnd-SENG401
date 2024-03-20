@@ -381,6 +381,14 @@ body {
   margin-right: 8px;
   width: 100px;
 }
+
+.deletebutton{
+  color: black;
+  cursor: 'pointer';
+  height:40px;
+  margin-right: 8px;
+  width: 100px;
+}
 .deleteButton {
   border: none;
   background: none;
@@ -389,6 +397,11 @@ body {
 }
 .adminbutton:hover{
   background-color: grey;
+  color:white;
+}
+
+.deletebutton:hover{
+  background-color: red;
   color:white;
 }
 
