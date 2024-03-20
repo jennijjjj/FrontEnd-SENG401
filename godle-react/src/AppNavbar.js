@@ -44,7 +44,8 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                   return response.json(); // Parse JSON data from the response
                 }
                 throw new Error('No Deity Matched To User'); // Handle non-OK responses
-              })
+              }
+              )
               .then(data => {
                 console.log("Deity Object Found");
                 setDeity(data);
@@ -52,9 +53,12 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               .catch(error => {
                 setDeity(undefined);
                 console.log('There was an error', error);
-              });
+              })
+                ;
             response.json().then(data => {
               console.log(data);
+              localStorage.setItem('token', data.token);
+              localStorage.setItem('user',JSON.stringify(userData));
               setUser(userData);
               if (data.admin === 1) {
                 navigate("/admin");
@@ -70,8 +74,9 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
             console.error(response);
           }
         })
-
+        
     } catch (error) {
+      setIncorrectLogin(true);
       alert("Exception occured trying to send login information to backend.");
       console.error('Exception occured trying to send login information to backend.');
     }
@@ -146,7 +151,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                     )}
                     </>
                 )}
-                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); setIsAdmin(false); navigate('/'); }}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); setIsAdmin(false); navigate('/'); localStorage.clear();}}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>
