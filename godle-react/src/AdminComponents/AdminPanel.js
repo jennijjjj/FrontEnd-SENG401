@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const AdminPanel = ({ onOptionClick }) => {
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
 
   const panelStyle = {
     width: '170px',
@@ -12,22 +12,20 @@ const AdminPanel = ({ onOptionClick }) => {
 
   const listItemStyle = {
     transition: 'background 0.3s', // Smooth transition on hover
-    marginBottom: '10px',
-    marginTop: '10px',
+    paddingBottom: '10px',
+    paddingTop: '10px',
     display: 'flex', // Added flex display for the new structure
     flexDirection: 'column', // Display items in a column
     alignItems: 'flex-start', // Align items to the left
-    marginLeft: '2px',
+    paddingLeft: '2px',
+    paddingRight: '2px',
   };
 
   const handleOptionClick = (option) => {
     console.log("panel", option);
     onOptionClick(option);
   };
-  const spanStyle = {
-    textDecoration: 'none', // Initially, no underline
-    cursor: 'pointer',
-  };
+
   return (
     <>
       <div
@@ -38,7 +36,7 @@ const AdminPanel = ({ onOptionClick }) => {
           alignItems: 'center',
         }}
       >
-        <span>{toggle ? '↴' : '→'}</span>
+        <span className="list-group-item">{toggle ? '↴' : '→'}</span>
       </div>
       {toggle && (
         <div style={panelStyle}>
@@ -47,7 +45,14 @@ const AdminPanel = ({ onOptionClick }) => {
             style={listItemStyle}
             onClick={() => handleOptionClick("Manage Deities")} 
           >
-            ⚚  Manage Deities
+            ⚜  Manage Deities
+          </li>
+          <li
+            className="list-group-item"
+            style={listItemStyle}
+            onClick={() => handleOptionClick("Manage Users")} 
+          >
+            ☺  Manage Users
           </li>
           <li
             style={listItemStyle}

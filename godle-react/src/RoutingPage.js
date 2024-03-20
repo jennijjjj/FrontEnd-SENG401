@@ -40,6 +40,16 @@ const RoutingPage = ({ page }) => {
           </Container>
         </div>
       );
+    } else if (page === "Forum") {
+      return (
+        <div>
+          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
+          setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
+          <Container fluid>
+            <Forum user={user} />
+          </Container>
+        </div>
+      )
     }
     return (
       <div>
@@ -90,16 +100,6 @@ const RoutingPage = ({ page }) => {
         setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
         <Container fluid>
           <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} />
-        </Container>
-      </div>
-    )
-  } else if (page === "Forum" && deity) {
-    return (
-      <div>
-        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
-        setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
-        <Container fluid>
-          <Forum user={user} />
         </Container>
       </div>
     )

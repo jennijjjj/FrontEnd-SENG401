@@ -1,15 +1,17 @@
-import Card from './Card';
+import DeityCard from "./DeityCard";
+import UserCard from './UserCard'; 
 
-
-function SearchList({ filteredSearch, onccardclick}) {
-
+function SearchList({ filteredSearch, controller, fetchJsonData}) {
+  let filtered;
   
-  const handleCardClick = (flightCode) => {
-    onccardclick(flightCode); // Update flightCode in the App component
-    // Handle navigation based on userType here
-    // Example: navigate('/browseseats');
-  };
-  const filtered = filteredSearch.map(deity =>  <Card key={deity.DeityName} deity={deity} onCardClick={handleCardClick}/>); 
+  if (controller === "Deity") {
+    filtered = filteredSearch.map((deity) => <DeityCard deity={deity} fetchJsonData={fetchJsonData}/>);
+  } else if (controller === "User") {
+    filtered = filteredSearch.map((user) => <UserCard user={user} fetchJsonData={fetchJsonData}/>);
+  } else {
+    filtered = null; // or handle other cases as needed
+  }
+
   return (
     <div className={"searchContainer"}>
       {filtered}

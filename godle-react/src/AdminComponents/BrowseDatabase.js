@@ -1,119 +1,140 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import SearchList from './SearchList';
+import { getDeitiesData, getCalendarData, getForumData, getUsersData } from './ApiRequests/GetRequests';
 
-function BrowseDatabase({controller}) {
-//  const {userType, setFlightCode}=props
+function BrowseDatabase({selectedOption, searchVar, controller}) {
   const [searchField, setSearchField] = useState("");
-  const [searchShow, setSearchShow] = useState(false); 
-     // CSS style for the button container
-  const buttonContainerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between', // Align items to the start and end of the container
-    alignItems: 'center', // Center vertically
-    marginBottom: '10px', // Adjust as needed
-  };
+  const [search, setSearch] = useState(false);
+  const [deityData, setDeityData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [forumData, setForumData] = useState([]);
+  const [calendarData, setCalendarData] = useState([]);
 
-  // CSS style for the button
-  const buttonStyle = {
-    marginLeft: 'auto', // Push the button to the right
-  };
-
-
-  const ControllerMap = {
-    'Manage Deities': 'deity',
-    'Manage Forum': 'Forum',
-    'Manage Calendar' : 'event',
-  };
-  
-  const jsonData = 
-  {
-    "deities": [
-      {
-        "DeityName": "Aetherius",
-        "SourceUniverse": "Celestial Realm",
-        "DeityDescription": "God of the Sky and Atmosphere",
-        "ImagePath": "/images/aetherius.jpg",
-        "Zealousness": 0.9,
-        "Mysticism": 0.8,
-        "Squeamishness": 0.2,
-        "Technology": 0.3,
-        "Erudition": 0.7,
-        "Organization": 0.6,
-        "Morality": 0.9,
-        "Zen": 0.8,
-        "Aggression": 0.1,
-        "Grandeur": 0.9,
-        "Temperament": 0.5
-      },
-      {
-        "DeityName": "Terrafira",
-        "SourceUniverse": "Earthrealm",
-        "DeityDescription": "Goddess of Nature and Earth",
-        "ImagePath": "/images/terrafira.jpg",
-        "Zealousness": 0.7,
-        "Mysticism": 0.6,
-        "Squeamishness": 0.3,
-        "Technology": 0.5,
-        "Erudition": 0.6,
-        "Organization": 0.8,
-        "Morality": 0.8,
-        "Zen": 0.7,
-        "Aggression": 0.2,
-        "Grandeur": 0.7,
-        "Temperament": 0.6
-      }
-    ]
+ const fetchJsonData = async () => {
+  setDeityData([]);
+  setUserData([]);  
+  if (selectedOption === 'Manage Deities'){
+    getDeitiesData()
+    .then(jsonString => {
+      const jsonData = JSON.parse(jsonString);
+      setDeityData(jsonData);
+    })
+    .catch(error => {
+      console.error('Error fetching deities data:', error);
+    });
   }
+  else if (selectedOption === 'Manage Users'){
+    getUsersData()
+    .then(jsonString => {
+      const jsonData = JSON.parse(jsonString);
+      setUserData(jsonData);
+    })
+    .catch(error => {
+      console.error('Error fetching deities data:', error);
+    });
+  }
+  else if (selectedOption === 'Manage Forum'){
+    getForumData()
+    .then(jsonString => {
+      const jsonData = JSON.parse(jsonString);
+      setForumData(jsonData);
+      
+    })
+    .catch(error => {
+      console.error('Error fetching deities data:', error);
+    });
+  }
+  else if (selectedOption === 'Manage Calendar'){
+    getCalendarData()
+    .then(jsonString => {
+      const jsonData = JSON.parse(jsonString);
+      setCalendarData(jsonData);
+    })
+    .catch(error => {
+      console.error('Error fetching deities data:', error);
+    });
+  }
+};
+  useEffect(() => {
+    console.log("Controller prop in BrowseDatabase:", selectedOption);
+    fetchJsonData()
+  }, [selectedOption]);
 
-
-const filteredSearch = jsonData.deities.filter((deity) => {
-    const searchTerm = searchField.toLowerCase().trim();
+  
+  const filteredSearchDeity = deityData.filter((element) => {
+    const searchTerm = searchField.trim().toLowerCase();
     if (!searchTerm) {
       return true;
     } else {
       return (
-        deity.DeityName.toLowerCase().includes(searchTerm)
+        element.DeityName.toLowerCase().includes(searchTerm)
+      );
+    }
+  }); 
+
+  const filteredSearchUser = userData.filter((element) => {
+    const searchTerm = searchField.trim().toLowerCase(); 
+    if (!searchTerm) {
+      return true;
+    } else {
+      return (
+        element.Email.toLowerCase().includes(searchTerm)
       );
     }
   });
 
+  const filteredSearchForum = forumData.filter((element) => {
+    const searchTerm = searchField.trim().toLowerCase(); 
+    if (element.Title !== undefined) {
+      return element.Title.toLowerCase().includes(searchTerm);
+    } 
+  });
+
+  const filteredSearchCalendar = calendarData.filter((element) => {
+    const searchTerm = searchField.trim().toLowerCase(); 
+    if (element.Title !== undefined) {
+      return element.Title.toLowerCase().includes(searchTerm);
+    } 
+  });
+  
   const handleChange = e => {
     setSearchField(e.target.value);
-    if(e.target.value===""){
-      setSearchShow(false);
-    }
-    else {
-      setSearchShow(true);
-    }
   };
 
   function searchList() {
-    if (searchShow) {
+    if (selectedOption==='Manage Deities' && deityData && deityData.length>0) {
       return (
-        <SearchList filteredSearch={filteredSearch}/>
+        <SearchList filteredSearch={filteredSearchDeity} controller={controller} fetchJsonData={fetchJsonData}/>
+      );
+    } 
+    else if (selectedOption==='Manage Users' && userData && userData.length > 0) {
+      return (
+       <SearchList filteredSearch={filteredSearchUser} controller={controller} fetchJsonData={fetchJsonData}/>
+      );
+    } else if (selectedOption==='Manage Forum' && forumData && forumData.length > 0) {
+      return (
+       <SearchList filteredSearch={filteredSearchForum} controller={controller} fetchJsonData={fetchJsonData}/>
+      );
+    } else if (selectedOption==='Manage Calendar' && calendarData && calendarData.length > 0) {
+      return (
+       <SearchList filteredSearch={filteredSearchCalendar} controller={controller} fetchJsonData={fetchJsonData}/>
       );
     } 
   }
-
-  
 
   return (
     <>
       <div className={"align-center"}>
         <div className="navy georgia ma0 grow">
-        <button className='modifybutton' style={buttonStyle}>{`add ${ControllerMap[controller]}`} </button>
-          <h2 className="f2">{controller}</h2>
+          <h2 className="f2"><strong>{selectedOption}</strong></h2>
         </div>
         <div className={"inputContainer"}>
           <input 
             type="search" 
-            placeholder={`Search name of ${ControllerMap[controller]}`}
+            placeholder={`Search ${searchVar} of ${controller}`}
             onChange={handleChange}
           />
         </div>
-        
-          
-  
         {searchList()}
       </div>
     </>
