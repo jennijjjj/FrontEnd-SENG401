@@ -4,12 +4,10 @@ import ImageUploading from 'react-images-uploading';
 export function UploadImage({ images, setImages, deityName, deityImagePath }) {
   
   const maxNumber = 1;
-  const [imageExists, setImageExists]=useState(false);
 
   const onChange = (imageList) => {
     const renamedImageList = imageList.map((image) => {
         const imageName = `${deityName}.${image.file.name.split('.').pop()}`;
-        setImageExists(true);
         return { ...image, file: new File([image.file], imageName, { type: image.file.type }) };
     });
     setImages(renamedImageList);
@@ -36,7 +34,7 @@ export function UploadImage({ images, setImages, deityName, deityImagePath }) {
         console.log([{ data_url: URL.createObjectURL(blob), file }]);
         onChange([{ data_url: URL.createObjectURL(blob), file }]);
       })
-      .catch(error => console.error('Error fetching default image:', error), setImageExists(false));
+      .catch(error => console.error('Error fetching default image:', error));
   };
   useEffect(() => {
     if (images.length === 0 && deityImagePath!=="") {
@@ -60,7 +58,7 @@ export function UploadImage({ images, setImages, deityName, deityImagePath }) {
           dragProps,
         }) => (
           <div className="upload__image-wrapper">
-            {!imageExists && (
+            {imageList.length===0 && (
               <div
               style={{
                 ...(isDragging ? { backgroundColor: '#eaf6ff', fontWeight: 'bolder' } : {}),
