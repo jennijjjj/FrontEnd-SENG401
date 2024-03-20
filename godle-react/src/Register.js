@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const Navigate = useNavigate();
-
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -65,8 +60,7 @@ const Register = () => {
             // Log the error
             console.error('Registration failed:', error);
         }
-
-        setUsername("");
+        
         setEmail("");
         setPassword("");
     }
@@ -74,10 +68,6 @@ const Register = () => {
     return (
         <div className="register-form">
             <form onSubmit={handleRegister} method="post">
-                <div className="register-input">
-                    <label htmlFor="username">Username: &nbsp;</label>
-                    <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835" , color: "white" }} type="text" id="usernameregister" name="username" required onChange={handleUsernameChange} value={username} />
-                </div>
                 <div className="register-input">
                     <label htmlFor="email">Email: &nbsp;</label>
                     <input style={{ backgroundColor: "rgba(255, 255, 255, 0.10)", outlineColor: "#2c0835", color: "white" }} type="email" id="emailregister" name="email" required onChange={handleEmailChange} value={email} />
