@@ -7,10 +7,10 @@ const CalendarPage = ({ deity, user }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [celebrations, setCelebrations] = useState([]);
   const [celebrationMap, setCelebrationMap] = useState({});
+  const [currentMonth, setCurrentMonth] = useState("initial");
   const [selectedCelebration, setSelectedCelebration] = useState(null);
 
   useEffect(() => {
-    console.log("HERE1");
     const fetchCelebrations = async () => {
       const send_packet = {
         deityName: deity.name,
@@ -42,7 +42,12 @@ const CalendarPage = ({ deity, user }) => {
       }
     };
 
-    fetchCelebrations();
+    if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' })) {
+      setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
+      fetchCelebrations();
+    } else {
+      console.log("Same month no new request made");
+    }
   }, [currentDate, deity.name, user.username]);
 
   useEffect(() => {
@@ -85,7 +90,7 @@ const CalendarPage = ({ deity, user }) => {
         onClickDay={onClickDay}
       />
     </div>
-    <div style={{ height: "50vh", textAlign: "center", padding: "10% 25%" }}>
+    <div style={{ height: "25vh", textAlign: "center", padding: "5% 25%" }}>
       {selectedCelebration && (
         <div>
           <h2>{selectedCelebration.name}</h2>
@@ -94,6 +99,12 @@ const CalendarPage = ({ deity, user }) => {
         </div>
       )}
     </div>
+    {(celebrations.length > 0) && celebrations[celebrations.length - 1].day === "None" ? (
+    <div style={{ height: "25vh", textAlign: "center", padding: "2.5% 10%" }}>
+      <h2>Upcoming Prayer</h2>
+      <h4>{celebrations[celebrations.length - 1].name}</h4>
+      <p>{celebrations[celebrations.length - 1].description}</p>
+    </div>) : (null)}
   </>);
 };
 
