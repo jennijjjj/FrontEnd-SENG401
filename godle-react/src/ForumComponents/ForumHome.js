@@ -81,6 +81,14 @@ const Forum = (user, deity) => {
         width: '120px',
         padding:"5px",
       };
+
+      const imageStyle ={
+        borderRadius: '50%',
+        width: 50,
+        height: 50,
+        background: 'red', // You can change the background color
+        display: 'block',
+      }
     const handleCategoryHover = () => {
         setCategoryToggle(true);
     };
@@ -164,21 +172,22 @@ const Forum = (user, deity) => {
                     </div>
                 </div>
                 {!addMode &&
-                    <div className="addThreadContainer" style ={{width:"57%", marginBottom:"30px"}}>
-                        <img style={{ maxHeight: "20px"}} style={{ justifyItems: "center" }} src="./Images/Azura.jpg" alt="Description of the image" />
+                    <div className="addThreadContainer" style ={{alignItems:"center",width:"57%", marginBottom:"30px"}}>
+                        <img style={{maxHeight:"200px"}} src="./Images/Azura.jpg" alt="Description of the image" />
                 
-                        <div style={{width:"50%"}} >
+                        <div style={{}} >
                             <h2 ><strong>Engage in Divine Discourse</strong></h2>
                             <p>Connect with a community bound by a shared journey of spiritual exploration, where every thread holds the potential for profound connection and enlightenment. Join the conversation and let your voice be heard in this sacred space of collective wisdom.</p>
+                            <button style ={{height:"10px"}}className="submit-button" 
+                            onClick={() =>handleAddMode()}>
+                                <div>
+                                    <p style={{fontWeight:"bolder",marginTop:"12px"}}>Add Thread</p>
+                                </div>
+                            </button>
 
                         </div>
                         
-                        <button className="submit-button" 
-                        onClick={() =>handleAddMode()}>
-                            <div>
-                                <p style={{fontWeight:"bolder",marginTop:"12px"}}>Add Thread</p>
-                            </div>
-                        </button>
+                        
 
                     </div>
             }           
