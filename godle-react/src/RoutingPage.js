@@ -20,7 +20,6 @@ const RoutingPage = ({ page }) => {
   const [deity, setDeity] = useState(undefined);
   const [tosButtonClicked, settosButtonClicked] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -62,94 +61,87 @@ const RoutingPage = ({ page }) => {
   }
 
 
-  try {
-    if (deity !== undefined && !isAdmin) {
-      if(page === "Calendar") {
-        return (
-          <div>
-            <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
-            <Container fluid>
-              <CalendarPage deity={deity} user={user} />
-            </Container>
-          </div>
-        );
-      } else if (page === "Forum") {
-        return (
-          <div>
-            <AppNavbar AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
-            <Container fluid>
-              <Forum user={user} />
-            </Container>
-          </div>
-        )
-      }   
-    }
-
-    if (isAdmin && user) {
+  if (deity !== undefined && !isAdmin) {
+    if(page === "Calendar") {
       return (
         <div>
           <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
           <Container fluid>
-            <Admin />
+            <CalendarPage deity={deity} user={user} />
+          </Container>
+        </div>
+      );
+    } else if (page === "Forum") {
+      return (
+        <div>
+          <AppNavbar AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
+          <Container fluid>
+            <Forum user={user} />
           </Container>
         </div>
       )
-    } else {
-      if (page === "Quiz") {
-        return (
-          <div>
-            <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
-            <Container fluid>
-              <Quiz tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} user={user}/>
-            </Container>
-          </div>
-        );
-      } else if (page === "Register") {
-        return (
-          <div>
-            <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
-            <Container fluid>
-              <Register />
-            </Container>
-          </div>
-        );
-      } else if (page === "Matches") {
-        return (
-          <div>
-            <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
-            <Container fluid>
-              <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} />
-            </Container>
-          </div>
-        )
-      }  else if (page === "Home") {
+    }   
+  }
+
+  if (isAdmin && user) {
     return (
       <div>
-        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
-        setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
+        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
         <Container fluid>
-          <LandingPage />
+          <Admin />
         </Container>
       </div>
     )
-  }else if(page === "Deity") {
-    return (
-      <div>
-        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
-        <Container fluid>
-          <Deity deity={deity} setDeity={setDeity} />
-        </Container>
-      </div>
-    );
-  }
+  } else {
+    if (page === "Quiz") {
+      return (
+        <div>
+          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
+          <Container fluid>
+            <Quiz tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} user={user}/>
+          </Container>
+        </div>
+      );
+    } else if (page === "Register") {
+      return (
+        <div>
+          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
+          <Container fluid>
+            <Register />
+          </Container>
+        </div>
+      );
+    } else if (page === "Matches") {
+      return (
+        <div>
+          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
+          <Container fluid>
+            <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} />
+          </Container>
+        </div>
+      )
+    }  else if (page === "Home") {
+      return (
+        <div>
+          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
+          setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
+          <Container fluid>
+            <LandingPage deity={deity} setDeity={setDeity} />
+          </Container>
+        </div>
+      )
+    }else if(page === "Deity") {
+      return (
+        <div>
+          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
+          <Container fluid>
+            <Deity deity={deity} setDeity={setDeity} />
+          </Container>
+        </div>
+      );
     }
-  } catch (error) {
-    console.error("Error in rendering component:", error);
-    // Handle error if needed
-    localStorage.clear();
-    navigate("/");
-    return <p>Error occurred, please try again later.</p>;
   }
+
 }
 
 

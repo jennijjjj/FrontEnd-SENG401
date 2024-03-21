@@ -49,6 +49,7 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
           if (response.ok) {
             setDeity(card);
             localStorage.setItem("deity", JSON.stringify(card));
+            navigate('/Deity');
           } else {
             alert("Error, please try again");
           }
