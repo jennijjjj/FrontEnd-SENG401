@@ -3,7 +3,7 @@ import ForumList from './ForumList';
 import AddNewthreadCard from './AddNewthreadCard';
 import { fetchThreads } from './ForumApiRequests';
 
-const Forum = (user, deity) => {
+const Forum = (user) => {
     const [searchField, setSearchField] = useState("");
     const [categoryToggle, setCategoryToggle] = useState(false);
     const [addMode, setAddMode]=useState(false);
@@ -11,11 +11,12 @@ const Forum = (user, deity) => {
     const [isUserActive, setUserActive] = useState(false);
     const [isMyPostsActive, setMyPostsActive] = useState(false);
     const username = (user && user.user && user.user.username) || "";
-    // const username = 'livia@example.com';
+    const [deity, setDeity]=useState("")
 
     const [threads, setThreads] = useState([]);
 
     useEffect(() => {
+        
         fetchData();
     }, [username]);
 
@@ -26,6 +27,30 @@ const Forum = (user, deity) => {
         } catch (error) {
             console.error('Error fetching threads:', error);
         }
+        fetch('/IsUserMatched', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user.user.username),
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json(); // Parse JSON data from the response
+              }
+              throw new Error('No Deity Matched To User'); // Handle non-OK responses
+            })
+            .then(data => {
+              console.log("Deity Object Found");
+              setDeity(data);
+              localStorage.setItem('deity',JSON.stringify(data));
+            })
+            .catch(error => {
+              setDeity(undefined);
+              console.log('There was an error', error);
+            });
+        
+        console.log(deity);
     };
 
     console.log("threads home", threads);
@@ -173,19 +198,18 @@ const Forum = (user, deity) => {
                 </div>
                 {!addMode &&
                     <div className="addThreadContainer" style ={{alignItems:"center",width:"57%", marginBottom:"30px"}}>
-                        <img style={{maxHeight:"200px"}} src="./Images/Azura.jpg" alt="Description of the image" />
+                        <img style={{maxHeight:"200px"}} src={"./Images/" + deity.imagePath} alt="Description of the image" />
                 
-                        <div style={{}} >
-                            <h2 ><strong>Engage in Divine Discourse</strong></h2>
+                        <div style={{}}>
+                            <h2><strong>{deity.name}'s Divine Discourse</strong></h2>
                             <p>Connect with a community bound by a shared journey of spiritual exploration, where every thread holds the potential for profound connection and enlightenment. Join the conversation and let your voice be heard in this sacred space of collective wisdom.</p>
-                            <button style ={{height:"10px"}}className="submit-button" 
-                            onClick={() =>handleAddMode()}>
-                                <div>
-                                    <p style={{fontWeight:"bolder",marginTop:"12px"}}>Add Thread</p>
+                            <button style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "30px", width: "100%" }} className="submit-button" onClick={() => handleAddMode()}>
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
+                                <p style={{ fontWeight: "bolder", marginTop: "12px" }}>Add Thread</p>
                                 </div>
                             </button>
+                            </div>
 
-                        </div>
                         
                         
 
