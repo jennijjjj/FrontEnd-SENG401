@@ -20,11 +20,10 @@ const Deity = ({ deity, setDeity }) => {
             const storedDeity = JSON.parse(deityString);
             setDeity(storedDeity);
             window.scrollTo(0, 0);
-            if (deity){
-                getAttributes();
-            } else {
-                navigate('/Quiz');
-                }
+            
+            // else {
+            //     navigate('/Quiz');
+            // }
             // Call getAttributes after setDeity
             
             } else {
@@ -44,6 +43,9 @@ const Deity = ({ deity, setDeity }) => {
         };
     
       loadData();
+      if (deity!==undefined){
+        getAttributes();
+    } 
     }, []);
 
 
