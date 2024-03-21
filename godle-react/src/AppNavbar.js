@@ -139,7 +139,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                     )}
                   </>
                 )}
-                <DropdownItem className="dropdown-item-hover" onClick={() => {setDeity(undefined); navigate('/'); setUser(undefined); localStorage.clear(); }}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => {setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined); localStorage.clear(); }}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>

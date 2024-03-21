@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Slider from './Slider';
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 
 
 const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }) => {
@@ -68,6 +68,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                             response.json()
                                 .then(data => {
                                     setMatchedDeities(data);
+                                    localStorage.setItem('MatchedDeities', JSON.stringify(data));
                                     navigate("/Matches");
                                 }) 
                         } else if (response.status === 400) {

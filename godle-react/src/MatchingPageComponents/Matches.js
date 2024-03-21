@@ -15,7 +15,13 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
-    setCards(matchedDeities);
+    const stringMatchedDeities = localStorage.getItem('MatchedDeities');
+    if (stringMatchedDeities){
+      const storedMatchedDeities = JSON.parse(stringMatchedDeities);
+      setCards(storedMatchedDeities);
+    } else{
+      setCards(matchedDeities);
+    }
     return () => clearTimeout(timer);
   }, [matchedDeities, setCards]);
 
