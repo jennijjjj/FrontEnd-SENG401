@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from './Slider';
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 
 
 const Quiz = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }) => {
@@ -19,6 +19,13 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
         User: null,
     });
 
+    useEffect(() => { //so we dont have to accept tos everytime
+        const storedTosClicked = localStorage.getItem("tosButtonClicked");
+        if (storedTosClicked){
+            settosButtonClicked(storedTosClicked);
+        }
+      }, []);
+
     const [termsChecked, setTermsChecked] = useState(false);
     const navigate = useNavigate();
 
@@ -28,6 +35,7 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
 
     const handleTermsClick = () => {
         settosButtonClicked(true);
+        localStorage.setItem("tosButtonClicked", true);
     };
 
     const handleSliderChange = (title, value) => {
@@ -60,6 +68,7 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                             response.json()
                                 .then(data => {
                                     setMatchedDeities(data);
+                                    localStorage.setItem('MatchedDeities', JSON.stringify(data));
                                     navigate("/Matches");
                                 }) 
                         } else if (response.status === 400) {

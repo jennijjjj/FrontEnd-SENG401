@@ -15,7 +15,13 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
-    setCards(matchedDeities);
+    const stringMatchedDeities = localStorage.getItem('MatchedDeities');
+    if (stringMatchedDeities){
+      const storedMatchedDeities = JSON.parse(stringMatchedDeities);
+      setCards(storedMatchedDeities);
+    } else{
+      setCards(matchedDeities);
+    }
     return () => clearTimeout(timer);
   }, [matchedDeities, setCards]);
 
@@ -42,12 +48,14 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
         .then(response => {
           if (response.ok) {
             setDeity(card);
+            localStorage.setItem("deity", JSON.stringify(card));
           } else {
             alert("Error, please try again");
           }
         })
     } else {
       setDeity(card);
+      localStorage.setItem("deity", JSON.stringify(card));
     }
   }
 
