@@ -35,16 +35,17 @@ const RoutingPage = ({ page }) => {
       if (token && userString) {
         const user = JSON.parse(userString);
         setUser(user);
-        if (deityString){
-          const storedDeity = JSON.parse(deityString);
-          setDeity(storedDeity);
-        }
+        
         if (storedIsAdmin==='false'){
           setIsAdmin(false);
         }else{
           setIsAdmin(true);
         }
         console.log(user,deity,storedIsAdmin)
+      }
+      if (deityString){
+        const storedDeity = JSON.parse(deityString);
+        setDeity(storedDeity);
       }
     } catch (err) {
     }

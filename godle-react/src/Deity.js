@@ -1,30 +1,68 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const Deity = ({ deity, setDeity }) => {
+    const navigate = useNavigate(); 
     const reset = () => {
         setDeity(undefined);
         localStorage.removeItem('deity');
+        navigate('/Quiz');
     };
 
     const [highestAttributes, setHighestAttributes] = useState([["", 0]]);
     const [lowestAttributes, setLowestAttributes] = useState([["", 0]]);
 
     useEffect(() => {
+        const loadData = async () => {
+            const deityString = localStorage.getItem('deity');
+            if (deityString) {
+            console.log(deityString);
+            const storedDeity = JSON.parse(deityString);
+            setDeity(storedDeity);
+            window.scrollTo(0, 0);
+            if (deity){
+                getAttributes();
+            } else {
+                navigate('/Quiz');
+                }
+            // Call getAttributes after setDeity
+            
+            } else {
+            navigate('/Quiz');
+            }
+        };
+    
         const getAttributes = () => {
             console.log(deity);
             const attributesArray = Object.entries(deity.attributes);
             attributesArray.sort((a, b) => b[1] - a[1]);
-
+        
             setHighestAttributes(attributesArray.slice(0, 3));
-
+        
             const lowestAttributesArray = [...attributesArray].reverse();
             setLowestAttributes(lowestAttributesArray.slice(0, 3));
-
         };
+    
+      loadData();
+    }, []);
 
-        getAttributes();
-        window.scrollTo(0, 0);
-    }, [deity.attributes]);
+
+    // useEffect(() => {
+    //     const getAttributes = () => {
+    //         console.log(deity);
+    //         const attributesArray = Object.entries(deity.attributes);
+    //         attributesArray.sort((a, b) => b[1] - a[1]);
+
+    //         setHighestAttributes(attributesArray.slice(0, 3));
+
+    //         const lowestAttributesArray = [...attributesArray].reverse();
+    //         setLowestAttributes(lowestAttributesArray.slice(0, 3));
+
+    //     };
+
+    //     getAttributes();
+    //     window.scrollTo(0, 0);
+    // }, [deity.attributes]);
 
     useEffect(() => {
         console.log(highestAttributes);

@@ -3,7 +3,7 @@ import SlideShow from "./SlideShowComponents/Slide"; // Assuming SlideShow compo
 import { useNavigate } from 'react-router-dom';
 
 const LandingPage = ({deity, setDeity}) => {
-    const navigate = useNavigate(); // Initialize navigate function from useNavigate()
+    const navigate = useNavigate(); 
 
     const handleStartJourney = () => {
         const deityString = localStorage.getItem('deity')
@@ -14,7 +14,6 @@ const LandingPage = ({deity, setDeity}) => {
         } else{
             navigate('/Quiz');
         }
-        // Navigate to the '/Quiz' route when the button is clicked
     };
     return (
        

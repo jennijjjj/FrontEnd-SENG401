@@ -121,14 +121,18 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
           <NavbarBrand className='navlink' tag={Link} to="/">⌂ Home</NavbarBrand>
           <NavbarBrand className='navlink' tag={Link} to="/Quiz">Quiz</NavbarBrand>
             {deity ? (<>
-              <NavbarBrand className='navlink' tag={Link} to={"/Forum"} >
-              🗪 Forum
-              </NavbarBrand>
-              <NavbarBrand className='navlink' tag={Link} to={"/Calendar"}>
-              🗒 Calendar
-              </NavbarBrand>
-              <NavbarBrand className='navlink' tag={Link} to={"/Deity"}>
-              ♜ View Diety
+              {user && (
+                <>
+                  <NavbarBrand className='navlink' tag={Link} to={"/Forum"} >
+                    🗪 Forum
+                  </NavbarBrand>
+                  <NavbarBrand className='navlink' tag={Link} to={"/Calendar"}>
+                    🗒 Calendar
+                  </NavbarBrand>
+                </>
+              )}
+                            <NavbarBrand className='navlink' tag={Link} to={"/Deity"}>
+              ♜ My Diety
               </NavbarBrand>
             </>) : (
               null
