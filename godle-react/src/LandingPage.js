@@ -32,8 +32,8 @@ const LandingPage = ({deity}) => {
                 
             </div>
         </div>
-            <div style={{ padding:"10px 0 5px 0",backgroundColor:"white",marginTop: '5%'}}>
-                <h5 style={{textAlign:"center" ,fontWeight: 'bold',color:"black"}}>Featured Deities</h5>
+            <div style={{ padding:"10px 0 5px 0",marginTop: '5%'}}>
+                <h5 style={{textAlign:"center" ,fontWeight: 'bold',color:"white"}}>Featured Deities</h5>
                 <SlideShow />
                 
             </div>
