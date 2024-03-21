@@ -130,7 +130,22 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="justify-content-end" style={{ width: "100%" }} navbar>
         {!isAdmin && (
+          <>
           <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+            {deity ? (<>
+              <NavbarBrand tag={Link} to={"/Forum"} >
+                Forum
+              </NavbarBrand>
+              <NavbarBrand tag={Link} to={"/Calendar"}>
+                Calendar
+              </NavbarBrand>
+              <NavbarBrand tag={Link} to={"/Diety"}>
+                View Diety
+              </NavbarBrand>
+            </>) : (
+              null
+            )}
+            </>
         )}
           {user ? (
             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
@@ -140,23 +155,6 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                 </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
-              {!isAdmin && (
-                  <>
-                    <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
-                      Home
-                    </DropdownItem>
-                    {deity ? (<>
-                      <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
-                        Forum
-                      </DropdownItem>
-                      <DropdownItem tag={Link} to={"/Calendar"} className="dropdown-item-hover">
-                        Calendar
-                      </DropdownItem>
-                    </>) : (
-                      null
-                    )}
-                  </>
-                )}
                 <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); setIsAdmin(false); navigate('/'); localStorage.clear(); setDeity(undefined)}}>
                   Logout
                 </DropdownItem>

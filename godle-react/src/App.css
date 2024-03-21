@@ -166,6 +166,12 @@ body {
   transition: opacity 0.3s ease;
   z-index: 1000;
 }
+.link:hover {
+  color: rgb(160, 37, 121); /* Change color to blue on hover */
+}
+.link {
+  color: rgb(157, 182, 255);
+}
 
 .horizontal-slider .example-thumb:hover::after,
 .horizontal-slider .example-thumb:active::after {

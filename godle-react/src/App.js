@@ -4,6 +4,7 @@ import './App.css';
 import RoutingPage from './RoutingPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SparklingCursor from './SparklingCursor';
+import Deity from './Deity';
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
             <Route exact={true} path='/Calendar' element={<RoutingPage page="Calendar" />} />
             <Route exact={true} path='/Forum' element={<RoutingPage page="Forum" />} />
             <Route exact={true} path='/Start' element={<RoutingPage page="Start" />} />
+            <Route exact={true} path='/Deity' element={<RoutingPage page="Deity" />} />
             {//<Route path="/page-variable" exact={true} element={<RoutingPage page={"page-variable"}/>}/>
             }
           </Routes>

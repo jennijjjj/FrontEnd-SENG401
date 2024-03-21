@@ -216,9 +216,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                         style={{ marginRight: "10px", marginBottom: "10px" }}
                     />
                     I accept the Terms and Services
-                </label>
-
-                {termsChecked ? (
+                </label> {termsChecked ? (
                     <div className="tos-button-container">
                         <button className="tos-button" onClick={handleTermsClick}>OK</button>
                     </div>
@@ -231,9 +229,6 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                 )}
             </div>
         )}
-        <button onClick={() => settosButtonClicked(false)} style={{ backgroundColor: "rgba(255, 255, 255, 0.10)" }}>
-            devbuttonresetTOS
-        </button>
         <div className={"titleContainer"}>
             <div className="titleText">Divinity</div>
         </div>
@@ -251,7 +246,10 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                 <Slider title="Grandeur" onChange={(value) => handleSliderChange("Grandeur", value)} />
                 <Slider title="Temperament" onChange={(value) => handleSliderChange("Temperament", value)} />
             </div>
-            <button type="submit" className="submit-button">Submit</button>
+            <div style={{ display: 'flex', flexDirection:"column",alignItems:"center",alignContent:"center",justifyContent: 'center', marginTop: '20px' }}>
+                <button type="submit" className="submit-button" style={{width:"fit-content"}}>Submit</button>
+                <a href="#" onClick={() => { settosButtonClicked(false); setTermsChecked(!termsChecked); }} style={{  marginLeft: '10px' }} className="link" style={{marginTop:"5px"}}>Review Terms & Conditions</a>
+            </div>
         </form>
     </>
     )
