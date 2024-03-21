@@ -22,7 +22,6 @@ const RoutingPage = ({ page }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(deity,user,isAdmin)
     setLoading(true);
     setLoading(false);
   }, [setLoading])
@@ -40,9 +39,6 @@ const RoutingPage = ({ page }) => {
           const storedDeity = JSON.parse(deityString);
           setDeity(storedDeity);
         }
-        // else{
-        //   setDeity(undefined);
-        // }
         if (storedIsAdmin==='false'){
           setIsAdmin(false);
         }else{
@@ -98,7 +94,7 @@ const RoutingPage = ({ page }) => {
       
     }
 
-    if (isAdmin) {
+    if (isAdmin && user) {
       return (
         <div>
           <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
