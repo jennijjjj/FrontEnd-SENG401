@@ -32,7 +32,7 @@ const SlideShow = () => {
                 autoplay={true} // Enable autoplay
                 easing={"linear"}
                 slidesToScroll={1}
-                slidesToShow={3}
+                slidesToShow={5}
                 indicators={true}
                 pauseOnHover={true}
                 infinite={true} // Enable infinite looping

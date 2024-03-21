@@ -16,7 +16,7 @@ const LandingPage = ({ }) => {
             </div>
             {/* Container with 80% width */}
             <div style={{ textAlign:"center",margin: 'auto' }}>
-            {/* <p style={{marginLeft:"60%",textAlign:"center", marginTop: '10%' ,color:"#5500e7f", fontWeight: 'bolder'}}>Featured Deities</p> */}
+            <h5 style={{textAlign:"left", marginTop: '5%' ,color:"#5500e7f",fontFamily: "Helvetica, sans-serif"}}>Featured Deities</h5>
                 <SlideShow />
             </div>
         </div>
