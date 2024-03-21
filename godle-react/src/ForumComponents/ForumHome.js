@@ -3,7 +3,7 @@ import ForumList from './ForumList';
 import AddNewthreadCard from './AddNewthreadCard';
 import { fetchThreads } from './ForumApiRequests';
 
-const Forum = (user) => {
+const Forum = (user, deity) => {
     const [searchField, setSearchField] = useState("");
     const [categoryToggle, setCategoryToggle] = useState(false);
     const [addMode, setAddMode]=useState(false);
@@ -165,12 +165,10 @@ const Forum = (user) => {
                 </div>
                 {!addMode &&
                     <div className="addThreadContainer" style ={{width:"57%", marginBottom:"30px"}}>
-                        <h2 style={{fontSize:"100px", marginLeft:"0px",marginTop:"-20px"}}>
-                                🗺</h2>
-                        <p style={{fontSize:"30px",marginLeft:"-20%", marginTop:"-2%"}}>🕬</p>
+                        <img style={{ maxHeight: "20px"}} style={{ justifyItems: "center" }} src="./Images/Azura.jpg" alt="Description of the image" />
                 
-                        <div >
-                            <h2 style={{marginTop:"20px"}}><strong>Engage in Divine Discourse</strong></h2>
+                        <div style={{width:"50%"}} >
+                            <h2 ><strong>Engage in Divine Discourse</strong></h2>
                             <p>Connect with a community bound by a shared journey of spiritual exploration, where every thread holds the potential for profound connection and enlightenment. Join the conversation and let your voice be heard in this sacred space of collective wisdom.</p>
 
                         </div>

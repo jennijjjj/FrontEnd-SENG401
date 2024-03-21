@@ -140,7 +140,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               <NavbarBrand className='navlink' tag={Link} to={"/Calendar"}>
               🗒 Calendar
               </NavbarBrand>
-              <NavbarBrand className='navlink' tag={Link} to={"/Diety"}>
+              <NavbarBrand className='navlink' tag={Link} to={"/Deity"}>
               ♜ View Diety
               </NavbarBrand>
             </>) : (

@@ -2,11 +2,16 @@ import React, { useEffect, useState } from "react";
 import SlideShow from "./SlideShowComponents/Slide"; // Assuming SlideShow component is imported correctly
 import { useNavigate } from 'react-router-dom';
 
-const LandingPage = () => {
+const LandingPage = ({deity}) => {
     const navigate = useNavigate(); // Initialize navigate function from useNavigate()
 
     const handleStartJourney = () => {
-        navigate('/Quiz'); // Navigate to the '/Quiz' route when the button is clicked
+        if(deity){
+            navigate('/Quiz');
+        } else{
+            navigate('/Deity');
+        }
+        // Navigate to the '/Quiz' route when the button is clicked
     };
     return (
        

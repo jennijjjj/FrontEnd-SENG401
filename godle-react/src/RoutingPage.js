@@ -47,20 +47,11 @@ const RoutingPage = ({ page }) => {
           <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
           setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
           <Container fluid>
-            <Forum user={user} />
+            <Forum user={user} deity={deity} />
           </Container>
         </div>
       )
-    } else if(page === "Deity") {
-    return (
-      <div>
-        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
-        <Container fluid>
-          <Deity deity={deity} setDeity={setDeity} />
-        </Container>
-      </div>
-    );
-    }
+    } 
   }
 
   if (isAdmin || page === "Admin") {
@@ -115,6 +106,15 @@ const RoutingPage = ({ page }) => {
         </Container>
       </div>
     )
+  }else if(page === "Deity") {
+    return (
+      <div>
+        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
+        <Container fluid>
+          <Deity deity={deity} setDeity={setDeity} />
+        </Container>
+      </div>
+    );
   }
   
 }
