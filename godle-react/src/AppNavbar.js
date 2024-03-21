@@ -121,12 +121,17 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
 
   return (
     <Navbar dark expand="md">
-      {!isAdmin && (
-        <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
-      )}
+      <div className='titleContainer'>
+        <NavbarBrand className="titleText" style={{fontSize:"30px"}}>🗦🕯Divinity🗧</NavbarBrand>
+      </div>
+      
+      
       <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="justify-content-end" style={{ width: "100%" }} navbar>
+        {!isAdmin && (
+          <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+        )}
           {user ? (
             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
               <DropdownToggle nav caret>

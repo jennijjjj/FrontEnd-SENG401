@@ -19,6 +19,7 @@ const App = () => {
             <Route exact={true} path='/Admin' element={<RoutingPage page="Admin" />} />
             <Route exact={true} path='/Calendar' element={<RoutingPage page="Calendar" />} />
             <Route exact={true} path='/Forum' element={<RoutingPage page="Forum" />} />
+            <Route exact={true} path='/Start' element={<RoutingPage page="Start" />} />
             {//<Route path="/page-variable" exact={true} element={<RoutingPage page={"page-variable"}/>}/>
             }
           </Routes>

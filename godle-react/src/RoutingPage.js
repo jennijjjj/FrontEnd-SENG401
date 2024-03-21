@@ -8,6 +8,7 @@ import Admin from './AdminComponents/AdminHome';
 import Deity from './Deity';
 import CalendarPage from './CalendarComponents/CalendarPage';
 import Forum from './ForumComponents/ForumHome';
+import LandingPage from './LandingPage';
 import { Container } from 'reactstrap';
 //import anotherpage from './anotherpage';
 
@@ -100,6 +101,16 @@ const RoutingPage = ({ page }) => {
         setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
         <Container fluid>
           <Matches user={user} matchedDeities={matchedDeities} setDeity={setDeity} />
+        </Container>
+      </div>
+    )
+  }  else if (page === "Start") {
+    return (
+      <div>
+        <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
+        setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
+        <Container fluid>
+          <LandingPage />
         </Container>
       </div>
     )

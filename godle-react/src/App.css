@@ -242,6 +242,25 @@ body {
   background-color:#057e93;
 }
 
+.start-button {
+  padding: 10px 20px;
+  background-color:#057e93;
+  color:white;
+  
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.start-button:hover {
+  background-color: white;
+  color: #057e93;
+  
+}
 .post-button:hover {
   background-color:#057e93;
   color:white;
