@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FastLayer } from 'konva/lib/FastLayer';
@@ -48,6 +48,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               .then(data => {
                 console.log("Deity Object Found");
                 setDeity(data);
+                localStorage.setItem('deity',JSON.stringify(data));
               })
               .catch(error => {
                 setDeity(undefined);
@@ -60,9 +61,11 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               setUser(userData);
               if (data.admin === 1) {
                 navigate("/admin");
+                localStorage.setItem('isAdmin',true);
                 setIsAdmin(true);
               } else {
                 navigate("/");
+                localStorage.setItem('isAdmin',false);
               }
             });
           } else {
@@ -83,23 +86,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
     setPassword('');
   };
 
-  const checkLocalStorage = () => {
-    try {
-      const token = localStorage.getItem('token');
-      const userString = localStorage.getItem('user');
-      if (token && userString) {
-        const user = JSON.parse(userString);
-        setUser(user);
-      }
-    } catch (err) {
-    }
-
-  };
-
-  // Call checkLocalStorage on component mount
-  useEffect(() => {
-    checkLocalStorage();
-  }, []);
+  
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
