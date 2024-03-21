@@ -131,16 +131,17 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
         <Nav className="justify-content-end" style={{ width: "100%" }} navbar>
         {!isAdmin && (
           <>
-          <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+          <NavbarBrand className='navlink' tag={Link} to="/">⌂ Home</NavbarBrand>
+          <NavbarBrand className='navlink' tag={Link} to="/">✑ Quiz</NavbarBrand>
             {deity ? (<>
-              <NavbarBrand tag={Link} to={"/Forum"} >
-                Forum
+              <NavbarBrand className='navlink' tag={Link} to={"/Forum"} >
+              🗪 Forum
               </NavbarBrand>
-              <NavbarBrand tag={Link} to={"/Calendar"}>
-                Calendar
+              <NavbarBrand className='navlink' tag={Link} to={"/Calendar"}>
+              🗒 Calendar
               </NavbarBrand>
-              <NavbarBrand tag={Link} to={"/Diety"}>
-                View Diety
+              <NavbarBrand className='navlink' tag={Link} to={"/Diety"}>
+              ♜ View Diety
               </NavbarBrand>
             </>) : (
               null

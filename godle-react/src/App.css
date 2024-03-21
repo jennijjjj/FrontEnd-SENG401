@@ -173,6 +173,10 @@ body {
   color: rgb(157, 182, 255);
 }
 
+.navlink:hover{
+  color: rgb(157, 182, 255);
+}
+
 .horizontal-slider .example-thumb:hover::after,
 .horizontal-slider .example-thumb:active::after {
   content: attr(data-info);
