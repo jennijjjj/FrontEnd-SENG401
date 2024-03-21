@@ -170,8 +170,8 @@ const Forum = (user) => {
                         <p style={{fontSize:"30px",marginLeft:"-20%", marginTop:"-2%"}}>🕬</p>
                 
                         <div >
-                            <h2 style={{marginTop:"20px"}}><strong>Create your own thread!</strong></h2>
-                            <p>Share your thoughts with others in the community.</p>
+                            <h2 style={{marginTop:"20px"}}><strong>Engage in Divine Discourse</strong></h2>
+                            <p>Connect with a community bound by a shared journey of spiritual exploration, where every thread holds the potential for profound connection and enlightenment. Join the conversation and let your voice be heard in this sacred space of collective wisdom.</p>
 
                         </div>
                         

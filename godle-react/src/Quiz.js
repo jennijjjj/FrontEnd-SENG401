@@ -3,7 +3,7 @@ import Slider from './Slider';
 import { useNavigate } from "react-router-dom";
 
 
-const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }) => {
+const Quiz = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }) => {
     const [sliderValues, setSliderValues] = useState({
         Zealousness: 0,
         Mysticism: 0,
@@ -229,8 +229,11 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                 )}
             </div>
         )}
-        <div className={"titleContainer"}>
-            <div className="titleText">Divinity</div>
+       <div style={{ textAlign:"center",width: '60%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h1 className="titleText" style={{ marginBottom:"10px", fontWeight: "bolder" }}>Attributes Quiz</h1>
+            <p style={{}}>
+                This quiz will unveil your inner beliefs, values, and preferences, guiding you towards uncovering the deities and spiritual practices that resonate most deeply with your unique essence.
+            </p>
         </div>
         <form onSubmit={handleSubmit} className="slider-form">
             <div>
@@ -246,9 +249,9 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                 <Slider title="Grandeur" onChange={(value) => handleSliderChange("Grandeur", value)} />
                 <Slider title="Temperament" onChange={(value) => handleSliderChange("Temperament", value)} />
             </div>
-            <div style={{ display: 'flex', flexDirection:"column",alignItems:"center",alignContent:"center",justifyContent: 'center', marginTop: '20px' }}>
-                <button type="submit" className="submit-button" style={{width:"fit-content"}}>Submit</button>
-                <a href="#" onClick={() => { settosButtonClicked(false); setTermsChecked(!termsChecked); }} style={{  marginLeft: '10px' }} className="link" style={{marginTop:"5px"}}>Review Terms & Conditions</a>
+            <div style={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: 'center', marginTop: '20px' }}>
+                <button type="submit" className="submit-button" style={{ width: "fit-content" }}>Submit</button>
+                <a href="#" onClick={() => { settosButtonClicked(false); setTermsChecked(!termsChecked); }} style={{ marginLeft: '10px', marginTop: "5px" }} className="link">Review Terms & Conditions</a>
             </div>
         </form>
     </>
@@ -256,4 +259,4 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
 
 }
 
-export default Home
+export default Quiz

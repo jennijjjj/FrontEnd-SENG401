@@ -256,8 +256,7 @@ body {
   padding: 10px 20px;
   background-color:#057e93;
   color:white;
-  
-  border: none;
+  border: white 2px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -328,10 +327,11 @@ body {
 
 .dropdown-item-hover {
   color: white;
+  width:fit-content;
 }
 
 .dropdown-item-hover:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #7b1296;
   color: white;
 }
 
@@ -361,7 +361,7 @@ body {
 }
 
 .list-group-item:hover {
-  background-color: #b3b3b3; /* Set the background color on hover */
+  background-color:rgb(160, 37, 121); /* Set the background color on hover */
 }
 
 .cardContainer {

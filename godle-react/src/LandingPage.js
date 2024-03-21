@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import SlideShow from "./SlideShowComponents/Slide"; // Assuming SlideShow component is imported correctly
+import { useNavigate } from 'react-router-dom';
 
-const LandingPage = ({ }) => {
+const LandingPage = () => {
+    const navigate = useNavigate(); // Initialize navigate function from useNavigate()
+
+    const handleStartJourney = () => {
+        navigate('/Quiz'); // Navigate to the '/Quiz' route when the button is clicked
+    };
     return (
        
             <div style={{width: '60%',position: "absolute", // Position the name absolutely
@@ -10,8 +16,8 @@ const LandingPage = ({ }) => {
                  <div style={{ justifyContent:'center',textAlign: 'left',
         marginRight: '10%', marginTop: '5%', width:"60%" }}>
             <h1 style={{ textAlign:"left",color:"#5500e7f", fontWeight: 'bold', fontFamily: "Helvetica, sans-serif" }}>Embark on a Journey of Self-Discovery</h1>
-            <p style={{ textAlign:"left", marginTop: '5%'}}>Explore and discover diverse faiths, featuring a quiz to match you with your most suitable Deities, engaging community forums, and a comprehensive calendar of spiritual observances.</p>
-            <button style={{alignSelf:"left", marginTop: '5%', textAlign: 'left' }} className="start-button">Start your Journey</button>
+            <p style={{ textAlign:"left", marginTop: '5%'}}>Explore and discover diverse faiths, featuring a quiz to match you with your most suitable Deities, engaging community forums, and a comprehensive calendar of spiritual observances. Start your quest now and unearth the sacred connections waiting to be discovered within you.</p>
+            <button onClick={handleStartJourney} style={{alignSelf:"left", marginTop: '5%', textAlign: 'left' }} className="start-button">Start your Journey</button>
             
             </div>
             {/* Container with 80% width */}

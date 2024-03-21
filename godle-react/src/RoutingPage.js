@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Home from './Home';
+import Quiz from './Quiz';
 import AppNavbar from './AppNavbar';
 import Register from './Register';
 import Matches from './MatchingPageComponents/Matches';
@@ -75,13 +75,13 @@ const RoutingPage = ({ page }) => {
     )
   }
 
-  if (page === "Home") {
+  if (page === "Quiz") {
     return (
       <div>
         <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
         setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
         <Container fluid>
-          <Home tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} user={user} />
+          <Quiz tosButtonClicked={tosButtonClicked} settosButtonClicked={settosButtonClicked} setMatchedDeities={setMatchedDeities} user={user} />
         </Container>
       </div>
     );
@@ -105,7 +105,7 @@ const RoutingPage = ({ page }) => {
         </Container>
       </div>
     )
-  }  else if (page === "Start") {
+  }  else if (page === "Home") {
     return (
       <div>
         <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
