@@ -6,7 +6,7 @@ const Deity = ({ deity, setDeity }) => {
     const reset = () => {
         setDeity(undefined);
         localStorage.removeItem('deity');
-        navigate('/Quiz');
+        navigate('/Matches');
     };
 
     const [highestAttributes, setHighestAttributes] = useState([["", 0]]);
@@ -14,7 +14,6 @@ const Deity = ({ deity, setDeity }) => {
 
     useEffect(() => {
         const getAttributes = () => {
-            console.log(deity);
             const attributesArray = Object.entries(deity.attributes);
             attributesArray.sort((a, b) => b[1] - a[1]);
         
