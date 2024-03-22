@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { FastLayer } from 'konva/lib/FastLayer';
+import { getItemIsAdmin, getItemUser, getItemDeity, setItemIsAdmin, setItemDeity, setItemUser } from './LocalStorageFunctions';
 
 const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const navigate = useNavigate();
@@ -10,6 +10,22 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
+
+
+  useEffect(() => { //sets vars from local storage on mount
+    setUser(getItemUser);
+    setIsAdmin(getItemIsAdmin);
+    setDeity(getItemDeity);
+  }, []);
+
+  useEffect(() => { //sets local storage when new user logs in
+    const token = localStorage.getItem('token');
+    if (token) {
+      setUser(getItemUser);
+      setIsAdmin(getItemIsAdmin);
+      setDeity(getItemDeity);
+    }
+  }, [user, deity, isAdmin]);
 
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -47,25 +63,23 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               })
               .then(data => {
                 console.log("Deity Object Found");
+                setItemDeity(data);
                 setDeity(data);
-                localStorage.setItem('deity',JSON.stringify(data));
               })
               .catch(error => {
                 setDeity(undefined);
-                console.log('There was an error', error);
               });
             response.json().then(data => {
               console.log(data);
               localStorage.setItem('token', data.token);
-              localStorage.setItem('user',JSON.stringify(userData));
               setUser(userData);
+              setItemUser(userData);
               if (data.admin === 1) {
-                navigate("/admin");
-                localStorage.setItem('isAdmin',true);
+                setItemIsAdmin(true);
                 setIsAdmin(true);
+                navigate("/admin");
               } else {
                 navigate("/");
-                localStorage.setItem('isAdmin',false);
               }
             });
           } else {
@@ -86,8 +100,34 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
     setPassword('');
   };
 
-  
+  // const checkLocalStorage = () => {
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     const userString = localStorage.getItem('user');
+  //     const deityString = localStorage.getItem('deity')
+  //     const storedIsAdmin = localStorage.getItem('isAdmin')
+  //     if (token && userString) {
+  //       const user = JSON.parse(userString);
+  //       setUser(user);
+        
+  //     }
+  //     if (deityString){
+  //       const storedDeity = JSON.parse(deityString);
+  //       setDeity(storedDeity);
+  //     }
+  //     if (storedIsAdmin==='false'){
+  //       setIsAdmin(false);
+  //     }else{
+  //       setIsAdmin(true);
+  //     }
+  //     console.log(user,deity,storedIsAdmin)
+  //   } catch (err) {
+  //   }
 
+  // };
+
+  // Call checkLocalStorage on component mount
+  
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };

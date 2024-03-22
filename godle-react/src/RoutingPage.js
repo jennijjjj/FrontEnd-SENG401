@@ -35,17 +35,18 @@ const RoutingPage = ({ page }) => {
       if (token && userString) {
         const user = JSON.parse(userString);
         setUser(user);
-        if (deityString){
-          const storedDeity = JSON.parse(deityString);
-          setDeity(storedDeity);
-        }
-        if (storedIsAdmin==='false'){
-          setIsAdmin(false);
-        }else{
-          setIsAdmin(true);
-        }
-        console.log(user,deity,storedIsAdmin)
+        
       }
+      if (deityString){
+        const storedDeity = JSON.parse(deityString);
+        setDeity(storedDeity);
+      }
+      if (storedIsAdmin==='false'){
+        setIsAdmin(false);
+      }else{
+        setIsAdmin(true);
+      }
+      console.log(user,deity,storedIsAdmin)
     } catch (err) {
     }
 
@@ -56,10 +57,7 @@ const RoutingPage = ({ page }) => {
     checkLocalStorage();
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
+  
 
   if (deity !== undefined && !isAdmin) {
     if(page === "Calendar") {
@@ -74,9 +72,9 @@ const RoutingPage = ({ page }) => {
     } else if (page === "Forum") {
       return (
         <div>
-          <AppNavbar AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
+          <AppNavbar AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
           <Container fluid>
-            <Forum user={user} />
+            <Forum user={user} deity={deity} setDeity={setDeity} />
           </Container>
         </div>
       )
@@ -126,14 +124,14 @@ const RoutingPage = ({ page }) => {
           <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} 
           setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
           <Container fluid>
-            <LandingPage deity={deity} setDeity={setDeity} />
+            <LandingPage user={user} />
           </Container>
         </div>
       )
     }else if(page === "Deity") {
       return (
         <div>
-          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin}/>
+          <AppNavbar user={user} setUser={setUser} setDeity={setDeity} deity={deity} setIsAdmin={setIsAdmin} isAdmin={isAdmin} />
           <Container fluid>
             <Deity deity={deity} setDeity={setDeity} />
           </Container>

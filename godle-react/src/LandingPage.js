@@ -2,18 +2,25 @@ import React, { useEffect, useState } from "react";
 import SlideShow from "./SlideShowComponents/Slide"; // Assuming SlideShow component is imported correctly
 import { useNavigate } from 'react-router-dom';
 
-const LandingPage = ({deity, setDeity}) => {
+const LandingPage = ({user, deity}) => {
+    const [matchedDeity, setDeity] = useState(deity)
+    const [currUser, setUser] = useState(user)
+
+    useEffect(() => {
+        // localStorage.setItem('user',JSON.stringify(user));
+        // setUser(JSON.parse(localStorage.getItem('user'))); 
+        // localStorage.setItem('deity',JSON.stringify(deity));
+        // setDeity(JSON.parse(localStorage.getItem('deity')))
+    }, []);
+
     const navigate = useNavigate(); 
 
     const handleStartJourney = () => {
-        const deityString = localStorage.getItem('deity')
-        if(deityString){
-            const storedDeity = JSON.parse(deityString);
-            setDeity(storedDeity);
-            navigate('/Deity'); 
-        } else{
-            navigate('/Quiz');
-        }
+        // if(deity){
+        //     navigate('/Deity'); 
+        // } else{
+        //     navigate('/Quiz');
+        // }
     };
     return (
        

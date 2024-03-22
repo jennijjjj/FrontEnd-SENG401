@@ -16,7 +16,6 @@ const SlideShow = () => {
                 path: key // Keeping the full path if needed
             };
         });
-        console.log(images);
         return images;
     }
     

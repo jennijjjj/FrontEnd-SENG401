@@ -209,10 +209,6 @@ const Forum = (user) => {
                                 </div>
                             </button>
                             </div>
-
-                        
-                        
-
                     </div>
             }           
             <div style={{width:"80%"}}>
