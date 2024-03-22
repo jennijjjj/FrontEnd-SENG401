@@ -11,13 +11,6 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
 
-
-  useEffect(() => { //sets vars from local storage on mount
-    setUser(getItemUser);
-    setIsAdmin(getItemIsAdmin);
-    setDeity(getItemDeity);
-  }, []);
-
   useEffect(() => { //sets local storage when new user logs in
     const token = localStorage.getItem('token');
     if (token) {
@@ -25,7 +18,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
       setIsAdmin(getItemIsAdmin);
       setDeity(getItemDeity);
     }
-  }, [user, deity, isAdmin]);
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -99,34 +92,6 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
     setUsername('');
     setPassword('');
   };
-
-  // const checkLocalStorage = () => {
-  //   try {
-  //     const token = localStorage.getItem('token');
-  //     const userString = localStorage.getItem('user');
-  //     const deityString = localStorage.getItem('deity')
-  //     const storedIsAdmin = localStorage.getItem('isAdmin')
-  //     if (token && userString) {
-  //       const user = JSON.parse(userString);
-  //       setUser(user);
-        
-  //     }
-  //     if (deityString){
-  //       const storedDeity = JSON.parse(deityString);
-  //       setDeity(storedDeity);
-  //     }
-  //     if (storedIsAdmin==='false'){
-  //       setIsAdmin(false);
-  //     }else{
-  //       setIsAdmin(true);
-  //     }
-  //     console.log(user,deity,storedIsAdmin)
-  //   } catch (err) {
-  //   }
-
-  // };
-
-  // Call checkLocalStorage on component mount
   
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -171,7 +136,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                   </NavbarBrand>
                 </>
               )}
-                            <NavbarBrand className='navlink' tag={Link} to={"/Deity"}>
+              <NavbarBrand className='navlink' tag={Link} to={"/Deity"}>
               ♜ My Diety
               </NavbarBrand>
             </>) : (
@@ -187,7 +152,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                 </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
-                <DropdownItem className="dropdown-item-hover" onClick={() => {setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined); localStorage.clear(); }}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => {localStorage.clear();setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined);  }}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>

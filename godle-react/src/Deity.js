@@ -13,24 +13,6 @@ const Deity = ({ deity, setDeity }) => {
     const [lowestAttributes, setLowestAttributes] = useState([["", 0]]);
 
     useEffect(() => {
-        const loadData = async () => {
-            const deityString = localStorage.getItem('deity');
-            if (deityString) {
-            console.log(deityString);
-            const storedDeity = JSON.parse(deityString);
-            setDeity(storedDeity);
-            window.scrollTo(0, 0);
-            
-            // else {
-            //     navigate('/Quiz');
-            // }
-            // Call getAttributes after setDeity
-            
-            } else {
-            navigate('/Quiz');
-            }
-        };
-    
         const getAttributes = () => {
             console.log(deity);
             const attributesArray = Object.entries(deity.attributes);
@@ -42,29 +24,10 @@ const Deity = ({ deity, setDeity }) => {
             setLowestAttributes(lowestAttributesArray.slice(0, 3));
         };
     
-      loadData();
       if (deity!==undefined){
         getAttributes();
     } 
-    }, []);
-
-
-    // useEffect(() => {
-    //     const getAttributes = () => {
-    //         console.log(deity);
-    //         const attributesArray = Object.entries(deity.attributes);
-    //         attributesArray.sort((a, b) => b[1] - a[1]);
-
-    //         setHighestAttributes(attributesArray.slice(0, 3));
-
-    //         const lowestAttributesArray = [...attributesArray].reverse();
-    //         setLowestAttributes(lowestAttributesArray.slice(0, 3));
-
-    //     };
-
-    //     getAttributes();
-    //     window.scrollTo(0, 0);
-    // }, [deity.attributes]);
+    }, [deity]);
 
     useEffect(() => {
         console.log(highestAttributes);

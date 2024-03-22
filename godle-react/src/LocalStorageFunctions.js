@@ -1,7 +1,6 @@
 // user functions
 export const setItemUser = async (user) => {
-    console.log("setting use")
-    if (user){
+    if (user !== undefined){
         localStorage.setItem('user',JSON.stringify(user));
     }
 }
@@ -17,8 +16,9 @@ export const getItemUser = async () => {
 
 // deity functions
 export const setItemDeity = async (deity) => {
-    if (deity){
+    if (deity !== undefined){
         localStorage.setItem('deity', JSON.stringify(deity));
+        // getAttributes(deity);
     }
 }
 

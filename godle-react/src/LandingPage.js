@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SlideShow from "./SlideShowComponents/Slide"; // Assuming SlideShow component is imported correctly
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
-const LandingPage = ({user, deity}) => {
-    const [matchedDeity, setDeity] = useState(deity)
-    const [currUser, setUser] = useState(user)
+const LandingPage = ({deity}) => {
 
-    useEffect(() => {
-        // localStorage.setItem('user',JSON.stringify(user));
-        // setUser(JSON.parse(localStorage.getItem('user'))); 
-        // localStorage.setItem('deity',JSON.stringify(deity));
-        // setDeity(JSON.parse(localStorage.getItem('deity')))
-    }, []);
 
     const navigate = useNavigate(); 
 
     const handleStartJourney = () => {
-        // if(deity){
-        //     navigate('/Deity'); 
-        // } else{
-        //     navigate('/Quiz');
-        // }
+        if(deity){
+            navigate('/Deity'); 
+        } else{
+            navigate('/Quiz');
+        }
     };
     return (
        
@@ -32,7 +24,7 @@ const LandingPage = ({user, deity}) => {
         marginRight: '10%', marginTop: '5%', width:"60%" }}>
             <h1 style={{ textAlign:"left",color:"#5500e7f", fontWeight: 'bold', fontFamily: "Helvetica, sans-serif" }}>Embark on a Journey of Self-Discovery</h1>
             <p style={{ textAlign:"left", marginTop: '5%'}}>Explore and discover diverse faiths, featuring a quiz to match you with your most suitable Deities, engaging community forums, and a comprehensive calendar of spiritual observances. Start your quest now and unearth the sacred connections waiting to be discovered within you.</p>
-            <button onClick={handleStartJourney} style={{alignSelf:"left", marginTop: '5%', textAlign: 'left' }} className="start-button">{deity ? "View My Deity" : "Start your Journey"}</button>
+            <button onClick={handleStartJourney} style={{alignSelf:"left", marginTop: '5%', textAlign: 'left' }} className="start-button">{deity !== undefined  ? "View My Deity" : "Start your Journey"}</button>
             
             </div>
             {/* Container with 80% width */}
