@@ -29,7 +29,7 @@ const App = () => {
 
   
   useEffect(() => {
-    Promise.all([getItemUser(), getItemIsAdmin(), getItemDeity(), getItemMatchedDeities]).then(([user, isAdmin, deity, matches]) => {
+    Promise.all([getItemUser(), getItemIsAdmin(), getItemDeity(), getItemMatchedDeities()]).then(([user, isAdmin, deity, matches]) => {
       setUser(user);
       setIsAdmin(isAdmin);
       setDeity(deity);

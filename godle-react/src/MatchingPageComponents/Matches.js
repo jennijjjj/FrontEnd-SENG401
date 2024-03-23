@@ -18,16 +18,6 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
       setLoading(false);
     }, 3000);
     setCards(matchedDeities); // Set cards after the Promise has been resolved
-  
-    // matchedDeities.then((matches) => {
-    //   setCards(matches); // Set cards after the Promise has been resolved
-    //   console.log(matches); // Log the resolved Array of deities
-    // });
-    // Promise.all([getItemMatchedDeities]).then(([matchedDeities]) => {
-    //   setCards(matchedDeities);
-    // }).catch(error => {
-    //   console.error('Error fetching data from local storage:', error);
-    // });
     return () => clearTimeout(timer);
   }, [matchedDeities, setCards]);
 

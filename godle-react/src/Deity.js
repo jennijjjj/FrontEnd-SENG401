@@ -6,7 +6,7 @@ const Deity = ({ deity, setDeity }) => {
     const reset = () => {
         setDeity(undefined);
         localStorage.removeItem('deity');
-        navigate('/Matches');
+        navigate('/Quiz');
     };
 
     const [highestAttributes, setHighestAttributes] = useState([["", 0]]);
