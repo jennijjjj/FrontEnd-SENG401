@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { getItemIsAdmin, getItemUser, getItemDeity, setItemIsAdmin, setItemDeity, setItemUser } from './LocalStorageFunctions';
+import { usePopup } from './PopupContext'
 
 const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
+  const { triggerPopup } = usePopup()
 
   useEffect(() => { //sets local storage when new user logs in
     const token = localStorage.getItem('token');
@@ -79,6 +81,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
             // If there's an error, display error message
             alert('User not authenticated with the provided credentials.');
             // Log the error
+            triggerPopup('Popup Triggered')
             console.error(response);
           }
         })
