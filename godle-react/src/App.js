@@ -12,7 +12,7 @@ import Deity from './Deity';
 import CalendarPage from './CalendarComponents/CalendarPage';
 import Forum from './ForumComponents/ForumHome';
 import LandingPage from './LandingPage';
-import { getItemIsAdmin, getItemUser, getItemDeity } from './LocalStorageFunctions';
+import { getItemIsAdmin, getItemUser, getItemDeity, getItemMatchedDeities } from './LocalStorageFunctions';
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -29,10 +29,11 @@ const App = () => {
 
   
   useEffect(() => {
-    Promise.all([getItemUser(), getItemIsAdmin(), getItemDeity()]).then(([user, isAdmin, deity]) => {
+    Promise.all([getItemUser(), getItemIsAdmin(), getItemDeity(), getItemMatchedDeities]).then(([user, isAdmin, deity, matches]) => {
       setUser(user);
       setIsAdmin(isAdmin);
       setDeity(deity);
+      setMatchedDeities(matches);
     }).catch(error => {
       console.error('Error fetching data from local storage:', error);
     });

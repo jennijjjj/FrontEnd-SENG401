@@ -18,7 +18,6 @@ export const getItemUser = async () => {
 export const setItemDeity = async (deity) => {
     if (deity !== undefined){
         localStorage.setItem('deity', JSON.stringify(deity));
-        // getAttributes(deity);
     }
 }
 
@@ -30,6 +29,24 @@ export const getItemDeity = async () => {
         return undefined;
     }
 }
+
+export const setItemMatchedDeities = async (matchedDeities) => {
+    console.log( JSON.stringify(matchedDeities));
+    if (matchedDeities !== undefined){
+        localStorage.setItem('matchedDeities', JSON.stringify(matchedDeities));
+    }
+}
+
+export const getItemMatchedDeities = async () => {
+    const deityString = localStorage.getItem('matchedDeities');
+    if (deityString && deityString!=="undefined"){
+        console.log( JSON.parse(deityString));
+      return (JSON.parse(deityString));  
+    } else {
+        return undefined;
+    }
+}
+
 
 // isAdmin functions
 export const setItemIsAdmin = async (isAdmin) => {

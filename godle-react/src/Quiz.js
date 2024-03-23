@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Slider from './Slider';
-import { json, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
+import { setItemMatchedDeities } from "./LocalStorageFunctions";
 
-
-const Quiz = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }) => {
+const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }) => {
     const [sliderValues, setSliderValues] = useState({
         Zealousness: 0,
         Mysticism: 0,
@@ -66,11 +66,16 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                     .then(response => {
                         if (response.ok) {
                             response.json()
-                                .then(data => {
+                            .then(data => {
+                                setItemMatchedDeities(data)
+                                .then(() => {
                                     setMatchedDeities(data);
-                                    localStorage.setItem('MatchedDeities', JSON.stringify(data));
                                     navigate("/Matches");
-                                }) 
+                                })
+                                .catch(error => {
+                                    console.error('Error in setItemMatchedDeities:', error);
+                                });
+                            });
                         } else if (response.status === 400) {
                             alert('Error', response.statusText);
                             console.error(response.statusText);

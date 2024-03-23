@@ -4,24 +4,30 @@ import SwipeableCards from "./SwipeableCard";
 import DisplayCardAnimation from "./DisplayCardAnimation";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { getItemMatchedDeities } from "../LocalStorageFunctions";
 
 const Matches = ({ user, matchedDeities, setDeity }) => {
   const [cards, setCards] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
-    const stringMatchedDeities = localStorage.getItem('MatchedDeities');
-    if (stringMatchedDeities){
-      const storedMatchedDeities = JSON.parse(stringMatchedDeities);
-      setCards(storedMatchedDeities);
-    } else{
-      setCards(matchedDeities);
-    }
+    setCards(matchedDeities); // Set cards after the Promise has been resolved
+  
+    // matchedDeities.then((matches) => {
+    //   setCards(matches); // Set cards after the Promise has been resolved
+    //   console.log(matches); // Log the resolved Array of deities
+    // });
+    // Promise.all([getItemMatchedDeities]).then(([matchedDeities]) => {
+    //   setCards(matchedDeities);
+    // }).catch(error => {
+    //   console.error('Error fetching data from local storage:', error);
+    // });
     return () => clearTimeout(timer);
   }, [matchedDeities, setCards]);
 
