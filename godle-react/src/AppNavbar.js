@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { FastLayer } from 'konva/lib/FastLayer';
+import { getItemIsAdmin, getItemUser, getItemDeity, setItemIsAdmin, setItemDeity, setItemUser } from './LocalStorageFunctions';
 
 const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const navigate = useNavigate();
@@ -10,6 +10,15 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
+
+  useEffect(() => { //sets local storage when new user logs in
+    const token = localStorage.getItem('token');
+    if (token) {
+      setUser(getItemUser);
+      setIsAdmin(getItemIsAdmin);
+      setDeity(getItemDeity);
+    }
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -47,20 +56,21 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               })
               .then(data => {
                 console.log("Deity Object Found");
+                setItemDeity(data);
                 setDeity(data);
               })
               .catch(error => {
                 setDeity(undefined);
-                console.log('There was an error', error);
               });
             response.json().then(data => {
               console.log(data);
               localStorage.setItem('token', data.token);
-              localStorage.setItem('user',JSON.stringify(userData));
               setUser(userData);
+              setItemUser(userData);
               if (data.admin === 1) {
-                navigate("/admin");
+                setItemIsAdmin(true);
                 setIsAdmin(true);
+                navigate("/admin");
               } else {
                 navigate("/");
               }
@@ -82,25 +92,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
     setUsername('');
     setPassword('');
   };
-
-  const checkLocalStorage = () => {
-    try {
-      const token = localStorage.getItem('token');
-      const userString = localStorage.getItem('user');
-      if (token && userString) {
-        const user = JSON.parse(userString);
-        setUser(user);
-      }
-    } catch (err) {
-    }
-
-  };
-
-  // Call checkLocalStorage on component mount
-  useEffect(() => {
-    checkLocalStorage();
-  }, []);
-
+  
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -121,12 +113,37 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
 
   return (
     <Navbar dark expand="md">
-      {!isAdmin && (
-        <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
-      )}
+      <div className='titleContainer'>
+        <NavbarBrand className="titleText" style={{fontSize:"30px"}}>🗦🕯Divinity🗧</NavbarBrand>
+      </div>
+      
+      
       <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="justify-content-end" style={{ width: "100%" }} navbar>
+        {!isAdmin && (
+          <>
+          <NavbarBrand className='navlink' tag={Link} to="/">⌂ Home</NavbarBrand>
+          <NavbarBrand className='navlink' tag={Link} to="/Quiz">Quiz</NavbarBrand>
+            {deity ? (<>
+              {user && (
+                <>
+                  <NavbarBrand className='navlink' tag={Link} to={"/Forum"} >
+                    🗪 Forum
+                  </NavbarBrand>
+                  <NavbarBrand className='navlink' tag={Link} to={"/Calendar"}>
+                    🗒 Calendar
+                  </NavbarBrand>
+                </>
+              )}
+              <NavbarBrand className='navlink' tag={Link} to={"/Deity"}>
+              ♜ My Diety
+              </NavbarBrand>
+            </>) : (
+              null
+            )}
+            </>
+        )}
           {user ? (
             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
               <DropdownToggle nav caret>
@@ -135,24 +152,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                 </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
-              {!isAdmin && (
-                  <>
-                    <DropdownItem tag={Link} to={"/"} className="dropdown-item-hover">
-                      Home
-                    </DropdownItem>
-                    {deity ? (<>
-                      <DropdownItem tag={Link} to={"/Forum"} className="dropdown-item-hover">
-                        Forum
-                      </DropdownItem>
-                      <DropdownItem tag={Link} to={"/Calendar"} className="dropdown-item-hover">
-                        Calendar
-                      </DropdownItem>
-                    </>) : (
-                      null
-                    )}
-                  </>
-                )}
-                <DropdownItem className="dropdown-item-hover" onClick={() => { setUser(undefined); setIsAdmin(false); navigate('/'); localStorage.clear(); setDeity(undefined)}}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => {localStorage.clear();setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined);  }}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>

@@ -11,11 +11,12 @@ const Forum = (user) => {
     const [isUserActive, setUserActive] = useState(false);
     const [isMyPostsActive, setMyPostsActive] = useState(false);
     const username = (user && user.user && user.user.username) || "";
-    // const username = 'livia@example.com';
+    const [deity, setDeity]=useState("")
 
     const [threads, setThreads] = useState([]);
 
     useEffect(() => {
+        
         fetchData();
     }, [username]);
 
@@ -26,6 +27,30 @@ const Forum = (user) => {
         } catch (error) {
             console.error('Error fetching threads:', error);
         }
+        fetch('/IsUserMatched', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user.user.username),
+          })
+            .then(response => {
+              if (response.ok) {
+                return response.json(); // Parse JSON data from the response
+              }
+              throw new Error('No Deity Matched To User'); // Handle non-OK responses
+            })
+            .then(data => {
+              console.log("Deity Object Found");
+              setDeity(data);
+              localStorage.setItem('deity',JSON.stringify(data));
+            })
+            .catch(error => {
+              setDeity(undefined);
+              console.log('There was an error', error);
+            });
+        
+        console.log(deity);
     };
 
     console.log("threads home", threads);
@@ -81,6 +106,14 @@ const Forum = (user) => {
         width: '120px',
         padding:"5px",
       };
+
+      const imageStyle ={
+        borderRadius: '50%',
+        width: 50,
+        height: 50,
+        background: 'red', // You can change the background color
+        display: 'block',
+      }
     const handleCategoryHover = () => {
         setCategoryToggle(true);
     };
@@ -164,24 +197,18 @@ const Forum = (user) => {
                     </div>
                 </div>
                 {!addMode &&
-                    <div className="addThreadContainer" style ={{width:"57%", marginBottom:"30px"}}>
-                        <h2 style={{fontSize:"100px", marginLeft:"0px",marginTop:"-20px"}}>
-                                🗺</h2>
-                        <p style={{fontSize:"30px",marginLeft:"-20%", marginTop:"-2%"}}>🕬</p>
+                    <div className="addThreadContainer" style ={{alignItems:"center",width:"57%", marginBottom:"30px"}}>
+                        <img style={{maxHeight:"200px"}} src={"./Images/" + deity.imagePath} alt="Description of the image" />
                 
-                        <div >
-                            <h2 style={{marginTop:"20px"}}><strong>Create your own thread!</strong></h2>
-                            <p>Share your thoughts with others in the community.</p>
-
-                        </div>
-                        
-                        <button className="submit-button" 
-                        onClick={() =>handleAddMode()}>
-                            <div>
-                                <p style={{fontWeight:"bolder",marginTop:"12px"}}>Add Thread</p>
+                        <div style={{}}>
+                            <h2><strong>{deity.name}'s Divine Discourse</strong></h2>
+                            <p>Connect with a community bound by a shared journey of spiritual exploration, where every thread holds the potential for profound connection and enlightenment. Join the conversation and let your voice be heard in this sacred space of collective wisdom.</p>
+                            <button style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "30px", width: "100%" }} className="submit-button" onClick={() => handleAddMode()}>
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
+                                <p style={{ fontWeight: "bolder", marginTop: "12px" }}>Add Thread</p>
+                                </div>
+                            </button>
                             </div>
-                        </button>
-
                     </div>
             }           
             <div style={{width:"80%"}}>

@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const Deity = ({ deity, setDeity }) => {
+    const navigate = useNavigate(); 
     const reset = () => {
         setDeity(undefined);
+        localStorage.removeItem('deity');
+        navigate('/Quiz');
     };
 
     const [highestAttributes, setHighestAttributes] = useState([["", 0]]);
@@ -12,17 +16,17 @@ const Deity = ({ deity, setDeity }) => {
         const getAttributes = () => {
             const attributesArray = Object.entries(deity.attributes);
             attributesArray.sort((a, b) => b[1] - a[1]);
-
+        
             setHighestAttributes(attributesArray.slice(0, 3));
-
+        
             const lowestAttributesArray = [...attributesArray].reverse();
             setLowestAttributes(lowestAttributesArray.slice(0, 3));
-
         };
-
+    
+      if (deity!==undefined){
         getAttributes();
-        window.scrollTo(0, 0);
-    }, [deity.attributes]);
+    } 
+    }, [deity]);
 
     useEffect(() => {
         console.log(highestAttributes);

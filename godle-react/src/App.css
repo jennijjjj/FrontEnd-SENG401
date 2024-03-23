@@ -166,6 +166,16 @@ body {
   transition: opacity 0.3s ease;
   z-index: 1000;
 }
+.link:hover {
+  color: rgb(160, 37, 121); /* Change color to blue on hover */
+}
+.link {
+  color: rgb(157, 182, 255);
+}
+
+.navlink:hover{
+  color: rgb(157, 182, 255);
+}
 
 .horizontal-slider .example-thumb:hover::after,
 .horizontal-slider .example-thumb:active::after {
@@ -242,6 +252,24 @@ body {
   background-color:#057e93;
 }
 
+.start-button {
+  padding: 10px 20px;
+  background-color:#057e93;
+  color:white;
+  border: white 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.start-button:hover {
+  background-color: white;
+  color: #057e93;
+  
+}
 .post-button:hover {
   background-color:#057e93;
   color:white;
@@ -299,10 +327,11 @@ body {
 
 .dropdown-item-hover {
   color: white;
+  width:fit-content;
 }
 
 .dropdown-item-hover:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #7b1296;
   color: white;
 }
 
@@ -332,7 +361,7 @@ body {
 }
 
 .list-group-item:hover {
-  background-color: #b3b3b3; /* Set the background color on hover */
+  background-color:rgb(160, 37, 121); /* Set the background color on hover */
 }
 
 .cardContainer {

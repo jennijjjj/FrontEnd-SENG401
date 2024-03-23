@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from './Slider';
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
+import { setItemMatchedDeities } from "./LocalStorageFunctions";
 
-
-const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }) => {
+const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }) => {
     const [sliderValues, setSliderValues] = useState({
         Zealousness: 0,
         Mysticism: 0,
@@ -19,6 +19,13 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
         User: null,
     });
 
+    useEffect(() => { //so we dont have to accept tos everytime
+        const storedTosClicked = localStorage.getItem("tosButtonClicked");
+        if (storedTosClicked){
+            settosButtonClicked(storedTosClicked);
+        }
+      }, []);
+
     const [termsChecked, setTermsChecked] = useState(false);
     const navigate = useNavigate();
 
@@ -28,6 +35,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
 
     const handleTermsClick = () => {
         settosButtonClicked(true);
+        localStorage.setItem("tosButtonClicked", true);
     };
 
     const handleSliderChange = (title, value) => {
@@ -58,10 +66,16 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                     .then(response => {
                         if (response.ok) {
                             response.json()
-                                .then(data => {
+                            .then(data => {
+                                setItemMatchedDeities(data)
+                                .then(() => {
                                     setMatchedDeities(data);
                                     navigate("/Matches");
-                                }) 
+                                })
+                                .catch(error => {
+                                    console.error('Error in setItemMatchedDeities:', error);
+                                });
+                            });
                         } else if (response.status === 400) {
                             alert('Error', response.statusText);
                             console.error(response.statusText);
@@ -216,9 +230,7 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                         style={{ marginRight: "10px", marginBottom: "10px" }}
                     />
                     I accept the Terms and Services
-                </label>
-
-                {termsChecked ? (
+                </label> {termsChecked ? (
                     <div className="tos-button-container">
                         <button className="tos-button" onClick={handleTermsClick}>OK</button>
                     </div>
@@ -231,11 +243,11 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                 )}
             </div>
         )}
-        <button onClick={() => settosButtonClicked(false)} style={{ backgroundColor: "rgba(255, 255, 255, 0.10)" }}>
-            devbuttonresetTOS
-        </button>
-        <div className={"titleContainer"}>
-            <div className="titleText">Divinity</div>
+       <div style={{ textAlign:"center",width: '60%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h1 className="titleText" style={{ marginBottom:"10px", fontWeight: "bolder" }}>Attributes Quiz</h1>
+            <p style={{}}>
+                This quiz will unveil your inner beliefs, values, and preferences, guiding you towards uncovering the deities and spiritual practices that resonate most deeply with your unique essence.
+            </p>
         </div>
         <form onSubmit={handleSubmit} className="slider-form">
             <div>
@@ -251,11 +263,14 @@ const Home = ({ tosButtonClicked, settosButtonClicked, setMatchedDeities, user }
                 <Slider title="Grandeur" onChange={(value) => handleSliderChange("Grandeur", value)} />
                 <Slider title="Temperament" onChange={(value) => handleSliderChange("Temperament", value)} />
             </div>
-            <button type="submit" className="submit-button">Submit</button>
+            <div style={{ display: 'flex', flexDirection: "column", alignItems: "center", justifyContent: 'center', marginTop: '20px' }}>
+                <button type="submit" className="submit-button" style={{ width: "fit-content" }}>Submit</button>
+                <a href="#" onClick={() => { settosButtonClicked(false); setTermsChecked(!termsChecked); }} style={{ marginLeft: '10px', marginTop: "5px" }} className="link">Review Terms & Conditions</a>
+            </div>
         </form>
     </>
     )
 
 }
 
-export default Home
+export default Quiz

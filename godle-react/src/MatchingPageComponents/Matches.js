@@ -10,12 +10,13 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
-    setCards(matchedDeities);
+    setCards(matchedDeities); // Set cards after the Promise has been resolved
     return () => clearTimeout(timer);
   }, [matchedDeities, setCards]);
 
@@ -42,12 +43,16 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
         .then(response => {
           if (response.ok) {
             setDeity(card);
+            localStorage.setItem("deity", JSON.stringify(card));
+            navigate('/Deity');
           } else {
             alert("Error, please try again");
           }
         })
     } else {
       setDeity(card);
+      localStorage.setItem("deity", JSON.stringify(card));
+      navigate('/Deity');
     }
   }
 
