@@ -31,7 +31,6 @@ export const getItemDeity = async () => {
 }
 
 export const setItemMatchedDeities = async (matchedDeities) => {
-    console.log( JSON.stringify(matchedDeities));
     if (matchedDeities !== undefined){
         localStorage.setItem('matchedDeities', JSON.stringify(matchedDeities));
     }
@@ -40,13 +39,11 @@ export const setItemMatchedDeities = async (matchedDeities) => {
 export const getItemMatchedDeities = async () => {
     const deityString = localStorage.getItem('matchedDeities');
     if (deityString && deityString!=="undefined"){
-        console.log( JSON.parse(deityString));
       return (JSON.parse(deityString));  
     } else {
         return undefined;
     }
 }
-
 
 // isAdmin functions
 export const setItemIsAdmin = async (isAdmin) => {

@@ -3,8 +3,6 @@ import SlideShow from "./SlideShowComponents/Slide"; // Assuming SlideShow compo
 import {useNavigate } from 'react-router-dom';
 
 const LandingPage = ({deity}) => {
-
-
     const navigate = useNavigate(); 
 
     const handleStartJourney = () => {

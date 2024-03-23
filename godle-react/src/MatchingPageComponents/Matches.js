@@ -4,7 +4,6 @@ import SwipeableCards from "./SwipeableCard";
 import DisplayCardAnimation from "./DisplayCardAnimation";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
-import { getItemMatchedDeities } from "../LocalStorageFunctions";
 
 const Matches = ({ user, matchedDeities, setDeity }) => {
   const [cards, setCards] = useState(undefined);
