@@ -44,7 +44,6 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
         password: password,
       };
 
-      // Send HTTP POST request to register the user
       let response = await fetch('/Login', {
         method: 'POST',
         headers: {
@@ -71,13 +70,12 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
         navigate("/");
       }
 
-      // Second fetch to check if user is matched with a deity
       response = await fetch('/IsUserMatched', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: userData.username }), // Ensure correct data structure for backend
+        body: JSON.stringify(userData.username),
       });
 
       if (!response.ok) {
