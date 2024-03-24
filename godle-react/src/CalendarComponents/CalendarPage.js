@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import './Custom.css';
 
 const CalendarPage = ({ deity, user }) => {
@@ -81,7 +80,7 @@ const CalendarPage = ({ deity, user }) => {
   };
 
   return (<>
-    <div style={{ display: "flex", width: "100%", height: "fit-content", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ display: "flex", width: "100%", height: "50vh", alignItems: "center", justifyContent: "center" }}>
       <Calendar
         onChange={setCurrentDate}
         value={currentDate}
