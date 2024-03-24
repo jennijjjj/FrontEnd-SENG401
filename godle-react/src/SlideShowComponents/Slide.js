@@ -23,7 +23,7 @@ const SlideShow = () => {
     
     // Convert the object values into an array of filenames
     const imagesArray = Object.values(imagesObject);
-    const filteredImagesArray = imagesArray.filter(image => image.filename !== "deityProfileBackground" || image.filename !== "loading");
+    const filteredImagesArray = imagesArray.filter(image => image.filename !== "deityProfileBackground" || image.filename !== "loading" || image.filename !== "cardBack");
 
     return (
         <div>

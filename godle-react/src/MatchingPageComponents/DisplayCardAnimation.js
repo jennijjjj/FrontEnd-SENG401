@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './overlayDisplayCardAnimation.css';
 
 const leftColumnStyles = {
   borderRadius: 15,
@@ -11,6 +12,10 @@ const leftColumnStyles = {
   paddingBottom: "10px",
   background: "rgba(255, 255, 255, 0.40)",
   color: "black",
+  backgroundImage: "url('./images/cardBack.png')", // Correct way to reference an image
+  backgroundSize: 'cover', // Ensure the background covers the entire element
+  backgroundRepeat: 'no-repeat', // Do not repeat the background image
+  backgroundPosition: 'center', // Center the background image
 };
 
 const cardStyles = {
@@ -43,6 +48,7 @@ const cardBackStyles = {
   backfaceVisibility: "hidden",
   transform: "rotateY(180deg)",
 };
+
 const imageStyles = {
   maxWidth: "220px",
   height: "400px",
@@ -62,19 +68,17 @@ const DisplayCardAnimation = ({ zIndex = 0, name, image }) => {
   }, []);
 
   const handleFlip = () => {
-    setFlipped(!isFlipped);
+    //setFlipped(!isFlipped); dont do anything
   };
 
   return (
     <div className="SwipeableCard" style={{ ...cardStyles, zIndex }} onClick={handleFlip}>
       <div style={{ ...cardInnerStyles, transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)" }}>
-        <div style={{ ...cardFrontStyles, ...leftColumnStyles }}>
+        <div style={{ ...cardFrontStyles, ...leftColumnStyles }} className="card-front-overlay">
           <h2>{name}</h2>
           <img src={image} alt={`${name}'s Photo`} style={imageStyles} />
         </div>
-        <div style={{ ...cardBackStyles, ...leftColumnStyles }}>
-          <h2>back of card</h2>
-        </div>
+        <div style={{ ...cardBackStyles, ...leftColumnStyles }} className="card-back-overlay"/>
       </div>
     </div>
   );
