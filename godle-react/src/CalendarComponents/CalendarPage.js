@@ -53,6 +53,7 @@ const CalendarPage = ({ deity, user }) => {
       fetchTimeout = setTimeout(fetchCelebrations, 5000);
     } else {
       console.log("Same month no new request made");
+      setLoadingCalendar(false);
     }
 
     return () => clearTimeout(fetchTimeout);
