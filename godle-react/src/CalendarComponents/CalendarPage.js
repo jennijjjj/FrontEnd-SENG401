@@ -49,8 +49,9 @@ const CalendarPage = ({ deity, user }) => {
     };
 
     if(currentMonth === "initial") {
-      fetchTimeout = setTimeout(fetchCelebrations, 5000);
       setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
+      fetchTimeout = setTimeout(fetchCelebrations, 5000);
+      return;
     }
 
     if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' })) {
