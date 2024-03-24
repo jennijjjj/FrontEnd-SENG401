@@ -459,7 +459,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  height: 1756px;
+  height: 1776px;
   min-width: 1525px;
   max-width: 1530px;
   padding-top: 575px
@@ -497,7 +497,7 @@ body {
   display: flex;
   height: 415px;
   min-height: 150px;
-  margin-top: 325px;
+  margin-top: 330px;
   color: #000;
   font-size: 15.5px;
 }

@@ -160,7 +160,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                   {user.username}
                 </>
               </DropdownToggle>
-              <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
+              <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(0, 0, 0, 0.50)", color: "white" }}>
                 <DropdownItem className="dropdown-item-hover" onClick={() => { localStorage.clear(); setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined); }}>
                   Logout
                 </DropdownItem>
@@ -171,7 +171,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               <DropdownToggle nav caret>
                 Guest
               </DropdownToggle>
-              <DropdownMenu end style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
+              <DropdownMenu end style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px', border: "2px solid #000", backgroundColor: "rgba(0, 0, 0, 0.50)", color: "white" }}>
                 <form onSubmit={handleLogin}>
                   {/* Username Field */}
                   <div className="form-group">
