@@ -450,6 +450,16 @@ body {
   background-color: purple;
 }
 
+.deity-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  min-height: 100vh;
+  overflow-x: auto;
+  width: 100%;
+  min-width: 1525px
+}
+
 .deity-profile {
   display: flex;
   text-align: center;
@@ -462,7 +472,8 @@ body {
   height: 1776px;
   min-width: 1525px;
   max-width: 1530px;
-  padding-top: 575px
+  margin: auto; /* Centers the profile in the container */
+  padding-top: 575px;
 }
 
 .deity-profile-image {
@@ -523,7 +534,7 @@ body {
   font-weight: bold;
   color: #000; /* Or any color you prefer */
   padding: 5% 0; /* Space above and below the title */
-  font-size: 2vw;
+  font-size: 40px;
 }
 
 .searchBar {
