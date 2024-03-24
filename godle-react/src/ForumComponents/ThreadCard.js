@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { deleteThread } from './ForumApiRequests';
+import { usePopup } from '../PopupContext'
 
 function ThreadCard({ thread , username, fetchData}) {
     const [expand, setExpand] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
+    const { triggerPopup } = usePopup();
 
     const handleDelete = async () => {
         const userResponse = window.confirm(`Are you sure you want to delete your post?`);
@@ -11,7 +13,7 @@ function ThreadCard({ thread , username, fetchData}) {
             try {
                 // Call the postThread function with topic and content
                 await deleteThread(username, thread.date);
-                alert('Thread deleted!');
+                triggerPopup('🕊️', 'Sacred Thread Dissolved','Your thread has ascended beyond the mortal realm, paving the way for new dialogues and revelations.');
             } catch (error) {
                 // Handle any errors that occur during the HTTP request
                 console.error('Error posting thread:', error);

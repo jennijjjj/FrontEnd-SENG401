@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { usePopup } from './PopupContext'
 import Loading from './Loading';
 
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const Navigate = useNavigate();
+    const { triggerPopup } = usePopup();
     const [loadingRegister, setLoadingRegister] = useState(false);
 
     const handleEmailChange = (event) => {
@@ -40,6 +42,7 @@ const Register = () => {
                 const errorText = await response.text(); // Assuming the error message is plain text
                 if (response.status === 400) {
                     // Handle specific errors based on status code
+                    triggerPopup('⚠️', 'Eternal Connection Detected', 'It seems your email is already intertwined with our sacred realm. Please log in or choose a new email to embark on your journey of spiritual discovery.')
                     throw new Error('The email provided already exists in the system. Please log in or use a new email to register. ' + errorText);
                 } else {
                     // Handle generic error
@@ -48,7 +51,7 @@ const Register = () => {
             }
 
             // If successful, display success message and navigate
-            alert("User registered successfully!");
+            triggerPopup('🌟🎉', 'Congratulations Fellow Seeker!', 'Your registration has been successfully completed. Welcome to our sacred community of spiritual exploration and enlightenment. You may now login.')
             Navigate('/');
 
         } catch (error) {
@@ -61,7 +64,6 @@ const Register = () => {
             setPassword("");
         }
     };
-
 
     return (<>
         {loadingRegister ? (<Loading />) : (null)}
