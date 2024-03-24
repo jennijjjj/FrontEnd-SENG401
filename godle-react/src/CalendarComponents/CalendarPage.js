@@ -48,9 +48,15 @@ const CalendarPage = ({ deity, user }) => {
       }
     };
 
-    if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' })) {
+    if(currentMonth === "initial") {
+      // delay initial fetch for chatGBT response 
       setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
       fetchTimeout = setTimeout(fetchCelebrations, 5000);
+    }
+
+    if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' })) {
+      setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
+      fetchCelebrations();
     } else {
       console.log("Same month no new request made");
       setLoadingCalendar(false);
