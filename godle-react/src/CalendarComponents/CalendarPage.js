@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import './Custom.css';
+import Loading from '../Loading';
 
 const CalendarPage = ({ deity, user }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -9,9 +9,12 @@ const CalendarPage = ({ deity, user }) => {
   const [celebrationMap, setCelebrationMap] = useState({});
   const [currentMonth, setCurrentMonth] = useState("initial");
   const [selectedCelebration, setSelectedCelebration] = useState(null);
+  const [loadingCalendar, setLoadingCalendar] = useState(false);
 
   useEffect(() => {
     const fetchCelebrations = async () => {
+      setLoadingCalendar(true);
+
       const send_packet = {
         deityName: deity.name,
         email: user.username,
@@ -39,6 +42,8 @@ const CalendarPage = ({ deity, user }) => {
         setCelebrations(data);
       } catch (error) {
         console.error('There was an error fetching the celebrations', error);
+      } finally {
+        setLoadingCalendar(false);
       }
     };
 
@@ -81,7 +86,8 @@ const CalendarPage = ({ deity, user }) => {
   };
 
   return (<>
-    <div style={{ display: "flex", width: "100%", height: "fit-content", alignItems: "center", justifyContent: "center" }}>
+    { loadingCalendar ? <Loading /> : null }
+    <div style={{ display: "flex", width: "100%", height: "50vh", alignItems: "center", justifyContent: "center" }}>
       <Calendar
         onChange={setCurrentDate}
         value={currentDate}
