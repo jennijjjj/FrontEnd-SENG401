@@ -13,13 +13,22 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
   const [loadingMatches, setLoadingMatches] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-    setCards(matchedDeities); // Set cards after the Promise has been resolved
-    return () => clearTimeout(timer);
+    setLoadingMatches(true);
+    setCards(matchedDeities);
+    const initialTimer = setTimeout(() => {
+      setLoadingMatches(false);
+      setLoading(true);
+
+      const loadingTimer = setTimeout(() => {
+        setLoading(false);
+      }, 3500);
+  
+      return () => clearTimeout(loadingTimer);
+    }, 500);
+  
+    return () => clearTimeout(initialTimer);
   }, [matchedDeities, setCards]);
+  
 
   const remove = () => {
     setCards((prevCards) => {
