@@ -78,10 +78,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               }
             });
           } else {
-            // If there's an error, display error message
-            alert('User not authenticated with the provided credentials.');
-            // Log the error
-            triggerPopup('Popup Triggered')
+            triggerPopup('🔐', 'Sacred Gateway Alert', 'Please double-check your login credentials and try again to unlock the spiritual realm.')
             console.error(response);
           }
         })
