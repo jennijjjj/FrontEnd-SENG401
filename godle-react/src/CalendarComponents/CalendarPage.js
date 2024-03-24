@@ -8,9 +8,12 @@ const CalendarPage = ({ deity, user }) => {
   const [celebrationMap, setCelebrationMap] = useState({});
   const [currentMonth, setCurrentMonth] = useState("initial");
   const [selectedCelebration, setSelectedCelebration] = useState(null);
+  const [loadingCalendar, setLoadingCalendar] = useState(false);
 
   useEffect(() => {
     const fetchCelebrations = async () => {
+      setLoadingCalendar(true);
+
       const send_packet = {
         deityName: deity.name,
         email: user.username,
@@ -38,6 +41,8 @@ const CalendarPage = ({ deity, user }) => {
         setCelebrations(data);
       } catch (error) {
         console.error('There was an error fetching the celebrations', error);
+      } finally {
+        setLoadingCalendar(false);
       }
     };
 
