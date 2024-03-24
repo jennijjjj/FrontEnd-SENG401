@@ -30,10 +30,10 @@ function ForumCard({forum, fetchJsonData}) {
     <div className="cardContainer">
         <div style={flexColumn}>
           <div style={flexRow}>
-            <p><strong>Email: </strong>{forum.Email}</p>
+            <p><strong>Title: </strong>{forum.Title}</p>
             <button className='deletebutton' onClick={handleDelete}><strong>DELETE</strong></button>
           </div>
-          <p><strong>Title: </strong>{forum.Title}</p>
+          <p><strong>Email: </strong>{forum.Email}</p>
           <p><strong>Body: </strong>{forum.Body}</p>
           <p><strong>Post Date: </strong>{forum.Date}</p>   
         </div>
