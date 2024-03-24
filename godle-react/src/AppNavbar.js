@@ -114,7 +114,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   return (
     <Navbar dark expand="md">
       <div className='titleContainer'>
-        <NavbarBrand className="titleText" style={{fontSize:"30px"}}>🗦🕯Divinity🗧</NavbarBrand>
+        <NavbarBrand className="titleText" style={{fontSize:"30px"}}>🗦🕯Divinity🕯🗧</NavbarBrand>
       </div>
       
       
