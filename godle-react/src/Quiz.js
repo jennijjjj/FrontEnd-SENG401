@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Slider from './Slider';
 import {useNavigate } from "react-router-dom";
 import { setItemMatchedDeities } from "./LocalStorageFunctions";
+import { usePopup } from './PopupContext'
 
 const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }) => {
+    const { triggerPopup } = usePopup()
     const [sliderValues, setSliderValues] = useState({
         Zealousness: 0,
         Mysticism: 0,
@@ -89,7 +91,7 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }
                 console.error('Submission failed:', error);
             }
         } else {
-            alert("Please accept the terms and services before submitting.");
+            triggerPopup('✔️📄','Enlightened Consent Required',"Please accept the terms and services to illuminate your path. Your journey towards enlightenment awaits your consent.")
         }
     };
 
