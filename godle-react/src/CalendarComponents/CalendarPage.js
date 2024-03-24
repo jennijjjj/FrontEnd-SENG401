@@ -49,9 +49,8 @@ const CalendarPage = ({ deity, user }) => {
     };
 
     if(currentMonth === "initial") {
-      // delay initial fetch for chatGBT response 
-      setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
       fetchTimeout = setTimeout(fetchCelebrations, 5000);
+      setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
     }
 
     if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' })) {
