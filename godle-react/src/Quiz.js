@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Slider from './Slider';
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { setItemMatchedDeities } from "./LocalStorageFunctions";
+import Loading from './Loading';
 
 const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }) => {
     const [sliderValues, setSliderValues] = useState({
@@ -18,13 +19,14 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }
         Temperament: 0,
         User: null,
     });
+    const [loadingQuiz, setLoadingQuiz] = useState(false);
 
     useEffect(() => { //so we dont have to accept tos everytime
         const storedTosClicked = localStorage.getItem("tosButtonClicked");
-        if (storedTosClicked){
+        if (storedTosClicked) {
             settosButtonClicked(storedTosClicked);
         }
-      }, []);
+    }, []);
 
     const [termsChecked, setTermsChecked] = useState(false);
     const navigate = useNavigate();
@@ -45,55 +47,59 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (tosButtonClicked) {
-            console.log("Form submitted!");
-            console.log("Attribute List:", sliderValues);
-            
-            if (user) {
-                sliderValues.User = user.username
+        setLoadingQuiz(true);
+
+        if (!tosButtonClicked) {
+            alert("Please accept the terms and services before submitting.");
+            setLoadingQuiz(false); // Stop loading since the operation is not proceeding
+            return; // Exit early
+        }
+
+        console.log("Form submitted!");
+        console.log("Attribute List:", sliderValues);
+
+        if (user) {
+            sliderValues.User = user.username;
+        }
+
+        try {
+            const response = await fetch('/SubmitAttributes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(sliderValues)
+            });
+
+            if (!response.ok) {
+                if (response.status === 400) {
+                    alert('Error', response.statusText);
+                } else {
+                    alert('Submission failed:', response.statusText);
+                }
+                console.error('Error with submission:', response.statusText);
+                setLoadingQuiz(false);
+                return;
             }
 
-            try {
-                fetch('/SubmitAttributes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(sliderValues)
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            response.json()
-                            .then(data => {
-                                setItemMatchedDeities(data)
-                                .then(() => {
-                                    setMatchedDeities(data);
-                                    navigate("/Matches");
-                                })
-                                .catch(error => {
-                                    console.error('Error in setItemMatchedDeities:', error);
-                                });
-                            });
-                        } else if (response.status === 400) {
-                            alert('Error', response.statusText);
-                            console.error(response.statusText);
-                        } else {
-                            alert('Submission failed:', response.statusText);
-                            console.error('Submission failed:', response.statusText);
-                        }
-                    })
-            } catch (error) {
-                alert("Error with submission. Please try again.");
-                console.error('Submission failed:', error);
-            }
-        } else {
-            alert("Please accept the terms and services before submitting.");
+            const data = await response.json();
+            setItemMatchedDeities(data);
+            setMatchedDeities(data);
+            navigate("/Matches");
+
+        } catch (error) {
+            alert("Error with submission. Please try again.");
+            console.error('Submission failed:', error);
+        } finally {
+            setLoadingQuiz(false);
         }
     };
 
+
     return (<>
+        {loadingQuiz ? (<Loading />) : (null)}
         {tosButtonClicked ? (null) : (
             <div className="terms-container">
                 <div className="terms-of-service">
@@ -243,8 +249,8 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }
                 )}
             </div>
         )}
-       <div style={{ textAlign:"center",width: '60%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h1 className="titleText" style={{ marginBottom:"10px", fontWeight: "bolder" }}>Attributes Quiz</h1>
+        <div style={{ textAlign: "center", width: '60%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h1 className="titleText" style={{ marginBottom: "10px", fontWeight: "bolder" }}>Attributes Quiz</h1>
             <p style={{}}>
                 This quiz will unveil your inner beliefs, values, and preferences, guiding you towards uncovering the deities and spiritual practices that resonate most deeply with your unique essence.
             </p>
