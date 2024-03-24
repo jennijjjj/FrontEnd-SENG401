@@ -4,12 +4,13 @@ import SwipeableCards from "./SwipeableCard";
 import DisplayCardAnimation from "./DisplayCardAnimation";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { usePopup } from "../PopupContext";
 
 const Matches = ({ user, matchedDeities, setDeity }) => {
   const [cards, setCards] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+  const { triggerPopup } = usePopup();
 
   useEffect(() => {
     setLoading(true);
@@ -24,8 +25,8 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
     setCards((prevCards) => {
       const newCards = prevCards.slice(1);
       if (newCards.length === 0) {
-        alert("No more matches - returning to attributes");
-        navigate('/');
+        triggerPopup('💫↩️', 'Divine Encounters Exhausted', "You've explored every divine path available for now. To deepen your spiritual journey, let's revisit your inner attributes through the attributes quiz.");
+        navigate('/Quiz');
       }
       return newCards;
     });
