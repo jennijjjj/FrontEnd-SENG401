@@ -12,6 +12,7 @@ import Deity from './Deity';
 import CalendarPage from './CalendarComponents/CalendarPage';
 import Forum from './ForumComponents/ForumHome';
 import LandingPage from './LandingPage';
+import Loading from './Loading';
 import { getItemIsAdmin, getItemUser, getItemDeity, getItemMatchedDeities } from './LocalStorageFunctions';
 
 const App = () => {
@@ -24,11 +25,6 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-    setLoading(false);
-  }, [setLoading])
-
-  
-  useEffect(() => {
     Promise.all([getItemUser(), getItemIsAdmin(), getItemDeity(), getItemMatchedDeities()]).then(([user, isAdmin, deity, matches]) => {
       setUser(user);
       setIsAdmin(isAdmin);
@@ -37,10 +33,11 @@ const App = () => {
     }).catch(error => {
       console.error('Error fetching data from local storage:', error);
     });
+    setLoading(false);
   }, []); // Since we only want this effect to run once, we pass an empty dependency array
   
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (

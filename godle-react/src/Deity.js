@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 const Deity = ({ deity, setDeity }) => {
-    const navigate = useNavigate(); 
-    const reset = () => {
-        setDeity(undefined);
-        localStorage.removeItem('deity');
-        navigate('/Quiz');
-    };
+    const navigate = useNavigate();
 
     const [highestAttributes, setHighestAttributes] = useState([["", 0]]);
     const [lowestAttributes, setLowestAttributes] = useState([["", 0]]);
@@ -16,25 +11,17 @@ const Deity = ({ deity, setDeity }) => {
         const getAttributes = () => {
             const attributesArray = Object.entries(deity.attributes);
             attributesArray.sort((a, b) => b[1] - a[1]);
-        
+
             setHighestAttributes(attributesArray.slice(0, 3));
-        
+
             const lowestAttributesArray = [...attributesArray].reverse();
             setLowestAttributes(lowestAttributesArray.slice(0, 3));
         };
-    
-      if (deity!==undefined){
-        getAttributes();
-    } 
+
+        if (deity !== undefined) {
+            getAttributes();
+        }
     }, [deity]);
-
-    useEffect(() => {
-        console.log(highestAttributes);
-    }, [highestAttributes]);
-
-    useEffect(() => {
-        console.log(lowestAttributes);
-    }, [lowestAttributes]);
 
     return (
         <>
@@ -67,7 +54,6 @@ const Deity = ({ deity, setDeity }) => {
             ) : (
                 <p>Deity error</p>
             )}
-            <button onClick={reset}>Reset</button>
         </>
     );
 };

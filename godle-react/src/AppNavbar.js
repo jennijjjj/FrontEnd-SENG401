@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { getItemIsAdmin, getItemUser, getItemDeity, setItemIsAdmin, setItemDeity, setItemUser } from './LocalStorageFunctions';
+import Loading from './Loading';
 
 const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
+  const [loadingAppNavbar, setLoadingAppNavbar] = useState(false);
 
   useEffect(() => { //sets local storage when new user logs in
     const token = localStorage.getItem('token');
@@ -20,79 +22,85 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
     }
   }, []);
 
-  const handleLogin = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  useEffect(() => {
+    let timer;
+    if (incorrectLogin) {
+      // Set `incorrectLogin` back to false after 3 seconds
+      timer = setTimeout(() => {
+        setIncorrectLogin(false);
+      }, 3000);
+    }
+    // Cleanup function to clear the timer if the component unmounts
+    return () => clearTimeout(timer);
+  }, [incorrectLogin])
 
-    // Authenticate
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    setLoadingAppNavbar(true);
+
     try {
-      // Prepare data to send in the request body
       const userData = {
         username: username,
-        password: password
+        password: password,
       };
 
       // Send HTTP POST request to register the user
-      fetch('/Login', {
+      let response = await fetch('/Login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData)
-      })
-        .then(response => {
-          if (response.ok) {
-            fetch('/IsUserMatched', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(userData.username),
-            })
-              .then(response => {
-                if (response.ok) {
-                  return response.json(); // Parse JSON data from the response
-                }
-                throw new Error('No Deity Matched To User'); // Handle non-OK responses
-              })
-              .then(data => {
-                console.log("Deity Object Found");
-                setItemDeity(data);
-                setDeity(data);
-              })
-              .catch(error => {
-                setDeity(undefined);
-              });
-            response.json().then(data => {
-              console.log(data);
-              localStorage.setItem('token', data.token);
-              setUser(userData);
-              setItemUser(userData);
-              if (data.admin === 1) {
-                setItemIsAdmin(true);
-                setIsAdmin(true);
-                navigate("/admin");
-              } else {
-                navigate("/");
-              }
-            });
-          } else {
-            // If there's an error, display error message
-            alert('User not authenticated with the provided credentials.');
-            // Log the error
-            console.error(response);
-          }
-        })
-        
-    } catch (error) {
-      setIncorrectLogin(true);
-      alert("Exception occured trying to send login information to backend.");
-      console.error('Exception occured trying to send login information to backend.');
-    }
+        body: JSON.stringify(userData),
+      });
 
-    setUsername('');
-    setPassword('');
+      if (!response.ok) {
+        let data = await response.json();
+        throw new Error(data.key);
+      }
+
+      let data = await response.json();
+      localStorage.setItem('token', data.token);
+      setUser(userData);
+      setItemUser(userData);
+
+      if (data.admin === 1) {
+        setItemIsAdmin(true);
+        setIsAdmin(true);
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+
+      // Second fetch to check if user is matched with a deity
+      response = await fetch('/IsUserMatched', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: userData.username }), // Ensure correct data structure for backend
+      });
+
+      if (!response.ok) {
+        console.log('No Deity Matched To User');
+        setDeity(undefined);
+      } else {
+        data = await response.json();
+        console.log("Deity Object Found", data);
+        setItemDeity(data);
+        setDeity(data);
+      }
+
+    } catch (error) {
+      console.error('Error:', error.message || 'An error occurred during login.');
+      alert(error.message);
+      setIncorrectLogin(true);
+    } finally {
+      setLoadingAppNavbar(false);
+      setUsername('');
+      setPassword('');
+    }
   };
-  
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -113,37 +121,38 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
 
   return (
     <Navbar dark expand="md">
+      {loadingAppNavbar ? (<Loading />) : (null)}
       <div className='titleContainer'>
-        <NavbarBrand className="titleText" style={{fontSize:"30px"}}>🗦🕯Divinity🕯🗧</NavbarBrand>
+        <NavbarBrand className="titleText" style={{ fontSize: "30px" }}>🗦🕯Divinity🕯🗧</NavbarBrand>
       </div>
-      
-      
+
+
       <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="justify-content-end" style={{ width: "100%" }} navbar>
-        {!isAdmin && (
-          <>
-          <NavbarBrand className='navlink' tag={Link} to="/">⌂ Home</NavbarBrand>
-          <NavbarBrand className='navlink' tag={Link} to="/Quiz">Quiz</NavbarBrand>
-            {deity ? (<>
-              {user && (
-                <>
-                  <NavbarBrand className='navlink' tag={Link} to={"/Forum"} >
-                    🗪 Forum
-                  </NavbarBrand>
-                  <NavbarBrand className='navlink' tag={Link} to={"/Calendar"}>
-                    🗒 Calendar
-                  </NavbarBrand>
-                </>
+          {!isAdmin && (
+            <>
+              <NavbarBrand className='navlink' tag={Link} to="/">⌂ Home</NavbarBrand>
+              <NavbarBrand className='navlink' tag={Link} to="/Quiz">Quiz</NavbarBrand>
+              {deity ? (<>
+                {user && (
+                  <>
+                    <NavbarBrand className='navlink' tag={Link} to={"/Forum"} >
+                      🗪 Forum
+                    </NavbarBrand>
+                    <NavbarBrand className='navlink' tag={Link} to={"/Calendar"}>
+                      🗒 Calendar
+                    </NavbarBrand>
+                  </>
+                )}
+                <NavbarBrand className='navlink' tag={Link} to={"/Deity"}>
+                  ♜ My Diety
+                </NavbarBrand>
+              </>) : (
+                null
               )}
-              <NavbarBrand className='navlink' tag={Link} to={"/Deity"}>
-              ♜ My Diety
-              </NavbarBrand>
-            </>) : (
-              null
-            )}
             </>
-        )}
+          )}
           {user ? (
             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
               <DropdownToggle nav caret>
@@ -152,7 +161,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
                 </>
               </DropdownToggle>
               <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(255, 255, 255, 0.10)", color: "white" }}>
-                <DropdownItem className="dropdown-item-hover" onClick={() => {localStorage.clear();setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined);  }}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => { localStorage.clear(); setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined); }}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>
