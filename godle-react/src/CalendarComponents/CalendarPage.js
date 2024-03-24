@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import './Custom.css';
+import Loading from '../Loading';
 
 const CalendarPage = ({ deity, user }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -85,6 +86,7 @@ const CalendarPage = ({ deity, user }) => {
   };
 
   return (<>
+    { loadingCalendar ? <Loading /> : null }
     <div style={{ display: "flex", width: "100%", height: "50vh", alignItems: "center", justifyContent: "center" }}>
       <Calendar
         onChange={setCurrentDate}
