@@ -132,11 +132,11 @@ export function getForumData(){
             }
         })
         .then(data => {
-            const jsonData = Object.values(data).map(entry => {
-                const { Email, UserName} = entry;
-                return {Email:Email, UserName:UserName};
+            const jsonData = data.map(entry => {
+                const { Email, Title, Body, Date } = entry;
+                return { Email, Title, Body, Date };
             });
-
+        
             const jsonString = JSON.stringify(jsonData);
             console.log(jsonData); // Output the JSON string for verification
             return jsonString;
