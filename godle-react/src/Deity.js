@@ -45,10 +45,10 @@ const Deity = ({ deity, setDeity }) => {
                     <p className="deity-profile-source-universe">{deity.sourceUniverse}</p>
                     <div className="deity-profile-description-attributes-container">
                         <div className="deity-profile-attributes">
-                            <p style={{ textAlign: "right", marginRight: "11vw", paddingTop: "8vw" }}>HIGH</p>
-                            <p style={{ marginRight: "10vw", paddingTop: "3vw" }}>Attributes</p>
+                            <p style={{ textAlign: "right", marginRight: "168px", paddingTop: "122px" }}>HIGH</p>
+                            <p style={{ marginRight: "154px", paddingTop: "46px" }}>Attributes</p>
                             {highestAttributes.map(([attribute, value]) => (
-                                <p style={{ color: "#FFFFFF", paddingRight: "2vw" }} key={attribute}>{attribute}: {value}</p>
+                                <p style={{ color: "#FFFFFF", paddingRight: "30px" }} key={attribute}>{attribute}: {value}</p>
                             ))}
                         </div>
                         <div className="deity-profile-description">
@@ -56,10 +56,10 @@ const Deity = ({ deity, setDeity }) => {
                             <p>{deity.description}</p>
                         </div>
                         <div className="deity-profile-attributes">
-                            <p style={{ textAlign: "left", marginLeft: "11vw", paddingTop: "8vw" }}>LOW</p>
-                            <p style={{ marginLeft: "10vw", paddingTop: "3vw" }}>Attributes</p>
+                            <p style={{ textAlign: "left", marginLeft: "168px", paddingTop: "122px" }}>LOW</p>
+                            <p style={{ marginLeft: "154px", paddingTop: "46px" }}>Attributes</p>
                             {lowestAttributes.map(([attribute, value]) => (
-                                <p style={{ color: "#FFFFFF", paddingLeft: "2vw" }} key={attribute}>{attribute}: {value}</p>
+                                <p style={{ color: "#FFFFFF", paddingLeft: "30px" }} key={attribute}>{attribute}: {value}</p>
                             ))}
                         </div>
                     </div>

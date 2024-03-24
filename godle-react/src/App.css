@@ -459,8 +459,10 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  height: calc(100vw + 220px);
-  padding-top: calc(100vw - 63%);
+  height: 1756px;
+  min-width: 1525px;
+  max-width: 1530px;
+  padding-top: 575px
 }
 
 .deity-profile-image {
@@ -472,7 +474,7 @@ body {
 }
 
 .deity-profile-name {
-  font-size: 5vw;
+  font-size: 77px;
   font-family: 'UnifrakturMaguntia', cursive;
   color: rgb(236, 215, 255);
   text-shadow: 
@@ -493,11 +495,11 @@ body {
 
 .deity-profile-description-attributes-container {
   display: flex;
-  max-height: calc(100vw - 95%);
+  height: 415px;
   min-height: 150px;
-  margin-top: 20%;
+  margin-top: 325px;
   color: #000;
-  font-size: 1vw;
+  font-size: 15.5px;
 }
 
 .deity-profile-attributes {
