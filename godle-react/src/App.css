@@ -327,7 +327,10 @@ body {
 
 .dropdown-item-hover {
   color: white;
-  width:fit-content;
+  width:100%;
+  text-align:center;
+  font-size: larger;
+  border-radius: 5px;
 }
 
 .dropdown-item-hover:hover {
@@ -450,6 +453,16 @@ body {
   background-color: purple;
 }
 
+.deity-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  min-height: 100vh;
+  overflow-x: auto;
+  width: 100%;
+  min-width: 1525px
+}
+
 .deity-profile {
   display: flex;
   text-align: center;
@@ -459,8 +472,11 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  height: calc(100vw + 220px);
-  padding-top: calc(100vw - 63%);
+  height: 1776px;
+  min-width: 1525px;
+  max-width: 1530px;
+  margin: auto; /* Centers the profile in the container */
+  padding-top: 575px;
 }
 
 .deity-profile-image {
@@ -472,7 +488,7 @@ body {
 }
 
 .deity-profile-name {
-  font-size: 5vw;
+  font-size: 77px;
   font-family: 'UnifrakturMaguntia', cursive;
   color: rgb(236, 215, 255);
   text-shadow: 
@@ -493,11 +509,11 @@ body {
 
 .deity-profile-description-attributes-container {
   display: flex;
-  max-height: calc(100vw - 95%);
+  height: 415px;
   min-height: 150px;
-  margin-top: 20%;
+  margin-top: 330px;
   color: #000;
-  font-size: 1vw;
+  font-size: 15.5px;
 }
 
 .deity-profile-attributes {
@@ -521,7 +537,7 @@ body {
   font-weight: bold;
   color: #000; /* Or any color you prefer */
   padding: 5% 0; /* Space above and below the title */
-  font-size: 2vw;
+  font-size: 40px;
 }
 
 .searchBar {

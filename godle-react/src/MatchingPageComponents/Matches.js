@@ -5,21 +5,32 @@ import DisplayCardAnimation from "./DisplayCardAnimation";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { usePopup } from "../PopupContext";
+import Loading from "../Loading";
 
 const Matches = ({ user, matchedDeities, setDeity }) => {
   const [cards, setCards] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { triggerPopup } = usePopup();
+  const [loadingMatches, setLoadingMatches] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-    setCards(matchedDeities); // Set cards after the Promise has been resolved
-    return () => clearTimeout(timer);
+    setLoadingMatches(true);
+    setCards(matchedDeities);
+    const initialTimer = setTimeout(() => {
+      setLoadingMatches(false);
+      setLoading(true);
+
+      const loadingTimer = setTimeout(() => {
+        setLoading(false);
+      }, 3500);
+  
+      return () => clearTimeout(loadingTimer);
+    }, 500);
+  
+    return () => clearTimeout(initialTimer);
   }, [matchedDeities, setCards]);
+  
 
   const remove = () => {
     setCards((prevCards) => {
@@ -33,6 +44,7 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
   }
 
   const handleswiperight = (card) => {
+    setLoadingMatches(true);
     if (user !== undefined) {
       fetch('/UserMatched', {
         method: 'POST',
@@ -50,9 +62,13 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
             alert("Error, please try again");
           }
         })
+        .finally(() => {
+          setLoadingMatches(false);
+        });
     } else {
       setDeity(card);
       localStorage.setItem("deity", JSON.stringify(card));
+      setLoadingMatches(false);
       navigate('/Deity');
     }
   }
@@ -92,6 +108,7 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
 
   return (
     <div>
+      {loadingMatches ? <Loading /> : null}
       <div style={containerStyle}>
         <h1>Matching Page</h1>
 
@@ -135,6 +152,7 @@ const Matches = ({ user, matchedDeities, setDeity }) => {
                 image={"./images/" + cards[0].imagePath}
               />
             </Swipeable>
+            <p style={{ textAlign: "center" }}>Cards Left: {cards.length}</p>
           </div>
         )}
       </div>

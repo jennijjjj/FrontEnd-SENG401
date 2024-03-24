@@ -20,6 +20,7 @@ import {
 } from "./LocalStorageFunctions";
 import { PopupProvider } from "./PopupContext";
 import Popup from "./Popup";
+import Loading from './Loading';
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -31,29 +32,19 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
+    Promise.all([getItemUser(), getItemIsAdmin(), getItemDeity(), getItemMatchedDeities()]).then(([user, isAdmin, deity, matches]) => {
+      setUser(user);
+      setIsAdmin(isAdmin);
+      setDeity(deity);
+      setMatchedDeities(matches);
+    }).catch(error => {
+      console.error('Error fetching data from local storage:', error);
+    });
     setLoading(false);
-  }, [setLoading]);
-
-  useEffect(() => {
-    Promise.all([
-      getItemUser(),
-      getItemIsAdmin(),
-      getItemDeity(),
-      getItemMatchedDeities(),
-    ])
-      .then(([user, isAdmin, deity, matches]) => {
-        setUser(user);
-        setIsAdmin(isAdmin);
-        setDeity(deity);
-        setMatchedDeities(matches);
-      })
-      .catch((error) => {
-        console.error("Error fetching data from local storage:", error);
-      });
   }, []); // Since we only want this effect to run once, we pass an empty dependency array
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (
