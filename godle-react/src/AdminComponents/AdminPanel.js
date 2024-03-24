@@ -61,13 +61,6 @@ const AdminPanel = ({ onOptionClick }) => {
           >
             🗪  Manage Forum
           </li>
-          <li
-            style={listItemStyle}
-            className="list-group-item"
-            onClick={() => handleOptionClick("Manage Calendar")} 
-          >
-            🗒  Manage Calendar
-          </li>
         </div>
       )}
     </>
