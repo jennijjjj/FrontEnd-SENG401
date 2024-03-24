@@ -11,7 +11,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
-  const { triggerPopup } = usePopup()
+  const { triggerPopup } = usePopup();
 
   useEffect(() => { //sets local storage when new user logs in
     const token = localStorage.getItem('token');
