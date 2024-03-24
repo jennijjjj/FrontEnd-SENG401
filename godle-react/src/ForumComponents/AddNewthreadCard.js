@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { postThread } from './ForumApiRequests';
+import { usePopup } from '../PopupContext'
 
 function AddNewthreadCard({ setAddMode, username , fetchData}) {
     const [topic, setTopic] = useState('');
     const [content, setContent] = useState('');
+    const { triggerPopup } = usePopup();
 
     const flexColumn = {
         display: "flex",
@@ -38,7 +40,7 @@ function AddNewthreadCard({ setAddMode, username , fetchData}) {
 
     const handlePost = async () => {
         if (!topic || !content) {
-            alert('Please fill in all fields.');
+            triggerPopup('📝', 'Completeness Required','Please fill in all fields.');
             return;
         }
     
@@ -46,7 +48,7 @@ function AddNewthreadCard({ setAddMode, username , fetchData}) {
             // Call the postThread function with topic and content
             await postThread(username, topic, content);
             setAddMode(false);
-            alert('New thread created!');
+            triggerPopup('🌟', 'Thread Manifested!','Your thread has been successfully created, illuminating the digital realm with your spiritual insights and inquiries.');
             fetchData();
         } catch (error) {
             // Handle any errors that occur during the HTTP request

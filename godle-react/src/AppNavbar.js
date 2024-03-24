@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, ButtonGroup, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { getItemIsAdmin, getItemUser, getItemDeity, setItemIsAdmin, setItemDeity, setItemUser } from './LocalStorageFunctions';
+import { usePopup } from './PopupContext'
 import Loading from './Loading';
 
 const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
@@ -11,6 +12,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [incorrectLogin, setIncorrectLogin] = useState(false);
+  const { triggerPopup } = usePopup();
   const [loadingAppNavbar, setLoadingAppNavbar] = useState(false);
 
   useEffect(() => { //sets local storage when new user logs in
@@ -33,6 +35,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
     // Cleanup function to clear the timer if the component unmounts
     return () => clearTimeout(timer);
   }, [incorrectLogin])
+
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
@@ -90,7 +93,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
 
     } catch (error) {
       console.error('Error:', error.message || 'An error occurred during login.');
-      alert(error.message);
+      triggerPopup('🔐', 'Sacred Gateway Alert', `${error} Please double-check your login credentials and try again to unlock the spiritual realm.`);
       setIncorrectLogin(true);
     } finally {
       setLoadingAppNavbar(false);
@@ -153,13 +156,13 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
           )}
           {user ? (
             <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
-              <DropdownToggle nav caret>
+              <DropdownToggle nav caret style ={{fontSize:"larger"}}>
                 <>
                   {user.username}
                 </>
               </DropdownToggle>
-              <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "rgba(0, 0, 0, 0.50)", color: "white" }}>
-                <DropdownItem className="dropdown-item-hover" onClick={() => { localStorage.clear(); setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined); }}>
+              <DropdownMenu right style={{ padding: '20px', minWidth: '250px', paddingBottom: '20px', border: "2px solid #000", backgroundColor: "#2c015d", color: "white" }}>
+                <DropdownItem className="dropdown-item-hover" onClick={() => {localStorage.clear();setDeity(undefined); setIsAdmin(false); navigate('/'); setUser(undefined);  }}>
                   Logout
                 </DropdownItem>
               </DropdownMenu>
@@ -169,7 +172,7 @@ const AppNavbar = ({ user, setUser, setDeity, deity, setIsAdmin, isAdmin }) => {
               <DropdownToggle nav caret>
                 Guest
               </DropdownToggle>
-              <DropdownMenu end style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px', border: "2px solid #000", backgroundColor: "rgba(0, 0, 0, 0.50)", color: "white" }}>
+              <DropdownMenu end style={{ padding: '20px', minWidth: '250px', paddingBottom: '5px', border: "2px solid #000", backgroundColor: "#2c015d", color: "white" }}>
                 <form onSubmit={handleLogin}>
                   {/* Username Field */}
                   <div className="form-group">

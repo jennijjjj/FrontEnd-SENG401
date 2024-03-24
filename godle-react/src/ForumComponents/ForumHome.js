@@ -53,8 +53,6 @@ const Forum = (user) => {
         console.log(deity);
     };
 
-    console.log("threads home", threads);
-
     const handlePostClick = () => {
         setMyPostsActive(false);
         // Toggle the active state of "Post"

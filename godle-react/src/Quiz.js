@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Slider from './Slider';
 import { useNavigate } from "react-router-dom";
 import { setItemMatchedDeities } from "./LocalStorageFunctions";
+import { usePopup } from './PopupContext'
 import Loading from './Loading';
 
 const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }) => {
+    const { triggerPopup } = usePopup()
     const [sliderValues, setSliderValues] = useState({
         Zealousness: 0,
         Mysticism: 0,
@@ -52,7 +54,7 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }
         setLoadingQuiz(true);
 
         if (!tosButtonClicked) {
-            alert("Please accept the terms and services before submitting.");
+            triggerPopup('✔️📄','Enlightened Consent Required',"Please accept the terms and services to illuminate your path. Your journey towards enlightenment awaits your consent.")
             setLoadingQuiz(false); // Stop loading since the operation is not proceeding
             return; // Exit early
         }
