@@ -4,9 +4,9 @@ import { deleteForum } from './ApiRequests/DeleteRequests';
 function ForumCard({forum, fetchJsonData}) {
 
   const handleDelete = async () => {
-    const userResponse = window.confirm(`Are you sure you want to delete forum from ${forum.Email} with postdate of ${forum.PostDate}.?`);
+    const userResponse = window.confirm(`Are you sure you want to delete forum from ${forum.Email} with postdate of ${forum.Date}.?`);
     if (userResponse) {
-      await deleteForum(forum.Email, forum.PostDate);
+      await deleteForum(forum.Email, forum.Date);
       fetchJsonData();
     } 
    
