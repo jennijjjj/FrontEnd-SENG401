@@ -27,16 +27,16 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
             .then(response => {
                 if (!response.ok) {
                     console.log(response)
-                    alert(`Error: could not add diety.`);
+                    alert(`1Error: could not add diety.`);
                 throw new Error('Network response was not ok');
                 }
-                alert(`Successfully added ${DeityName}!`);
+                alert(`1Successfully added ${DeityName}!`);
                 
                 return response.json();
             })
             .then(data => {
                 console.log('POST request successful');
-                alert(`Successfully added ${DeityName}!`);
+                alert(`2Successfully added ${DeityName}!`);
                 console.log(data); // Response data from the server
             })
             .catch(error => {
