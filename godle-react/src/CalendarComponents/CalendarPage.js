@@ -47,7 +47,11 @@ const CalendarPage = ({ deity, user }) => {
       }
     };
 
-    if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' }) && currentMonth !== "initial") {
+    if(currentMonth !== "initial") {
+      setCurrentMonth("Ready");
+      return;
+    }
+    if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' })) {
       setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
       fetchCelebrations();
     } else {
