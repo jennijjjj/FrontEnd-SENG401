@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-const Deity = ({ deity, setDeity }) => {
-    const navigate = useNavigate();
-
+const Deity = ({ deity }) => {
     const [highestAttributes, setHighestAttributes] = useState([["", 0]]);
     const [lowestAttributes, setLowestAttributes] = useState([["", 0]]);
 
