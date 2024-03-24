@@ -20,6 +20,13 @@ const Register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        const allowedDomains = ["@gmail.com", "@hotmail.com", "@outlook.com", "@ucalgary.ca", "@yahoo.com"];
+        const domainRegex = new RegExp(allowedDomains.map(domain => `(${domain.replace('.', '\\.')})`).join('|') + "$");
+
+        if (email && !domainRegex.test(email)) {
+            triggerPopup('✉️❌', 'Invalid Email Detected', 'A discordant resonance has been detected in the ether. Please ensure the email you\'ve provided aligns with the harmonious frequencies of the cosmic web.');
+            return;
+        }
         setLoadingRegister(true);
 
         // Prepare data to send in the request body
