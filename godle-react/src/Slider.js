@@ -165,6 +165,9 @@ const Slider = ({ title, onChange }) => {
         step={0.05}
         onChange={handleValueChange}
       />
+      <div>
+        <p style={{ marginBottom: "50px" }}>{infoText}</p>
+      </div>
     </div>
   );
 };
