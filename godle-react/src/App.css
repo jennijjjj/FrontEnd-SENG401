@@ -114,7 +114,7 @@ body {
 .horizontal-slider {
   width: 100%;
   max-width: 500px;
-  height: 75px;
+  height: 50px;
   margin: auto;
 }
 .example-thumb {
@@ -149,23 +149,6 @@ body {
   line-height: 38px;
 }
 
-.horizontal-slider .example-thumb:hover::after {
-  content: attr(data-info);
-  color:#282c34;
-  position: absolute;
-  top: 10px; 
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  padding: 5px;
-  border: 1px solid #3774ff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1000;
-}
 .link:hover {
   color: rgb(160, 37, 121); /* Change color to blue on hover */
 }
@@ -175,35 +158,6 @@ body {
 
 .navlink:hover{
   color: rgb(157, 182, 255);
-}
-
-.horizontal-slider .example-thumb:hover::after,
-.horizontal-slider .example-thumb:active::after {
-  content: attr(data-info);
-  position: absolute;
-  top: 10px; 
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  padding: 5px;
-  border: 1px solid #3774ff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1000;
-}
-
-.horizontal-slider .example-thumb:hover::after {
-  opacity: 1;
-}
-
-.value-display {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .slider-title {

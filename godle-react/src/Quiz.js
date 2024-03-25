@@ -253,7 +253,7 @@ const Quiz = ({ tosButtonClicked, settosButtonClicked, user, setMatchedDeities }
         )}
         <div style={{ textAlign: "center", width: '60%', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1 className="titleText" style={{ marginBottom: "10px", fontWeight: "bolder" }}>Attributes Quiz</h1>
-            <p style={{}}>
+            <p style={{ marginBottom: "50px" }}>
                 This quiz will unveil your inner beliefs, values, and preferences, guiding you towards uncovering the deities and spiritual practices that resonate most deeply with your unique essence.
             </p>
         </div>
