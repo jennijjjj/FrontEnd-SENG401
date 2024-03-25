@@ -75,10 +75,10 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
         if (imagePath !== "") {
           ImageReader({ imagePath })
             .then((imageInfo) => {
-              console.log("Image info:", imageInfo);
+              // console.log("Image info:", imageInfo);
             })
             .catch((error) => {
-              console.error("Error reading image:", error);
+              // console.error("Error reading image:", error);
             });
         }
         console.log(imagePath);
@@ -88,24 +88,6 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
   useEffect(() => {
     rerenderPage();
   }, [deity]);
-
-  const checkForNullAndAlert = () => {
-    let nullProperties = "";
-
-    // if (deity.Aggression === null || deity.Aggression === undefined) nullProperties += 'Aggression\n';
-    // if (deity.Erudition === null || deity.Erudition === undefined) nullProperties += 'Erudition\n';
-    // if (deity.Grandeur === null || deity.Grandeur === undefined) nullProperties += 'Grandeur\n';
-    // if (deity.Morality === null || deity.Morality === undefined) nullProperties += 'Morality\n';
-    // if (deity.Mysticism === null || deity.Mysticism === undefined) nullProperties += 'Mysticism\n';
-    // if (deity.Organization === null || deity.Organization === undefined) nullProperties += 'Organization\n';
-    // if (deity.Squeamishness === null || deity.Squeamishness === undefined) nullProperties += 'Squeamishness\n';
-    // if (deity.Technology === null || deity.Technology === undefined) nullProperties += 'Technology\n';
-    // if (deity.Temperament === null || deity.Temperament === undefined) nullProperties += 'Temperament\n';
-    // if (deity.Zealousness === null || deity.Zealousness === undefined) nullProperties += 'Zealousness\n';
-    // if (deity.Zen === null || deity.Zen === undefined) nullProperties += 'Zen\n';
-
-    return nullProperties;
-  };
 
   const handleDelete = async () => {
     // const result =deleteImage(modifiedName);
@@ -120,9 +102,11 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
   };
 
   const handleSave = async () => {
-    if (checkForNullAndAlert() !== "") {
-      window.alert(`Ensure name and attributes are not null.`);
-    } else {
+    if (
+      !isNumberInRange()
+    ) {
+      window.alert(`Attributes have to be a valid input between -4 and 4.`);
+    }  else {
       let imageName = "";
       if (images.length > 0) {
         imageName = `${modifiedName}.${images[0].file.name.split(".").pop()}`;
@@ -152,6 +136,49 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
       } catch (error) {}
     }
   };
+
+  function isNumberInRange() {
+    const attributeStrings = [
+      zen,
+      organization,
+      squeamishness,
+      technology,
+      temperament,
+      zealousness,
+      aggression,
+      erudition,
+      grandeur,
+      morality,
+      mysticism
+    ];
+    
+    let allValid = true;
+  
+    attributeStrings.forEach(str => {
+      const number = parseFloat(str);
+      const isValid = !isNaN(number) && number >= -4 && number <= 4;
+      
+      if (!isValid) {
+        console.log(`${str} is not a valid number between -4 and 4`);
+        allValid = false;
+      }
+    });
+
+    // if (allValid){
+    //   setZen(parseFloat(zen));
+    //   setOrganization(parseFloat(organization));
+    //   setSqueamishness(parseFloat(squeamishness));
+    //   setTechnology(parseFloat(technology));
+    //   setTemperament(parseFloat(temperament));
+    //   setZealousness(parseFloat(zealousness));
+    //   setAggression(parseFloat(aggression));
+    //   setErudition(parseFloat(erudition));
+    //   setGrandeur(parseFloat(grandeur));
+    //   setMorality(parseFloat(morality));
+    //   setMysticism(parseFloat(mysticism));
+    // }
+    return allValid;
+  }
 
   const postDeity = async (
     Zen,
@@ -226,51 +253,39 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
     }
   };
 
+  
+
   const handleAdd = async () => {
     if (
-      !isNumberInRange(zealousness) &&
-      !isNumberInRange(organization) &&
-      !isNumberInRange(zen) &&
-      !isNumberInRange(squeamishness) &&
-      !isNumberInRange(technology) &&
-      !isNumberInRange(temperament) &&
-      !isNumberInRange(aggression) &&
-      !isNumberInRange(erudition) &&
-      !isNumberInRange(grandeur) &&
-      !isNumberInRange(morality) &&
-      !isNumberInRange(mysticism)
+      !isNumberInRange()
     ) {
       window.alert(`Attributes have to be a valid input between -4 and 4.`);
-      console.log("att")
-    } else if (modifiedName === null && modifiedName === "") {
-      window.alert("Name cannot be left empty.");
-      console.log("namenot")
     } 
-    // else {
-    //   let imageName = "";
-    //   if (images.length > 0) {
-    //     imageName = `${modifiedName}.${images[0].file.name.split(".").pop()}`;
-    //   }
-    //   try {
-    //     await postDeity(
-    //       zen,
-    //       organization,
-    //       squeamishness,
-    //       technology,
-    //       temperament,
-    //       zealousness,
-    //       aggression,
-    //       erudition,
-    //       grandeur,
-    //       morality,
-    //       mysticism,
-    //       modifiedName,
-    //       sourceUniverse,
-    //       deityDescription,
-    //       imageName
-    //     );
-    //   } catch (error) {}
-    // }
+    else {
+      let imageName = "";
+      if (images.length > 0) {
+        imageName = `${modifiedName}.${images[0].file.name.split(".").pop()}`;
+      }
+      try {
+        await postDeity(
+          parseFloat(zen),
+          parseFloat(organization),
+          parseFloat(squeamishness),
+          parseFloat(technology),
+          parseFloat(temperament),
+          parseFloat(zealousness),
+          parseFloat(aggression),
+          parseFloat(erudition),
+          parseFloat(grandeur),
+          parseFloat(morality),
+          parseFloat(mysticism),
+          modifiedName,
+          sourceUniverse,
+          deityDescription,
+          imageName
+        );
+      } catch (error) {}
+    }
   };
 
   const handleCancel = () => {
@@ -296,11 +311,6 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
   const handleDeityDescriptionChange = (e) => {
     setDeityDescription(e.target.value);
   };
-
-  function isNumberInRange(str) {
-    const number = parseFloat(str);
-    return !isNaN(number) && number >= -4 && number <= 4;
-  }
 
   const handleZealousnessChange = (e) => {
     setZealousness(e.target.value);
