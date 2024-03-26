@@ -4,7 +4,6 @@ import { getDeitiesData, getCalendarData, getForumData, getUsersData } from './A
 
 function BrowseDatabase({selectedOption, searchVar, controller}) {
   const [searchField, setSearchField] = useState("");
-  const [search, setSearch] = useState(false);
   const [deityData, setDeityData] = useState([]);
   const [userData, setUserData] = useState([]);
   const [forumData, setForumData] = useState([]);
