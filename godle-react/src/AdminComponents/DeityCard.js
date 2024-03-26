@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {UploadImage} from './UploadImage';
 import { postDeity 
-  // , uploadImage
+   , uploadImage
 } from './ApiRequests/PostRequest';
-import { uploadImage } from './ApiRequests/ImageApi';
+// import { uploadImage } from './ApiRequests/ImageApi';
 import { deleteDeity } from './ApiRequests/DeleteRequests';
 import { ImageReader } from './ImageReader';
 import { putDeity } from './ApiRequests/ModifyRequests';

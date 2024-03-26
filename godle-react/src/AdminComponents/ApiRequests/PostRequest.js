@@ -118,7 +118,7 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
     //     await deleteImage(deityName);
 
         try {
-            const response = await fetch('http://localhost:3001/upload', {
+            const response = await fetch('/Admin/Deities', {
                 method: 'POST',
                 body: formData
             });
