@@ -12,9 +12,10 @@ const CalendarPage = ({ deity, user }) => {
   const [loadingCalendar, setLoadingCalendar] = useState(false);
 
   useEffect(() => {
-    const fetchCelebrations = async () => {
-      setLoadingCalendar(true);
+    setLoadingCalendar(true);
+    let fetchTimeout;
 
+    const fetchCelebrations = async () => {
       const send_packet = {
         deityName: deity.name,
         email: user.username,
@@ -47,12 +48,18 @@ const CalendarPage = ({ deity, user }) => {
       }
     };
 
-    if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' })) {
+    if(currentMonth === "initial") {
+      setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
+      fetchTimeout = setTimeout(fetchCelebrations, 5000);
+    } else if(currentMonth !== currentDate.toLocaleString('default', { month: 'long' })) {
       setCurrentMonth(currentDate.toLocaleString('default', { month: 'long' }))
       fetchCelebrations();
     } else {
       console.log("Same month no new request made");
+      setLoadingCalendar(false);
     }
+
+    return () => clearTimeout(fetchTimeout);
   }, [currentDate, deity.name, user.username]);
 
   useEffect(() => {
