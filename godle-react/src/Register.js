@@ -20,7 +20,7 @@ const Register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        const allowedDomains = ["@gmail.com", "@hotmail.com", "@outlook.com", "@ucalgary.ca", "@yahoo.com"];
+        const allowedDomains = ["@gmail.com", "@hotmail.com", "@outlook.com", "@ucalgary.ca", "@yahoo.com","@shaw.ca"];
         const domainRegex = new RegExp(allowedDomains.map(domain => `(${domain.replace('.', '\\.')})`).join('|') + "$");
 
         if (email && !domainRegex.test(email)) {
