@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {UploadImage} from './UploadImage';
-import { postDeity , uploadImage} from './ApiRequests/PostRequest';
+import { postDeity 
+  // , uploadImage
+} from './ApiRequests/PostRequest';
+import { uploadImage } from './ApiRequests/ImageApi';
 import { deleteDeity } from './ApiRequests/DeleteRequests';
 import { ImageReader } from './ImageReader';
 import { putDeity } from './ApiRequests/ModifyRequests';
@@ -159,30 +162,25 @@ const checkForNullAndAlert = () => {
       imageName = `${modifiedName}.${images[0].file.name.split('.').pop()}`;
     }
     try {
-      await postDeity(
-        zen,
-        organization,
-        squeamishness,
-        technology,
-        temperament,
-        zealousness,
-        aggression,
-        erudition,
-        grandeur,
-        morality,
-        mysticism,
-        modifiedName,
-        sourceUniverse,
-        deityDescription,
-        imageName
-        );
-        await uploadImage(images[0],
-          imageName);
-        fetchJsonData();
-        setModifyMode(false); 
-        if (deity == null) {
-            setModalOpen(false);
-        }
+      // await postDeity(
+      //   zen,
+      //   organization,
+      //   squeamishness,
+      //   technology,
+      //   temperament,
+      //   zealousness,
+      //   aggression,
+      //   erudition,
+      //   grandeur,
+      //   morality,
+      //   mysticism,
+      //   modifiedName,
+      //   sourceUniverse,
+      //   deityDescription,
+      //   imageName
+      //   );
+        await uploadImage(images,
+          modifiedName);
     } catch (error) {
 
         

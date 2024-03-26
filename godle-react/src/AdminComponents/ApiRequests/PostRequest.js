@@ -48,29 +48,94 @@ export const postDeity = async (Zen,Organization,Squeamishness, Technology, Temp
     }
 };
 
-export const uploadImage = async (file, imageName) => {
-    console.log("posssstimaggee");
-    const uploadPath = 'C:/Users/jenni/OneDrive/Documents/GitHub/FrontEnd-SENG401/godle-react/public/images/' + file.name;
-    if (imageName!==""){
-        try {
-            const formData = new FormData();
-            formData.append('image', file);
-            formData.append('string', uploadPath)
-            formData.append('string', imageName)
-            console.log("formData: ")
-            for (const [key, value] of formData.entries()) {
-                console.log(key, value);
-            }
+// export const uploadImage = async (file, imageName) => {
+//     console.log("posssstimaggee");
+//     const uploadPath = 'C:/Users/jenni/OneDrive/Documents/GitHub/FrontEnd-SENG401/godle-react/public/images/' + file.name;
+//     if (imageName!==""){
+//         try {
+//             const formData = new FormData();
+//             formData.append('image', file);
+//             formData.append('string', uploadPath)
+//             formData.append('string', imageName)
+//             console.log("formData: ")
+//             for (const [key, value] of formData.entries()) {
+//                 console.log(key, value);
+//             }
         
-            const response = await fetch('/Admin/Deities', {
-              method: 'POST',
-              body: formData
-            });
+//             const response = await fetch('/Admin/Deities', {
+//               method: 'POST',
+//               body: formData
+//             });
         
-            const result = await response.text();
-            console.log(result);
-          } catch (error) {
-            console.error('Error uploading image: ', error);
-          }
+//             const result = await response.text();
+//             console.log(result);
+//           } catch (error) {
+//             console.error('Error uploading image: ', error);
+//           }
+//     }
+// };
+
+
+// export const uploadImage = async (images, deityName) => {
+//     if (images.length === 0) {
+//       console.error("No image selected for upload");
+//       return;
+//     }
+
+//     const formData = new FormData();
+//     formData.append('image', images[0].file);
+//     // try {
+//     //   deleteImage(deityName);
+//       try {
+//         const response = await fetch('/Admin/Deities', formData, {
+//           headers: {
+//             'Content-Type': 'multipart/form-data'
+//           }
+//         });
+//         console.log(response.data);
+//         // Handle response as needed
+//       } catch (error) {
+//         console.error('Error uploading image:', error);
+//         // Handle error
+//       }
+//     // } catch (error) {
+//     //   console.error('Error checking image existence:', error);
+//     //   // Handle error
+//     // }
+    
+//   };
+
+  export const uploadImage = async (images, deityName) => {
+    if (images.length === 0) {
+        console.error("No image selected for upload");
+        return;
     }
+
+    const formData = new FormData();
+    formData.append('image', images[0].file);
+    
+    // try {
+    //     await deleteImage(deityName);
+
+        try {
+            const response = await fetch('http://localhost:3001/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to upload image');
+            }
+
+            const responseData = await response.json();
+            console.log(responseData);
+            // Handle response as needed
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            // Handle error
+        }
+    // } catch (error) {
+    //     console.error('Error checking image existence:', error);
+    //     // Handle error
+    // }
 };

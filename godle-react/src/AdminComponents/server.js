@@ -14,6 +14,7 @@ app.use(cors());
 
 // POST endpoint for uploading files
 app.post('/upload', (req, res) => {
+  console.log("server.js",req);
   if (req.files === null) {
     return res.status(400).json({ msg: 'No file uploaded' });
   }
