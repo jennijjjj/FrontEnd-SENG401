@@ -90,8 +90,6 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
   }, [deity]);
 
   const handleDelete = async () => {
-    // const result =deleteImage(modifiedName);
-    // if (result===1){
     const userResponse = window.confirm(
       `Are you sure you want to delete ${modifiedName}?`
     );
@@ -113,17 +111,17 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
       }
       try {
         await putDeity(
-          zen,
-          organization,
-          squeamishness,
-          technology,
-          temperament,
-          zealousness,
-          aggression,
-          erudition,
-          grandeur,
-          morality,
-          mysticism,
+          parseFloat(zen),
+          parseFloat(organization),
+          parseFloat(squeamishness),
+          parseFloat(technology),
+          parseFloat(temperament),
+          parseFloat(zealousness),
+          parseFloat(aggression),
+          parseFloat(erudition),
+          parseFloat(grandeur),
+          parseFloat(morality),
+          parseFloat(mysticism),
           modifiedName,
           sourceUniverse,
           deityDescription,
@@ -163,20 +161,6 @@ function DeityCard({ deity, setModalOpen, fetchJsonData }) {
         allValid = false;
       }
     });
-
-    // if (allValid){
-    //   setZen(parseFloat(zen));
-    //   setOrganization(parseFloat(organization));
-    //   setSqueamishness(parseFloat(squeamishness));
-    //   setTechnology(parseFloat(technology));
-    //   setTemperament(parseFloat(temperament));
-    //   setZealousness(parseFloat(zealousness));
-    //   setAggression(parseFloat(aggression));
-    //   setErudition(parseFloat(erudition));
-    //   setGrandeur(parseFloat(grandeur));
-    //   setMorality(parseFloat(morality));
-    //   setMysticism(parseFloat(mysticism));
-    // }
     return allValid;
   }
 
